@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::prefix('administrator')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard/index');
+    })->name('dashboard.index');
 });
