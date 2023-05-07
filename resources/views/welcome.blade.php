@@ -1,20 +1,64 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
+@section('content')
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+                    <p class="card-text">
+                        Some quick example text to build on the card title and make up the bulk of the
+                        card's
+                        content.
+                    </p>
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                </div>
+            </div>
 
-<body>
+            <div class="card card-primary card-outline">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
 
-    <h1>Hello World</h1>
+                    <p class="card-text">
+                        Some quick example text to build on the card title and make up the bulk of the
+                        card's
+                        content.
+                    </p>
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                </div>
+            </div><!-- /.card -->
+        </div>
+        <!-- /.col-md-6 -->
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="m-0">Featured</h5>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-title">Special title treatment</h6>
 
-    @vite('resources/js/app.js')
-</body>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional
+                        content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
 
-</html>
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                    <h5 class="m-0">Featured</h5>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-title">Special title treatment</h6>
+
+                    <p class="card-text">With supporting text below as a natural lead-in to additional
+                        content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+        <!-- /.col-md-6 -->
+    </div>
+@endsection
