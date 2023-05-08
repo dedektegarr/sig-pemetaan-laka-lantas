@@ -83,18 +83,6 @@
                                  <p>Lokasi Jalan</p>
                              </a>
                          </li>
-                         <li class="nav-item">
-                             <a href="#" class="nav-link">
-                                 <i class="far fa-circle nav-icon"></i>
-                                 <p>Kecamatan</p>
-                             </a>
-                         </li>
-                         <li class="nav-item">
-                             <a href="#" class="nav-link">
-                                 <i class="far fa-circle nav-icon"></i>
-                                 <p>Kelurahan / Desa</p>
-                             </a>
-                         </li>
                      </ul>
                  </li>
                  <li class="nav-item">
