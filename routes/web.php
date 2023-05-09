@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LokasiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,4 +18,8 @@ Route::prefix('administrator')->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard/index');
     })->name('dashboard.index');
+
+    Route::prefix('data')->group(function () {
+        Route::get('/lokasi', [LokasiController::class, 'index'])->name('lokasi.index');
+    });
 });

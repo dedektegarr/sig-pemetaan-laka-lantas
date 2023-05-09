@@ -62,8 +62,8 @@
                          </p>
                      </a>
                  </li>
-                 <li class="nav-item">
-                     <a href="#" class="nav-link">
+                 <li class="nav-item {{ Request::is('administrator/data/*') ? 'menu-is-opening menu-open' : '' }}">
+                     <a href="#" class="nav-link {{ Request::is('administrator/data/*') ? 'active' : '' }}">
                          <i class="nav-icon fas fa-database"></i>
                          <p>
                              Data
@@ -78,7 +78,8 @@
                              </a>
                          </li>
                          <li class="nav-item">
-                             <a href="#" class="nav-link">
+                             <a href="{{ route('lokasi.index') }}"
+                                 class="nav-link {{ Route::is('lokasi.index') ? 'active' : '' }}">
                                  <i class="far fa-circle nav-icon"></i>
                                  <p>Lokasi Jalan</p>
                              </a>
