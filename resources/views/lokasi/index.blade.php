@@ -2,6 +2,28 @@
 @section('css')
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css"
         type="text/css">
+
+    <style>
+        .form-autocomplete {
+            position: relative;
+        }
+
+        .result {
+            background-color: salmon;
+            width: 100%;
+            list-style: none;
+            position: absolute;
+            z-index: 10;
+            display: none;
+        }
+
+        .result .result-item {
+            padding: .5em 1em;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.301);
+            display: block;
+            cursor: pointer;
+        }
+    </style>
 @endsection
 @section('content')
     <div class="row">
@@ -32,6 +54,22 @@
                                 <option value="">Pilih Kelurahan / Desa</option>
                             </select>
                         </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="latitude">Latitude</label>
+                                    <input type="text" class="form-control form-control-sm" placeholder="latitude"
+                                        autocomplete="off" name="latitude" readonly>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="longitude">Longitude</label>
+                                    <input type="text" class="form-control form-control-sm" placeholder="longitude"
+                                        name="longitude" autocomplete="off" readonly>
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label for="keterangan">Keterangan</label>
                             <textarea name="keterangan" id="keterangan" rows="3" class="form-control"></textarea>
@@ -51,23 +89,14 @@
                     <h3 class="card-title">Koordinat</h3>
                 </div>
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="latitude">Latitude</label>
-                                <input type="text" class="form-control form-control-sm" placeholder="latitude"
-                                    autocomplete="off" name="latitude" readonly>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="longitude">Longitude</label>
-                                <input type="text" class="form-control form-control-sm" placeholder="longitude"
-                                    name="longitude" autocomplete="off" readonly>
-                            </div>
+                    <div class="form-group">
+                        <label for="nama_jalan">Nama Jalan</label>
+                        <div class="form-autocomplete">
+                            <input type="text" name="nama_jalan" class="form-control" placeholder="Cari jalan..."
+                                autocomplete="off" id="nama_jalan">
+                            <div class="result" id="results"></div>
                         </div>
                     </div>
-
                     <div id='map' style='height: 350px;'></div>
                 </div>
             </div>
@@ -149,20 +178,54 @@
             console.log('Data yang diketik:', inputValue);
         });
 
+        const createResult = (data) => {
+            $('#results').html('');
+            for (let value of data) {
+                const newList = document.createElement('li');
+                newList.classList.add('result-item');
+                newList.setAttribute('data-coor', value.center);
+                newList.innerText = value.place_name;
 
-        const map = new mapboxgl.Map({
-            container: 'map', // container ID
-            style: 'mapbox://styles/mapbox/streets-v12', // style URL
-            center: [102.2727, -3.8004], // starting position [lng, lat]
-            zoom: 10, // starting zoom
+                $('#results').append(newList);
+            }
+        }
+
+        const setMap = (position) => {
+            $('#map').html('');
+            const map = new mapboxgl.Map({
+                container: 'map', // container ID
+                style: 'mapbox://styles/mapbox/streets-v12', // style URL
+                center: position, // starting position [lng, lat]
+                zoom: 10, // starting zoom
+            });
+            // map.addControl(
+            //     new MapboxGeocoder({
+            //         accessToken: mapboxgl.accessToken,
+            //         mapboxgl: mapboxgl
+            //     })
+            // );
+            map.addControl(new mapboxgl.NavigationControl());
+        }
+
+        $('#nama_jalan').on('input', function() {
+            $('#results').css('display', 'none');
+            if (this.value) {
+                $('#results').css('display', 'block');
+                $.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${this.value}.json?access_token=${mapboxgl.accessToken}`,
+                    function(response) {
+                        createResult(response.features);
+                        // console.log(response.features);
+                    });
+
+            }
         });
 
-        map.addControl(
-            new MapboxGeocoder({
-                accessToken: mapboxgl.accessToken,
-                mapboxgl: mapboxgl
-            })
-        );
-        map.addControl(new mapboxgl.NavigationControl());
+        $('#results').on('click', function(e) {
+            $('#nama_jalan').val(e.target.innerText);
+            $('#results').css('display', 'none');
+            const position = e.target.getAttribute('data-coor').split(',');
+            console.log(position);
+            setMap(position);
+        });
     </script>
 @endsection
