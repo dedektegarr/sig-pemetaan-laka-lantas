@@ -12,33 +12,24 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="kota_kabupaten">Kota / Kabupaten</label>
-                            <select class="form-control select2" name="kota_kabupaten" id="kota_kabupaten">
-                                <option value="">Pilih Kota / Kabupaten</option>
-                                <option value="AL">Kota Bengkulu</option>
+                            <select class="form-control" name="kota_kabupaten" id="kota_kabupaten">
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="kecamatan">Kecamatan</label>
-                            <select class="form-control select2" name="kecamatan" id="kecamatan" disabled>
-                                <option value="">Pilih Kecamatan</option>
-                                <option value="AL">Alabama</option>
-                                <option value="WY">Wyoming</option>
+                            <select class="form-control" name="kecamatan" id="kecamatan">
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="kelurahan_desa">Kelurahan / Desa</label>
-                            <select class="form-control select2" name="kelurahan_desa" id="kelurahan_desa" disabled>
+                            <select class="form-control" name="kelurahan_desa" id="kelurahan_desa">
                                 <option value="">Pilih Kelurahan / Desa</option>
-                                <option value="AL">Alabama</option>
-                                <option value="WY">Wyoming</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="nama_jalan">Nama Jalan</label>
-                            <select class="form-control select2" name="nama_jalan" id="nama_jalan" disabled>
+                            <select class="form-control select2" name="nama_jalan" id="nama_jalan">
                                 <option value="">Pilih Jalan</option>
-                                <option value="AL">Alabama</option>
-                                <option value="WY">Wyoming</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -62,6 +53,53 @@
     <script>
         $(document).ready(function() {
             $('.select2').select2();
+        });
+
+        // Base API
+        const API = "https://dev.farizdotid.com/api/daerahindonesia";
+
+        const getAPI = async (url) => {
+            const response = await fetch(url);
+            const data = await response.json();
+            return data;
+        }
+
+        // FORM ELEMENT
+        const formKota = document.querySelector('#kota_kabupaten');
+        const formKecamatan = document.querySelector('#kecamatan');
+        const formKelurahan = document.querySelector('#kelurahan_desa');
+        const formJalan = document.querySelector('#nama_jalan');
+
+        const newOptionElement = (parent, data) => {
+            parent.innerHTML = '';
+            const options = Array.isArray(data) ? data : [data];
+
+            for (let data of options) {
+                const newOption = document.createElement('option');
+                newOption.value = data.id;
+                newOption.innerText = data.nama;
+                parent.append(newOption);
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', async () => {
+            const kota = await getAPI(`${API}/kota/1771`);
+            newOptionElement(formKota, kota);
+
+            const kecamatan = await getAPI(`${API}/kecamatan?id_kota=${formKota.value}`);
+            newOptionElement(formKecamatan, kecamatan.kecamatan);
+
+            const kelurahan = await getAPI(`${API}/kelurahan?id_kecamatan=${formKecamatan.value}`);
+            newOptionElement(formKelurahan, kelurahan.kelurahan);
+        });
+
+        formKecamatan.addEventListener('change', (e) => {
+            formKelurahan.setAttribute('disabled', 'true');
+            if (e.target.value) {
+                formKelurahan.removeAttribute('disabled');
+                getAPI(`${API}/kelurahan?id_kecamatan=${formKecamatan.value}`)
+                    .then(data => newOptionElement(formKelurahan, data.kelurahan));
+            }
         });
     </script>
 @endsection
