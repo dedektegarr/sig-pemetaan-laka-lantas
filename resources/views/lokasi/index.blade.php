@@ -1,7 +1,11 @@
 @extends('layouts.app')
+@section('css')
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css"
+        type="text/css">
+@endsection
 @section('content')
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="card card-primary card-outline">
                 <div class="card-header">
                     <h3 class="card-title">Tambah Data Lokasi</h3>
@@ -41,12 +45,40 @@
                 </form>
             </div>
         </div>
+        <div class="col-md-8">
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                    <h3 class="card-title">Koordinat</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="latitude">Latitude</label>
+                                <input type="text" class="form-control form-control-sm" placeholder="latitude"
+                                    autocomplete="off" name="latitude" readonly>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="longitude">Longitude</label>
+                                <input type="text" class="form-control form-control-sm" placeholder="longitude"
+                                    name="longitude" autocomplete="off" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id='map' style='height: 350px;'></div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 @section('script')
     {{-- SELECT2 PLUGIN --}}
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
 
     <script>
         // Inisialisasi Select2
@@ -116,8 +148,21 @@
             const inputValue = e.params.args.data.text;
             console.log('Data yang diketik:', inputValue);
         });
-        // $('#nama_jalan').on('select2:select', function(e) {
-        //     console.log(e.params);
-        // });
+
+
+        const map = new mapboxgl.Map({
+            container: 'map', // container ID
+            style: 'mapbox://styles/mapbox/streets-v12', // style URL
+            center: [102.2727, -3.8004], // starting position [lng, lat]
+            zoom: 10, // starting zoom
+        });
+
+        map.addControl(
+            new MapboxGeocoder({
+                accessToken: mapboxgl.accessToken,
+                mapboxgl: mapboxgl
+            })
+        );
+        map.addControl(new mapboxgl.NavigationControl());
     </script>
 @endsection
