@@ -60,7 +60,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- ./wrapper -->
 
     <!-- REQUIRED SCRIPTS -->
+    {{-- JQUERY --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     @vite('resources/js/app.js')
+    @yield('script')
 </body>
 
 </html>

@@ -12,15 +12,14 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="kota_kabupaten">Kota / Kabupaten</label>
-                            <select class="form-control" name="kota_kabupaten" id="kota_kabupaten">
+                            <select class="form-control select2" name="kota_kabupaten" id="kota_kabupaten">
                                 <option value="">Pilih Kota / Kabupaten</option>
-                                <option value="AL">Alabama</option>
-                                <option value="WY">Wyoming</option>
+                                <option value="AL">Kota Bengkulu</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="kecamatan">Kecamatan</label>
-                            <select class="form-control" name="kecamatan" id="kecamatan">
+                            <select class="form-control select2" name="kecamatan" id="kecamatan" disabled>
                                 <option value="">Pilih Kecamatan</option>
                                 <option value="AL">Alabama</option>
                                 <option value="WY">Wyoming</option>
@@ -28,7 +27,7 @@
                         </div>
                         <div class="form-group">
                             <label for="kelurahan_desa">Kelurahan / Desa</label>
-                            <select class="form-control" name="kelurahan_desa" id="kelurahan_desa">
+                            <select class="form-control select2" name="kelurahan_desa" id="kelurahan_desa" disabled>
                                 <option value="">Pilih Kelurahan / Desa</option>
                                 <option value="AL">Alabama</option>
                                 <option value="WY">Wyoming</option>
@@ -36,7 +35,7 @@
                         </div>
                         <div class="form-group">
                             <label for="nama_jalan">Nama Jalan</label>
-                            <select class="form-control" name="nama_jalan" id="nama_jalan">
+                            <select class="form-control select2" name="nama_jalan" id="nama_jalan" disabled>
                                 <option value="">Pilih Jalan</option>
                                 <option value="AL">Alabama</option>
                                 <option value="WY">Wyoming</option>
@@ -56,4 +55,13 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+    {{-- SELECT2 PLUGIN --}}
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
+    </script>
 @endsection
