@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('lokasi', function (Blueprint $table) {
-            $table->id('id_lokasi');
-            $table->string('nama_jalan');
-            $table->string('kota_kabupaten');
-            $table->float('longitude');
-            $table->float('latitude');
-            $table->text('keterangan');
+        Schema::create('kecamatan', function (Blueprint $table) {
+            $table->id('id_kecamatan');
+            $table->string('nama_kecamatan');
             $table->timestamps();
         });
     }
@@ -27,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('lokasi');
+        Schema::dropIfExists('kecamatan');
     }
 };
