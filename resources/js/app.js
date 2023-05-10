@@ -17,6 +17,9 @@ $(document).ready(function () {
 
     // inisialisasi library select2
     initSelect2();
+
+    // tutup element result ketika klik window
+    $(window).on('click', () => $('#results').css('display', 'none'));
 });
 
 // Geocoding
