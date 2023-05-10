@@ -4,19 +4,24 @@ import "admin-lte";
 // Library
 import $ from "jquery";
 import setMap from "./functions/map";
-import { initSelect2, enableSelect } from "./functions/select2";
 import mapboxgl from "mapbox-gl";
+import initDatatables from "./functions/datatables";
+import { initSelect2, enableSelect } from "./functions/select2";
 import { newOptionElement, resultElement } from "./elements/elements";
 
 // Set Map Pertama Kali Terbuka
 $(document).ready(function () {
-    setMap({
-        lng: 102.263641,
-        lat: -3.792228
-    });
+    // jika halaman terdapat element class "map-page"
+    if ($('body').hasClass('map-page')) {
+        setMap({
+            lng: 102.263641,
+            lat: -3.792228
+        });
+    }
 
-    // inisialisasi library select2
+    // inisialisasi library select2 dan datatables
     initSelect2();
+    initDatatables();
 
     // tutup element result ketika klik window
     $(window).on('click', () => $('#results').css('display', 'none'));

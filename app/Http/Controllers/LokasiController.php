@@ -12,4 +12,11 @@ class LokasiController extends Controller
             'page_title' => 'Data Lokasi'
         ]);
     }
+
+    public function tambah()
+    {
+        return view('lokasi.tambah', [
+            'page_title' => 'Tambah Data Lokasi'
+        ]);
+    }
 }

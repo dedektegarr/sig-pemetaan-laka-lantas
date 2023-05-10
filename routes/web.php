@@ -21,5 +21,6 @@ Route::prefix('administrator')->group(function () {
 
     Route::prefix('data')->group(function () {
         Route::get('/lokasi', [LokasiController::class, 'index'])->name('lokasi.index');
+        Route::get('/lokasi/tambah', [LokasiController::class, 'tambah'])->name('lokasi.tambah');
     });
 });

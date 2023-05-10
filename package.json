@@ -11,6 +11,8 @@
     },
     "dependencies": {
         "admin-lte": "^3.2.0",
+        "datatables": "^1.10.18",
+        "datatables.net-bs4": "^1.13.4",
         "jquery": "^3.6.4",
         "mapbox-gl": "^2.14.1",
         "select2": "^4.1.0-rc.0"

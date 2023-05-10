@@ -1,4 +1,6 @@
-@import "../../node_modules/admin-lte/plugins/select2/css/select2.min.css";
+@import "../../node_modules/select2/dist/css/select2.min.css";
 @import "../../node_modules/mapbox-gl/dist/mapbox-gl.css";
+@import "../../node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css";
+
 @import "../../node_modules/admin-lte/plugins/fontawesome-free/css/all.min.css";
 @import "../../node_modules/admin-lte/dist/css/adminlte.min.css";
