@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id('id_lokasi');
             $table->string('nama_jalan');
             $table->string('kota_kabupaten');
-            $table->float('longitude');
-            $table->float('latitude');
+            $table->float('longitude', 9, 6);
+            $table->float('latitude', 9, 6);
             $table->text('keterangan');
             $table->timestamps();
         });

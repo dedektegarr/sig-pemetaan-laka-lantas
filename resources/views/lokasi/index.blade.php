@@ -8,20 +8,42 @@
                 </div>
                 <div class="card-body">
                     <table class="table" id="table">
-                        <a href="{{ route('lokasi.tambah') }}" class="btn btn-info mb-4">
+                        <a href="{{ route('lokasi.tambah') }}" class="btn btn-info btn-sm mb-4">
                             <i class="fas fa-plus"></i>
                             Tambah data</a>
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama</th>
+                                <th>Nama Jalan</th>
+                                <th>Kota / Kabupaten</th>
+                                <th>Kecamatan</th>
+                                <th>Kelurahan / Desa</th>
+                                <th>AKsi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Dedek Tegar</td>
-                            </tr>
+                            @foreach ($lokasi as $data)
+                                <tr>
+                                    <td>1</td>
+                                    <td>{{ $data->nama_jalan }}</td>
+                                    <td>{{ $data->kota_kabupaten }}</td>
+                                    <td>{{ $data->kecamatan->nama }}</td>
+                                    <td>{{ $data->kelurahan->nama }}</td>
+                                    <td>
+                                        <a href="" class="btn btn-info btn-sm" data-toggle="Lihat Detail">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="" class="btn btn-warning btn-sm">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <form action="" class="d-inline-block">
+                                            <button type="submit" class="btn btn-sm btn-danger">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
