@@ -1,8 +1,10 @@
 import $ from "jquery";
 import mapboxgl from 'mapbox-gl';
 
+// Konfigurasi MAPBOX
 mapboxgl.accessToken = 'pk.eyJ1IjoiZGVkZWt0ZWdhciIsImEiOiJjbGVjdnJkY3cwMHl5M3BxanYwc2dueWNsIn0.nBiB8NlOPqhCxpnqgK4glA';
 
+// Menampilkan Map
 const setMap = ({ lng, lat }) => {
     $('#map').html('');
     const map = new mapboxgl.Map({
