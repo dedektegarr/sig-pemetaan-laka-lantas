@@ -57,16 +57,16 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="latitude">Latitude</label>
-                                    <input type="text" class="form-control form-control-sm" placeholder="latitude"
-                                        autocomplete="off" name="latitude" readonly>
+                                    <label for="longitude">Longitude</label>
+                                    <input type="text" class="form-control form-control-sm" placeholder="longitude"
+                                        name="longitude" autocomplete="off" readonly id="longitude">
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="longitude">Longitude</label>
-                                    <input type="text" class="form-control form-control-sm" placeholder="longitude"
-                                        name="longitude" autocomplete="off" readonly>
+                                    <label for="latitude">Latitude</label>
+                                    <input type="text" class="form-control form-control-sm" placeholder="latitude"
+                                        autocomplete="off" name="latitude" readonly id="latitude">
                                 </div>
                             </div>
                         </div>
@@ -190,20 +190,32 @@
             }
         }
 
-        const setMap = (position) => {
+        const setMap = ({
+            lng,
+            lat
+        }) => {
             $('#map').html('');
             const map = new mapboxgl.Map({
                 container: 'map', // container ID
                 style: 'mapbox://styles/mapbox/streets-v12', // style URL
-                center: position, // starting position [lng, lat]
-                zoom: 10, // starting zoom
+                center: [lng, lat], // starting position [lng, lat]
+                zoom: 13, // starting zoom
             });
-            // map.addControl(
-            //     new MapboxGeocoder({
-            //         accessToken: mapboxgl.accessToken,
-            //         mapboxgl: mapboxgl
-            //     })
-            // );
+
+            var marker = new mapboxgl.Marker({
+                    draggable: true
+                })
+                .setLngLat({
+                    lng,
+                    lat
+                }) // Koordinat mark
+                .addTo(map);
+
+            marker.on('dragend', function() {
+                const position = marker.getLngLat();
+                $('#longitude').val(position.lng);
+                $('#latitude').val(position.lat);
+            });
             map.addControl(new mapboxgl.NavigationControl());
         }
 
@@ -223,8 +235,15 @@
         $('#results').on('click', function(e) {
             $('#nama_jalan').val(e.target.innerText);
             $('#results').css('display', 'none');
-            const position = e.target.getAttribute('data-coor').split(',');
-            console.log(position);
+            const getPosition = e.target.getAttribute('data-coor').split(',');
+            const position = {
+                lng: getPosition[0],
+                lat: getPosition[1]
+            };
+
+            $('#longitude').val(position.lng);
+            $('#latitude').val(position.lat);
+
             setMap(position);
         });
     </script>
