@@ -14,13 +14,11 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="kota_kabupaten">Kota / Kabupaten</label>
-                            <select class="form-control select2" name="kota_kabupaten" id="kota_kabupaten">
-                                <option value="">Pilih Kota / Kabupaten</option>
-                            </select>
+                            <input type="text" class="form-control" name="kota_kabupaten" value="Kota Bengkulu" readonly>
                         </div>
                         <div class="form-group">
                             <label for="kecamatan">Kecamatan</label>
-                            <select class="form-control select2" name="kecamatan" id="kecamatan" disabled>
+                            <select class="form-control select2" name="kecamatan" id="kecamatan">
                                 <option value="">Pilih Kecamatan</option>
                             </select>
                         </div>

@@ -9,6 +9,9 @@ import initDatatables from "./functions/datatables";
 import { initSelect2, enableSelect } from "./functions/select2";
 import { newOptionElement, resultElement } from "./elements/elements";
 
+// Ambil data Kota, Kecamatan, Kelurahan
+const API = "http://localhost:8000/api";
+
 // Set Map Pertama Kali Terbuka
 $(document).ready(function () {
     // jika halaman terdapat element class "map-page"
@@ -16,6 +19,11 @@ $(document).ready(function () {
         setMap({
             lng: 102.263641,
             lat: -3.792228
+        });
+
+        // ambil data kecamatan pada saat pertama kali form input terbuka
+        $.get(`${API}/kecamatan`, function (response) {
+            newOptionElement($('#kecamatan'), response.kecamatan);
         });
     }
 
@@ -54,23 +62,6 @@ $('#results').on('click', function (e) {
     $('#latitude').val(position.lat);
 
     setMap(position);
-});
-
-// Ambil data Kota, Kecamatan, Kelurahan
-const API = "https://dev.farizdotid.com/api/daerahindonesia";
-
-$.get(`${API}/kota/1771`, function (response) {
-    newOptionElement($('#kota_kabupaten'), response);
-});
-
-$('#kota_kabupaten').on('select2:select', function (e) {
-    const id = e.params.data.id;
-    enableSelect($('#kecamatan'), id);
-    if (id) {
-        $.get(`${API}/kecamatan?id_kota=${id}`, function (response) {
-            newOptionElement($('#kecamatan'), response.kecamatan);
-        });
-    }
 });
 
 $('#kecamatan').on('select2:select', function (e) {

@@ -15,8 +15,8 @@ return new class extends Migration
             $table->unsignedBigInteger('id_kecamatan')->after('kota_kabupaten');
             $table->unsignedBigInteger('id_kelurahan')->after('id_kecamatan');
 
-            $table->foreign('id_kecamatan')->references('id_kecamatan')->on('kecamatan');
-            $table->foreign('id_kelurahan')->references('id_kelurahan')->on('kelurahan');
+            $table->foreign('id_kecamatan')->references('id')->on('kecamatan');
+            $table->foreign('id_kelurahan')->references('id')->on('kelurahan');
         });
     }
 

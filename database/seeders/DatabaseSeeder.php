@@ -24,343 +24,343 @@ class DatabaseSeeder extends Seeder
 
         $data_kecamatan = [
             [
-                "id_kecamatan" => 1771010,
-                "nama_kecamatan" => "Selebar"
+                "id" => 1771010,
+                "nama" => "Selebar"
             ],
             [
-                "id_kecamatan" => 1771011,
-                "nama_kecamatan" => "Kampung Melayu"
+                "id" => 1771011,
+                "nama" => "Kampung Melayu"
             ],
             [
-                "id_kecamatan" => 1771020,
-                "nama_kecamatan" => "Gading Cempaka"
+                "id" => 1771020,
+                "nama" => "Gading Cempaka"
             ],
             [
-                "id_kecamatan" => 1771021,
-                "nama_kecamatan" => "Ratu Agung"
+                "id" => 1771021,
+                "nama" => "Ratu Agung"
             ],
             [
-                "id_kecamatan" => 1771022,
-                "nama_kecamatan" => "Ratu Samban"
+                "id" => 1771022,
+                "nama" => "Ratu Samban"
             ],
             [
-                "id_kecamatan" => 1771023,
-                "nama_kecamatan" => "Singaran Pati"
+                "id" => 1771023,
+                "nama" => "Singaran Pati"
             ],
             [
-                "id_kecamatan" => 1771030,
-                "nama_kecamatan" => "Teluk Segara"
+                "id" => 1771030,
+                "nama" => "Teluk Segara"
             ],
             [
-                "id_kecamatan" => 1771031,
-                "nama_kecamatan" => "Sungai Serut"
+                "id" => 1771031,
+                "nama" => "Sungai Serut"
             ],
             [
-                "id_kecamatan" => 1771040,
-                "nama_kecamatan" => "Muara Bangka Hulu"
+                "id" => 1771040,
+                "nama" => "Muara Bangka Hulu"
             ]
         ];
 
         $data_kelurahan = [
             [
-                "id_kelurahan" => 1771010003,
+                "id" => 1771010003,
                 "id_kecamatan" => "1771010",
-                "nama_kelurahan" => "Betungan"
+                "nama" => "Betungan"
             ],
             [
-                "id_kelurahan" => 1771010004,
+                "id" => 1771010004,
                 "id_kecamatan" => "1771010",
-                "nama_kelurahan" => "Pekan Sabtu"
+                "nama" => "Pekan Sabtu"
             ],
             [
-                "id_kelurahan" => 1771010005,
+                "id" => 1771010005,
                 "id_kecamatan" => "1771010",
-                "nama_kelurahan" => "Suka Rami"
+                "nama" => "Suka Rami"
             ],
             [
-                "id_kelurahan" => 1771010006,
+                "id" => 1771010006,
                 "id_kecamatan" => "1771010",
-                "nama_kelurahan" => "Pagar Dewa"
+                "nama" => "Pagar Dewa"
             ],
             [
-                "id_kelurahan" => 1771010007,
+                "id" => 1771010007,
                 "id_kecamatan" => "1771010",
-                "nama_kelurahan" => "Bumiayu"
+                "nama" => "Bumiayu"
             ],
             [
-                "id_kelurahan" => 1771010008,
+                "id" => 1771010008,
                 "id_kecamatan" => "1771010",
-                "nama_kelurahan" => "Sumur Dewa"
+                "nama" => "Sumur Dewa"
             ],
             [
-                "id_kelurahan" => 1771011001,
+                "id" => 1771011001,
                 "id_kecamatan" => "1771011",
-                "nama_kelurahan" => "Teluk Sepang"
+                "nama" => "Teluk Sepang"
             ],
             [
-                "id_kelurahan" => 1771011002,
+                "id" => 1771011002,
                 "id_kecamatan" => "1771011",
-                "nama_kelurahan" => "Sumber Jaya"
+                "nama" => "Sumber Jaya"
             ],
             [
-                "id_kelurahan" => 1771011003,
+                "id" => 1771011003,
                 "id_kecamatan" => "1771011",
-                "nama_kelurahan" => "Kandang"
+                "nama" => "Kandang"
             ],
             [
-                "id_kelurahan" => 1771011004,
+                "id" => 1771011004,
                 "id_kecamatan" => "1771011",
-                "nama_kelurahan" => "Kandang Mas"
+                "nama" => "Kandang Mas"
             ],
             [
-                "id_kelurahan" => 1771011005,
+                "id" => 1771011005,
                 "id_kecamatan" => "1771011",
-                "nama_kelurahan" => "Padang Serai"
+                "nama" => "Padang Serai"
             ],
             [
-                "id_kelurahan" => 1771011006,
+                "id" => 1771011006,
                 "id_kecamatan" => "1771011",
-                "nama_kelurahan" => "Muara Dua"
+                "nama" => "Muara Dua"
             ],
             [
-                "id_kelurahan" => 1771020001,
+                "id" => 1771020001,
                 "id_kecamatan" => "1771020",
-                "nama_kelurahan" => "Sido Mulyo"
+                "nama" => "Sido Mulyo"
             ],
             [
-                "id_kelurahan" => 1771020005,
+                "id" => 1771020005,
                 "id_kecamatan" => "1771020",
-                "nama_kelurahan" => "Jalan Gedang"
+                "nama" => "Jalan Gedang"
             ],
             [
-                "id_kelurahan" => 1771020006,
+                "id" => 1771020006,
                 "id_kecamatan" => "1771020",
-                "nama_kelurahan" => "Padang Harapan"
+                "nama" => "Padang Harapan"
             ],
             [
-                "id_kelurahan" => 1771020024,
+                "id" => 1771020024,
                 "id_kecamatan" => "1771020",
-                "nama_kelurahan" => "Cempaka Permai"
+                "nama" => "Cempaka Permai"
             ],
             [
-                "id_kelurahan" => 1771020027,
+                "id" => 1771020027,
                 "id_kecamatan" => "1771020",
-                "nama_kelurahan" => "Lingkar Barat"
+                "nama" => "Lingkar Barat"
             ],
             [
-                "id_kelurahan" => 1771021001,
+                "id" => 1771021001,
                 "id_kecamatan" => "1771021",
-                "nama_kelurahan" => "Tanah Patah"
+                "nama" => "Tanah Patah"
             ],
             [
-                "id_kelurahan" => 1771021002,
+                "id" => 1771021002,
                 "id_kecamatan" => "1771021",
-                "nama_kelurahan" => "Kebun Tebeng"
+                "nama" => "Kebun Tebeng"
             ],
             [
-                "id_kelurahan" => 1771021003,
+                "id" => 1771021003,
                 "id_kecamatan" => "1771021",
-                "nama_kelurahan" => "Sawah Lebar Baru"
+                "nama" => "Sawah Lebar Baru"
             ],
             [
-                "id_kelurahan" => 1771021004,
+                "id" => 1771021004,
                 "id_kecamatan" => "1771021",
-                "nama_kelurahan" => "Sawah Lebar"
+                "nama" => "Sawah Lebar"
             ],
             [
-                "id_kelurahan" => 1771021005,
+                "id" => 1771021005,
                 "id_kecamatan" => "1771021",
-                "nama_kelurahan" => "Nusa Indah"
+                "nama" => "Nusa Indah"
             ],
             [
-                "id_kelurahan" => 1771021006,
+                "id" => 1771021006,
                 "id_kecamatan" => "1771021",
-                "nama_kelurahan" => "Kebun Kenanga"
+                "nama" => "Kebun Kenanga"
             ],
             [
-                "id_kelurahan" => 1771021007,
+                "id" => 1771021007,
                 "id_kecamatan" => "1771021",
-                "nama_kelurahan" => "Kebun Beler"
+                "nama" => "Kebun Beler"
             ],
             [
-                "id_kelurahan" => 1771021008,
+                "id" => 1771021008,
                 "id_kecamatan" => "1771021",
-                "nama_kelurahan" => "Lempuing"
+                "nama" => "Lempuing"
             ],
             [
-                "id_kelurahan" => 1771022001,
+                "id" => 1771022001,
                 "id_kecamatan" => "1771022",
-                "nama_kelurahan" => "Anggut Bawah"
+                "nama" => "Anggut Bawah"
             ],
             [
-                "id_kelurahan" => 1771022002,
+                "id" => 1771022002,
                 "id_kecamatan" => "1771022",
-                "nama_kelurahan" => "Penurunan"
+                "nama" => "Penurunan"
             ],
             [
-                "id_kelurahan" => 1771022003,
+                "id" => 1771022003,
                 "id_kecamatan" => "1771022",
-                "nama_kelurahan" => "Padang Jati"
+                "nama" => "Padang Jati"
             ],
             [
-                "id_kelurahan" => 1771022004,
+                "id" => 1771022004,
                 "id_kecamatan" => "1771022",
-                "nama_kelurahan" => "Belakang Pondok"
+                "nama" => "Belakang Pondok"
             ],
             [
-                "id_kelurahan" => 1771022005,
+                "id" => 1771022005,
                 "id_kecamatan" => "1771022",
-                "nama_kelurahan" => "Pengantungan"
+                "nama" => "Pengantungan"
             ],
             [
-                "id_kelurahan" => 1771022006,
+                "id" => 1771022006,
                 "id_kecamatan" => "1771022",
-                "nama_kelurahan" => "Kebun Dahri"
+                "nama" => "Kebun Dahri"
             ],
             [
-                "id_kelurahan" => 1771022007,
+                "id" => 1771022007,
                 "id_kecamatan" => "1771022",
-                "nama_kelurahan" => "Kebun Gerand"
+                "nama" => "Kebun Gerand"
             ],
             [
-                "id_kelurahan" => 1771022008,
+                "id" => 1771022008,
                 "id_kecamatan" => "1771022",
-                "nama_kelurahan" => "Anggut Atas"
+                "nama" => "Anggut Atas"
             ],
             [
-                "id_kelurahan" => 1771022009,
+                "id" => 1771022009,
                 "id_kecamatan" => "1771022",
-                "nama_kelurahan" => "Anggut Dalam"
+                "nama" => "Anggut Dalam"
             ],
             [
-                "id_kelurahan" => 1771023001,
+                "id" => 1771023001,
                 "id_kecamatan" => "1771023",
-                "nama_kelurahan" => "Jembatan Kecil"
+                "nama" => "Jembatan Kecil"
             ],
             [
-                "id_kelurahan" => 1771023002,
+                "id" => 1771023002,
                 "id_kecamatan" => "1771023",
-                "nama_kelurahan" => "Panorama"
+                "nama" => "Panorama"
             ],
             [
-                "id_kelurahan" => 1771023003,
+                "id" => 1771023003,
                 "id_kecamatan" => "1771023",
-                "nama_kelurahan" => "Lingkar Timur"
+                "nama" => "Lingkar Timur"
             ],
             [
-                "id_kelurahan" => 1771023004,
+                "id" => 1771023004,
                 "id_kecamatan" => "1771023",
-                "nama_kelurahan" => "Timur Indah"
+                "nama" => "Timur Indah"
             ],
             [
-                "id_kelurahan" => 1771023005,
+                "id" => 1771023005,
                 "id_kecamatan" => "1771023",
-                "nama_kelurahan" => "Padang Nangka"
+                "nama" => "Padang Nangka"
             ],
             [
-                "id_kelurahan" => 1771023006,
+                "id" => 1771023006,
                 "id_kecamatan" => "1771023",
-                "nama_kelurahan" => "Dusun Besar"
+                "nama" => "Dusun Besar"
             ],
             [
-                "id_kelurahan" => 1771030001,
+                "id" => 1771030001,
                 "id_kecamatan" => "1771030",
-                "nama_kelurahan" => "Kebun Keling"
+                "nama" => "Kebun Keling"
             ],
             [
-                "id_kelurahan" => 1771030004,
+                "id" => 1771030004,
                 "id_kecamatan" => "1771030",
-                "nama_kelurahan" => "Malabero"
+                "nama" => "Malabero"
             ],
             [
-                "id_kelurahan" => 1771030005,
+                "id" => 1771030005,
                 "id_kecamatan" => "1771030",
-                "nama_kelurahan" => "Sumur Melele"
+                "nama" => "Sumur Melele"
             ],
             [
-                "id_kelurahan" => 1771030006,
+                "id" => 1771030006,
                 "id_kecamatan" => "1771030",
-                "nama_kelurahan" => "Pasar Berkas"
+                "nama" => "Pasar Berkas"
             ],
             [
-                "id_kelurahan" => 1771030007,
+                "id" => 1771030007,
                 "id_kecamatan" => "1771030",
-                "nama_kelurahan" => "Pasar Baru"
+                "nama" => "Pasar Baru"
             ],
             [
-                "id_kelurahan" => 1771030008,
+                "id" => 1771030008,
                 "id_kecamatan" => "1771030",
-                "nama_kelurahan" => "Pasar Jitra"
+                "nama" => "Pasar Jitra"
             ],
             [
-                "id_kelurahan" => 1771030009,
+                "id" => 1771030009,
                 "id_kecamatan" => "1771030",
-                "nama_kelurahan" => "Pasar Melintang"
+                "nama" => "Pasar Melintang"
             ],
             [
-                "id_kelurahan" => 1771030011,
+                "id" => 1771030011,
                 "id_kecamatan" => "1771030",
-                "nama_kelurahan" => "Pondok Besi"
+                "nama" => "Pondok Besi"
             ],
             [
-                "id_kelurahan" => 1771030012,
+                "id" => 1771030012,
                 "id_kecamatan" => "1771030",
-                "nama_kelurahan" => "Kebun Ros"
+                "nama" => "Kebun Ros"
             ],
             [
-                "id_kelurahan" => 1771030013,
+                "id" => 1771030013,
                 "id_kecamatan" => "1771030",
-                "nama_kelurahan" => "Pintu Batu"
+                "nama" => "Pintu Batu"
             ],
             [
-                "id_kelurahan" => 1771030014,
+                "id" => 1771030014,
                 "id_kecamatan" => "1771030",
-                "nama_kelurahan" => "Tengah Padang"
+                "nama" => "Tengah Padang"
             ],
             [
-                "id_kelurahan" => 1771030015,
+                "id" => 1771030015,
                 "id_kecamatan" => "1771030",
-                "nama_kelurahan" => "Bajak"
+                "nama" => "Bajak"
             ],
             [
-                "id_kelurahan" => 1771030016,
+                "id" => 1771030016,
                 "id_kecamatan" => "1771030",
-                "nama_kelurahan" => "Kampung Bali"
+                "nama" => "Kampung Bali"
             ],
             [
-                "id_kelurahan" => 1771031001,
+                "id" => 1771031001,
                 "id_kecamatan" => "1771031",
-                "nama_kelurahan" => "Surabaya"
+                "nama" => "Surabaya"
             ],
             [
-                "id_kelurahan" => 1771031002,
+                "id" => 1771031002,
                 "id_kecamatan" => "1771031",
-                "nama_kelurahan" => "Semarang"
+                "nama" => "Semarang"
             ],
             [
-                "id_kelurahan" => 1771031003,
+                "id" => 1771031003,
                 "id_kecamatan" => "1771031",
-                "nama_kelurahan" => "Tanjung Jaya"
+                "nama" => "Tanjung Jaya"
             ],
             [
-                "id_kelurahan" => 1771031004,
+                "id" => 1771031004,
                 "id_kecamatan" => "1771031",
-                "nama_kelurahan" => "Tanjung Agung"
+                "nama" => "Tanjung Agung"
             ],
             [
-                "id_kelurahan" => 1771031005,
+                "id" => 1771031005,
                 "id_kecamatan" => "1771031",
-                "nama_kelurahan" => "Suka Merindu"
+                "nama" => "Suka Merindu"
             ],
             [
-                "id_kelurahan" => 1771031006,
+                "id" => 1771031006,
                 "id_kecamatan" => "1771031",
-                "nama_kelurahan" => "Kampung Kelawi"
+                "nama" => "Kampung Kelawi"
             ],
             [
-                "id_kelurahan" => 1771031007,
+                "id" => 1771031007,
                 "id_kecamatan" => "1771031",
-                "nama_kelurahan" => "Pasar Bengkulu"
+                "nama" => "Pasar Bengkulu"
             ]
         ];
 
