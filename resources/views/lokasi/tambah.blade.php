@@ -1,31 +1,5 @@
 @extends('layouts.app')
 @section('body-class', 'map-page')
-@section('css')
-    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css"
-        type="text/css">
-
-    <style>
-        .form-autocomplete {
-            position: relative;
-        }
-
-        .result {
-            background-color: salmon;
-            width: 100%;
-            list-style: none;
-            position: absolute;
-            z-index: 10;
-            display: none;
-        }
-
-        .result .result-item {
-            padding: .5em 1em;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.301);
-            display: block;
-            cursor: pointer;
-        }
-    </style>
-@endsection
 @section('content')
     <div class="row">
         <div class="col-md-4">
