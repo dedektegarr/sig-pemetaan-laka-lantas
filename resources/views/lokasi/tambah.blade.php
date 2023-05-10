@@ -18,13 +18,13 @@
                         </div>
                         <div class="form-group">
                             <label for="kecamatan">Kecamatan</label>
-                            <select class="form-control select2" name="kecamatan" id="kecamatan">
+                            <select class="form-control select2" name="id_kecamatan" id="kecamatan">
                                 <option value="">Pilih Kecamatan</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="kelurahan_desa">Kelurahan / Desa</label>
-                            <select class="form-control select2" name="kelurahan_desa" id="kelurahan_desa" disabled>
+                            <select class="form-control select2" name="id_kelurahan" id="kelurahan_desa" disabled>
                                 <option value="">Pilih Kelurahan / Desa</option>
                             </select>
                         </div>

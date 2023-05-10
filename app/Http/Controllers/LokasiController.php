@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lokasi;
 use Illuminate\Http\Request;
 
 class LokasiController extends Controller
@@ -22,6 +23,7 @@ class LokasiController extends Controller
 
     public function insert(Request $request)
     {
-        return $request->all();
+        Lokasi::create($request->all());
+        return redirect()->route('lokasi.index');
     }
 }
