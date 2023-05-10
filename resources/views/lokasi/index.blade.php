@@ -112,7 +112,11 @@
     <script>
         // Inisialisasi Select2
         $(document).ready(function() {
-            const data = ['test', 'dasfd', 'asdf'];
+            setMap({
+                lng: 102.263641,
+                lat: -3.792228
+            });
+
             $('.select2').select2();
         });
 
@@ -231,6 +235,10 @@
 
             }
         });
+
+        $(window).on('click', function() {
+            $('#results').css('display', 'none')
+        })
 
         $('#results').on('click', function(e) {
             $('#nama_jalan').val(e.target.innerText);
