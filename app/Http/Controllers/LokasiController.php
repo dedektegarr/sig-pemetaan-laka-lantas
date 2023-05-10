@@ -19,4 +19,9 @@ class LokasiController extends Controller
             'page_title' => 'Tambah Data Lokasi'
         ]);
     }
+
+    public function insert(Request $request)
+    {
+        return $request->all();
+    }
 }
