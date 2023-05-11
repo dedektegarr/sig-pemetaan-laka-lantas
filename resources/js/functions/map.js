@@ -11,7 +11,7 @@ const setMap = ({ lng, lat }) => {
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v12',
         center: [lng, lat],
-        zoom: 15,
+        zoom: 12,
     });
 
     var marker = new mapboxgl.Marker({

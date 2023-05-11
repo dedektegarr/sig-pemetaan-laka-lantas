@@ -19,9 +19,11 @@ const resultElement = (data) => {
         const newList = document.createElement('li');
         newList.classList.add('result-item');
         newList.setAttribute('data-coor', `${value.position.lng}, ${value.position.lat}`);
-        newList.innerText = value.title;
+        newList.innerText = `${value.address.street}, ${value.address.city}`;
 
-        $('#results').append(newList);
+        if (value.address.street) {
+            $('#results').append(newList);
+        }
     }
 }
 

@@ -65,15 +65,10 @@ $('#results').on('click', function (e) {
 
 $('#kecamatan').on('select2:select', function (e) {
     const id = e.params.data.id;
-    enableSelect($('#kelurahan_desa'), id);
     if (id) {
+        $('#kelurahan_desa').html('');
         $.get(`${API}/kelurahan?id_kecamatan=${id}`, function (response) {
             newOptionElement($('#kelurahan_desa'), response.kelurahan);
         });
     }
-});
-
-$('#kelurahan_desa').on('select2:select', function (e) {
-    const id = e.params.data.id;
-    enableSelect($('#nama_jalan'), id);
 });

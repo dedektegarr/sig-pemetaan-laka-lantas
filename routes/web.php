@@ -23,5 +23,6 @@ Route::prefix('administrator')->group(function () {
         Route::get('/lokasi', [LokasiController::class, 'index'])->name('lokasi.index');
         Route::get('/lokasi/tambah', [LokasiController::class, 'tambah'])->name('lokasi.tambah');
         Route::post('/lokasi/insert', [LokasiController::class, 'insert'])->name('lokasi.insert');
+        Route::get('/lokasi/detail/{lokasi:id_lokasi}', [LokasiController::class, 'show'])->name('lokasi.show');
     });
 });

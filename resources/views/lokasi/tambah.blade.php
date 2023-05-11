@@ -24,8 +24,8 @@
                         </div>
                         <div class="form-group">
                             <label for="kelurahan_desa">Kelurahan / Desa</label>
-                            <select class="form-control select2" name="id_kelurahan" id="kelurahan_desa" disabled>
-                                <option value="">Pilih Kelurahan / Desa</option>
+                            <select class="form-control select2" name="id_kelurahan" id="kelurahan_desa">
+                                <option value="">Pilih Kecamatan Terlebih Dahulu</option>
                             </select>
                         </div>
                         <div class="row">

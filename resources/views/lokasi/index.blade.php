@@ -22,15 +22,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($lokasi as $data)
+                            @foreach ($data_lokasi as $lokasi)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $data->nama_jalan }}</td>
-                                    <td>{{ $data->kota_kabupaten }}</td>
-                                    <td>{{ $data->kecamatan->nama }}</td>
-                                    <td>{{ $data->kelurahan->nama }}</td>
+                                    <td>{{ $lokasi->nama_jalan }}</td>
+                                    <td>{{ $lokasi->kota_kabupaten }}</td>
+                                    <td>{{ $lokasi->kecamatan->nama }}</td>
+                                    <td>{{ $lokasi->kelurahan->nama }}</td>
                                     <td>
-                                        <a href="" class="btn btn-info btn-sm" data-toggle="Lihat Detail">
+                                        <a href="{{ route('lokasi.show', $lokasi->id_lokasi) }}" class="btn btn-info btn-sm"
+                                            data-toggle="Lihat Detail">
                                             <i class="fas fa-eye"></i>
                                         </a>
                                         <a href="" class="btn btn-warning btn-sm">

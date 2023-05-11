@@ -11,7 +11,7 @@ class LokasiController extends Controller
     {
         return view('lokasi.index', [
             'page_title' => 'Data Lokasi',
-            'lokasi' => Lokasi::all()
+            'data_lokasi' => Lokasi::all()
         ]);
     }
 
@@ -26,5 +26,13 @@ class LokasiController extends Controller
     {
         Lokasi::create($request->all());
         return redirect()->route('lokasi.index');
+    }
+
+    public function show(Lokasi $lokasi)
+    {
+        return view('lokasi.detail', [
+            'page_title' => 'Detail Lokasi',
+            'lokasi' => $lokasi
+        ]);
     }
 }
