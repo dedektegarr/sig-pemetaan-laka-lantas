@@ -40,11 +40,10 @@ $('#nama_jalan').on('input', function () {
     $('#results').css('display', 'none');
     if (this.value) {
         $('#results').css('display', 'block');
-        $.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${this.value}.json?access_token=${mapboxgl.accessToken}`,
-            function (response) {
-                resultElement(response.features);
-                // console.log(response.features);
-            });
+        const key = 'I3F9tUsDPOQ0Q2Po8xE2cId8p6mpkbyWOZB2AjzMm-g';
+        $.get(`https://geocode.search.hereapi.com/v1/geocode?q=${this.value}&apiKey=${key}`, function (response) {
+            resultElement(response.items);
+        });
     }
 });
 

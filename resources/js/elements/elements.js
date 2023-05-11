@@ -18,8 +18,8 @@ const resultElement = (data) => {
     for (let value of data) {
         const newList = document.createElement('li');
         newList.classList.add('result-item');
-        newList.setAttribute('data-coor', value.center);
-        newList.innerText = value.place_name;
+        newList.setAttribute('data-coor', `${value.position.lng}, ${value.position.lat}`);
+        newList.innerText = value.title;
 
         $('#results').append(newList);
     }
