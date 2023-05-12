@@ -17,7 +17,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="hold-transition sidebar-mini @yield('body-class')">
+<body class="hold-transition sidebar-mini">
     <div class="wrapper">
 
         @include('layouts.partials.navbar')

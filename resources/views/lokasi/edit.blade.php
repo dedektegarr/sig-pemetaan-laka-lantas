@@ -1,7 +1,8 @@
 @extends('layouts.app')
 @section('content')
-    <form action="{{ route('lokasi.insert') }}" method="POST">
+    <form action="{{ route('lokasi.update', $lokasi->id_lokasi) }}" method="POST">
         @csrf
+        @method('PATCH')
         <div class="row">
             <div class="col">
             </div>
@@ -10,7 +11,7 @@
             <div class="col-md-4">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
-                        <h3 class="card-title">Tambah Data Lokasi</h3>
+                        <h3 class="card-title">Edit Data Lokasi</h3>
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
@@ -37,22 +38,22 @@
                                 <div class="form-group">
                                     <label for="longitude">Longitude</label>
                                     <input type="text" class="form-control form-control-sm" placeholder="longitude"
-                                        name="longitude" autocomplete="off" value="{{ old('longitude') }}" readonly
-                                        id="longitude">
+                                        name="longitude" autocomplete="off"
+                                        value="{{ old('longitude', $lokasi->longitude) }}" readonly id="longitude">
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-group">
                                     <label for="latitude">Latitude</label>
                                     <input type="text" class="form-control form-control-sm" placeholder="latitude"
-                                        autocomplete="off" name="latitude" value="{{ old('latitude') }}" readonly
-                                        id="latitude">
+                                        autocomplete="off" name="latitude" value="{{ old('latitude', $lokasi->latitude) }}"
+                                        readonly id="latitude">
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="keterangan">Keterangan</label>
-                            <textarea name="keterangan" id="keterangan" rows="3" class="form-control">{{ old('keterangan') }}</textarea>
+                            <textarea name="keterangan" id="keterangan" rows="3" class="form-control">{{ old('keterangan', $lokasi->keterangan) }}</textarea>
                         </div>
                     </div>
                     <!-- /.card-body -->
@@ -72,7 +73,7 @@
                             <label for="nama_jalan">Nama Jalan</label>
                             <div class="form-autocomplete">
                                 <input type="text" name="nama_jalan" class="form-control" placeholder="Cari jalan..."
-                                    autocomplete="off" id="nama_jalan" value="{{ old('nama_jalan') }}">
+                                    autocomplete="off" id="nama_jalan" value="{{ old('nama_jalan', $lokasi->nama_jalan) }}">
                                 <div class="result" id="results"></div>
                             </div>
                         </div>
@@ -87,13 +88,12 @@
     <script>
         // API Wilayan Bengkulu
         const wilayahAPI = "http://localhost:8000/api";
-
         $(document).ready(function() {
             // Menampilkan Map
             setMap({
-                lng: 102.263641,
-                lat: -3.792228,
-                zoom: 13,
+                lng: {{ $lokasi->longitude }},
+                lat: {{ $lokasi->latitude }},
+                zoom: 15,
                 draggable: true
             });
 
@@ -104,14 +104,6 @@
 
             $(window).on('click', () => $('#results').css('display', 'none'));
             $('.select2').select2();
-
-            if ($('#longitude').val() && $('#latitude').val()) {
-                setMap({
-                    lng: $('#longitude').val(),
-                    lat: $('#latitude').val(),
-                    zoom: 13
-                });
-            }
         });
 
         // tampilkan validasi

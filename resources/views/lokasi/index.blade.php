@@ -34,11 +34,16 @@
                                             data-toggle="Lihat Detail">
                                             <i class="fas fa-eye"></i>
                                         </a>
-                                        <a href="" class="btn btn-warning btn-sm">
+                                        <a href="{{ route('lokasi.edit', $lokasi->id_lokasi) }}"
+                                            class="btn btn-warning btn-sm">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <form action="" class="d-inline-block">
-                                            <button type="submit" class="btn btn-sm btn-danger">
+                                        <form action="{{ route('lokasi.destroy', $lokasi->id_lokasi) }}"
+                                            class="d-inline-block" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger"
+                                                onclick="return confirm('Anda yakin ingin menghapus data lokasi ini?')">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>
