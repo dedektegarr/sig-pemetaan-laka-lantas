@@ -24,8 +24,18 @@ class LokasiController extends Controller
 
     public function insert(Request $request)
     {
-        Lokasi::create($request->all());
-        return redirect()->route('lokasi.index');
+        $validated = $request->validate([
+            'kota_kabupaten' => 'required',
+            'id_kecamatan' => 'required|numeric|max_digits:11',
+            'id_kelurahan' => 'required|numeric|max_digits:11',
+            'longitude' => 'required|numeric',
+            'latitude' => 'required|numeric',
+            'keterangan' => 'nullable|max:255',
+            'nama_jalan' => 'required|max:255'
+        ]);
+
+        Lokasi::create($validated);
+        return redirect()->route('lokasi.index')->with('success', 'Data lokasi berhasil ditambahkan');
     }
 
     public function show(Lokasi $lokasi)

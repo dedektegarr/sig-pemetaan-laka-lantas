@@ -57,5 +57,10 @@
         $(document).ready(function() {
             $('#table').DataTable();
         });
+
+        // Alert ketika data berhasil ditambahkan
+        @if (session()->has('success'))
+            toastr.success('{{ session('success') }}')
+        @endif
     </script>
 @endpush

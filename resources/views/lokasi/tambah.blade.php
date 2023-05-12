@@ -4,6 +4,10 @@
     <form action="{{ route('lokasi.insert') }}" method="POST">
         @csrf
         <div class="row">
+            <div class="col">
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-4">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
@@ -14,7 +18,8 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="kota_kabupaten">Kota / Kabupaten</label>
-                            <input type="text" class="form-control" name="kota_kabupaten" value="Kota Bengkulu" readonly>
+                            <input type="text" class="form-control @error('kota_kabupaten') is-invalid @enderror"
+                                name="kota_kabupaten" value="Kota Bengkulu" readonly>
                         </div>
                         <div class="form-group">
                             <label for="kecamatan">Kecamatan</label>
@@ -33,20 +38,22 @@
                                 <div class="form-group">
                                     <label for="longitude">Longitude</label>
                                     <input type="text" class="form-control form-control-sm" placeholder="longitude"
-                                        name="longitude" autocomplete="off" readonly id="longitude">
+                                        name="longitude" autocomplete="off" value="{{ old('longitude') }}" readonly
+                                        id="longitude">
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-group">
                                     <label for="latitude">Latitude</label>
                                     <input type="text" class="form-control form-control-sm" placeholder="latitude"
-                                        autocomplete="off" name="latitude" readonly id="latitude">
+                                        autocomplete="off" name="latitude" value="{{ old('latitude') }}" readonly
+                                        id="latitude">
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="keterangan">Keterangan</label>
-                            <textarea name="keterangan" id="keterangan" rows="3" class="form-control"></textarea>
+                            <textarea name="keterangan" id="keterangan" rows="3" class="form-control">{{ old('keterangan') }}</textarea>
                         </div>
                     </div>
                     <!-- /.card-body -->
@@ -66,7 +73,7 @@
                             <label for="nama_jalan">Nama Jalan</label>
                             <div class="form-autocomplete">
                                 <input type="text" name="nama_jalan" class="form-control" placeholder="Cari jalan..."
-                                    autocomplete="off" id="nama_jalan">
+                                    autocomplete="off" id="nama_jalan" value="{{ old('nama_jalan') }}">
                                 <div class="result" id="results"></div>
                             </div>
                         </div>
@@ -97,7 +104,22 @@
             $(window).on('click', () => $('#results').css('display', 'none'));
             $('.select2').select2();
 
+            if ($('#longitude').val() && $('#latitude').val()) {
+                setMap({
+                    lng: $('#longitude').val(),
+                    lat: $('#latitude').val()
+                });
+            }
         });
+
+        // tampilkan validasi
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                toastr.error('{{ $error }}', '', {
+                    timeOut: 10000
+                });
+            @endforeach
+        @endif
 
         // Geocoding
         $('#nama_jalan').on('input', function() {
@@ -131,6 +153,7 @@
         // Ketika Kecamatan dipilih
         $('#kecamatan').on('select2:select', function(e) {
             const id = e.params.data.id;
+            $('#kelurahan_desa').html('<option value="">Pilih Kecamatan Terlebih Dahulu</option>');
             if (id) {
                 $('#kelurahan_desa').html('');
                 $.get(`${wilayahAPI}/kelurahan?id_kecamatan=${id}`, function(response) {
