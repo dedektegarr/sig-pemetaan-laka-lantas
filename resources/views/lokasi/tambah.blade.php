@@ -93,7 +93,9 @@
             // Menampilkan Map
             setMap({
                 lng: 102.263641,
-                lat: -3.792228
+                lat: -3.792228,
+                zoom: 13,
+                draggable: true
             });
 
             // ambil data kecamatan pada saat pertama kali form input terbuka
@@ -107,7 +109,8 @@
             if ($('#longitude').val() && $('#latitude').val()) {
                 setMap({
                     lng: $('#longitude').val(),
-                    lat: $('#latitude').val()
+                    lat: $('#latitude').val(),
+                    zoom: 13
                 });
             }
         });
@@ -141,7 +144,9 @@
             const getPosition = e.target.getAttribute('data-coor').split(',');
             const position = {
                 lng: getPosition[0],
-                lat: getPosition[1]
+                lat: getPosition[1],
+                zoom: 15,
+                draggable: true
             };
 
             $('#longitude').val(position.lng);

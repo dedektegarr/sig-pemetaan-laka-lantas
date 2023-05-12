@@ -1,21 +1,20 @@
 // KONFIGURASI MAPBOX
 // Menampilkan Map
 mapboxgl.accessToken = 'pk.eyJ1IjoiZGVkZWt0ZWdhciIsImEiOiJjbGVjdnJkY3cwMHl5M3BxanYwc2dueWNsIn0.nBiB8NlOPqhCxpnqgK4glA';
-const setMap = ({ lng, lat }) => {
+const setMap = ({ lng, lat, zoom, draggable }) => {
     $('#map').html('');
     const map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v12',
         center: [lng, lat],
-        zoom: 12,
+        zoom: zoom,
     });
 
     var marker = new mapboxgl.Marker({
-        draggable: true
+        draggable
     })
         .setLngLat({ lng, lat })
         .addTo(map);
-
     marker.on('dragend', function () {
         const position = marker.getLngLat();
         $('#longitude').val(position.lng);
