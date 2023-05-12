@@ -3,6 +3,7 @@
 @import "../../node_modules/mapbox-gl/dist/mapbox-gl.css";
 @import "../../node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css";
 
+/* adminLTE */
 @import "../../node_modules/admin-lte/plugins/fontawesome-free/css/all.min.css";
 @import "../../node_modules/admin-lte/dist/css/adminlte.min.css";
 
