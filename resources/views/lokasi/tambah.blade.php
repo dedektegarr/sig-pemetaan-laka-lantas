@@ -77,3 +77,66 @@
         </div>
     </form>
 @endsection
+@push('script')
+    <script>
+        // API Wilayan Bengkulu
+        const wilayahAPI = "http://localhost:8000/api";
+
+        $(document).ready(function() {
+            // Menampilkan Map
+            setMap({
+                lng: 102.263641,
+                lat: -3.792228
+            });
+
+            // ambil data kecamatan pada saat pertama kali form input terbuka
+            $.get(`${wilayahAPI}/kecamatan`, function(response) {
+                newOptionElement($('#kecamatan'), response.kecamatan);
+            });
+
+            $(window).on('click', () => $('#results').css('display', 'none'));
+            $('.select2').select2();
+
+        });
+
+        // Geocoding
+        $('#nama_jalan').on('input', function() {
+            $('#results').css('display', 'none');
+            if (this.value) {
+                $('#results').css('display', 'block');
+                const key = 'I3F9tUsDPOQ0Q2Po8xE2cId8p6mpkbyWOZB2AjzMm-g';
+                $.get(`https://geocode.search.hereapi.com/v1/geocode?q=${this.value}&apiKey=${key}`, function(
+                    response) {
+                    resultElement(response.items);
+                });
+            }
+        });
+
+        // Ketka Result dari pencarian jalan di klik
+        $('#results').on('click', function(e) {
+            $('#nama_jalan').val(e.target.innerText);
+            $('#results').css('display', 'none');
+            const getPosition = e.target.getAttribute('data-coor').split(',');
+            const position = {
+                lng: getPosition[0],
+                lat: getPosition[1]
+            };
+
+            $('#longitude').val(position.lng);
+            $('#latitude').val(position.lat);
+
+            setMap(position);
+        });
+
+        // Ketika Kecamatan dipilih
+        $('#kecamatan').on('select2:select', function(e) {
+            const id = e.params.data.id;
+            if (id) {
+                $('#kelurahan_desa').html('');
+                $.get(`${wilayahAPI}/kelurahan?id_kecamatan=${id}`, function(response) {
+                    newOptionElement($('#kelurahan_desa'), response.kelurahan);
+                });
+            }
+        });
+    </script>
+@endpush
