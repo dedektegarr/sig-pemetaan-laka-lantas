@@ -18,12 +18,17 @@
                         <div class="form-group">
                             <label for="kota_kabupaten">Kota / Kabupaten</label>
                             <input type="text" class="form-control @error('kota_kabupaten') is-invalid @enderror"
-                                name="kota_kabupaten" value="Kota Bengkulu" readonly>
+                                name="kota_kabupaten" value="Kota Bengkulu">
                         </div>
                         <div class="form-group">
                             <label for="kecamatan">Kecamatan</label>
                             <select class="form-control select2" name="id_kecamatan" id="kecamatan">
                                 <option value="">Pilih Kecamatan</option>
+                                @foreach ($data_kecamatan as $kecamatan)
+                                    <option value="{{ $kecamatan->id }}"
+                                        {{ old('id_kecamatan') == $kecamatan->id ? 'selected' : '' }}>{{ $kecamatan->nama }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group">
@@ -97,10 +102,13 @@
                 draggable: true
             });
 
-            // ambil data kecamatan pada saat pertama kali form input terbuka
-            $.get(`${wilayahAPI}/kecamatan`, function(response) {
-                newOptionElement($('#kecamatan'), response.kecamatan);
-            });
+            // Ambil data kelurahan jika ada data kecamatan
+            if ($('#kecamatan').val()) {
+                $('#kelurahan_desa').html('');
+                $.get(`${wilayahAPI}/kelurahan?id_kecamatan=${$('#kecamatan').val()}`, function(response) {
+                    newOptionElement($('#kelurahan_desa'), response.kelurahan);
+                });
+            }
 
             $(window).on('click', () => $('#results').css('display', 'none'));
             $('.select2').select2();
@@ -157,6 +165,7 @@
         // Ketika Kecamatan dipilih
         $('#kecamatan').on('select2:select', function(e) {
             const id = e.params.data.id;
+            console.log(e.params.data);
             $('#kelurahan_desa').html('<option value="">Pilih Kecamatan Terlebih Dahulu</option>');
             if (id) {
                 $('#kelurahan_desa').html('');

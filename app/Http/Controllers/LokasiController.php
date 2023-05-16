@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kecamatan;
 use App\Models\Lokasi;
 use Illuminate\Http\Request;
 
@@ -11,14 +12,15 @@ class LokasiController extends Controller
     {
         return view('lokasi.index', [
             'page_title' => 'Data Lokasi',
-            'data_lokasi' => Lokasi::all()
+            'data_lokasi' => Lokasi::orderByDesc('created_at')->get()
         ]);
     }
 
     public function tambah()
     {
         return view('lokasi.tambah', [
-            'page_title' => 'Tambah Data Lokasi'
+            'page_title' => 'Tambah Data Lokasi',
+            'data_kecamatan' => Kecamatan::all()
         ]);
     }
 
@@ -50,7 +52,8 @@ class LokasiController extends Controller
     {
         return view('lokasi.edit', [
             'page_title' => 'Edit Lokasi',
-            'lokasi' => $lokasi
+            'lokasi' => $lokasi,
+            'data_kecamatan' => Kecamatan::all()
         ]);
     }
 
@@ -73,6 +76,6 @@ class LokasiController extends Controller
     public function destroy(Lokasi $lokasi)
     {
         Lokasi::where('id_lokasi', $lokasi->id_lokasi)->delete();
-        return redirect()->back()->with('success', 'Data berhasil dihapus');
+        return redirect()->route('lokasi.index')->with('success', 'Data berhasil dihapus');
     }
 }

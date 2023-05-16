@@ -19,12 +19,17 @@
                         <div class="form-group">
                             <label for="kota_kabupaten">Kota / Kabupaten</label>
                             <input type="text" class="form-control @error('kota_kabupaten') is-invalid @enderror"
-                                name="kota_kabupaten" value="Kota Bengkulu" readonly>
+                                name="kota_kabupaten" value="Kota Bengkulu">
                         </div>
                         <div class="form-group">
                             <label for="kecamatan">Kecamatan</label>
                             <select class="form-control select2" name="id_kecamatan" id="kecamatan">
                                 <option value="">Pilih Kecamatan</option>
+                                @foreach ($data_kecamatan as $kecamatan)
+                                    <option value="{{ $kecamatan->id }}"
+                                        {{ $kecamatan->id == $lokasi->id_kecamatan ? 'selected' : '' }}>
+                                        {{ $kecamatan->nama }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group">
@@ -59,7 +64,7 @@
                     <!-- /.card-body -->
 
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Tambah</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
                     </div>
                 </div>
             </div>
@@ -97,10 +102,14 @@
                 draggable: true
             });
 
-            // ambil data kecamatan pada saat pertama kali form input terbuka
-            $.get(`${wilayahAPI}/kecamatan`, function(response) {
-                newOptionElement($('#kecamatan'), response.kecamatan);
-            });
+            // Ambil data kelurahan jika ada data kecamatan
+            if ($('#kecamatan').val()) {
+                $('#kelurahan_desa').html('');
+                $.get(`${wilayahAPI}/kelurahan?id_kecamatan=${$('#kecamatan').val()}`, function(response) {
+                    newOptionElement($('#kelurahan_desa'), response.kelurahan,
+                        {{ $lokasi->id_kelurahan }});
+                });
+            }
 
             $(window).on('click', () => $('#results').css('display', 'none'));
             $('.select2').select2();
@@ -153,7 +162,7 @@
             if (id) {
                 $('#kelurahan_desa').html('');
                 $.get(`${wilayahAPI}/kelurahan?id_kecamatan=${id}`, function(response) {
-                    newOptionElement($('#kelurahan_desa'), response.kelurahan);
+                    newOptionElement($('#kelurahan_desa'), response.kelurahan, idKelurahan);
                 });
             }
         });

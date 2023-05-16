@@ -26,11 +26,16 @@ const setMap = ({ lng, lat, zoom, draggable }) => {
 
 // ELEMENT
 // option element
-const newOptionElement = (parent, data) => {
+const newOptionElement = (parent, data, isSelected) => {
     const options = Array.isArray(data) ? data : [data];
 
     for (let data of options) {
         const newOption = document.createElement('option');
+
+        if (data.id === isSelected) {
+            newOption.selected = true;
+        }
+
         newOption.value = data.id;
         newOption.innerText = data.nama;
         parent.append(newOption);

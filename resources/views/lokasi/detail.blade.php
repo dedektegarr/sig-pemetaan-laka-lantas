@@ -4,10 +4,32 @@
         <div class="col-md-12">
             <div class="card card-primary card-outline">
                 <div class="card-header">
-                    <h3 class="card-title">
-                        <i class="fas fa-map-marker-alt mr-1"></i>
-                        {{ $lokasi->nama_jalan }}
-                    </h3>
+                    <div class="row">
+                        <div class="col">
+                            <h3 class="card-title">
+                                <i class="fas fa-map-marker-alt mr-1"></i>
+                                {{ $lokasi->nama_jalan }}
+                            </h3>
+                        </div>
+                        <div class="col">
+                            <div class="float-right">
+                                <a href="{{ route('lokasi.edit', $lokasi->id_lokasi) }}" class="btn btn-warning btn-sm">
+                                    <i class="fas fa-edit"></i>
+                                    Edit
+                                </a>
+                                <form action="{{ route('lokasi.destroy', $lokasi->id_lokasi) }}" class="d-inline-block"
+                                    method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger"
+                                        onclick="return confirm('Anda yakin ingin menghapus data lokasi ini?')">
+                                        <i class="fas fa-trash"></i>
+                                        Hapus
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -39,7 +61,7 @@
                                         <td>{{ $lokasi->longitude }}</td>
                                         <td>{{ $lokasi->latitude }}</td>
                                         <td>{{ $lokasi->keterangan }}</td>
-                                        <td>{{ $lokasi->updated_at->format('d M Y') }}</td>
+                                        <td>{{ $lokasi->updated_at->locale('id')->translatedFormat('d M Y') }}</td>
                                     </tr>
                                 </tbody>
                             </table>
