@@ -38,4 +38,26 @@ class KecelakaanController extends Controller
 
         return redirect()->back()->with('success', 'Data berhasil ditambah');
     }
+
+    public function update(Request $request, Kecelakaan $kecelakaan)
+    {
+        $validated = $request->validate([
+            'id_lokasi' => 'required|numeric',
+            'waktu' => 'required|date',
+            'luka_ringan' => 'required|numeric',
+            'luka_berat' => 'required|numeric',
+            'meninggal' => 'required|numeric'
+        ]);
+
+        Kecelakaan::where('id_kecelakaan', $kecelakaan->id_kecelakaan)->update($validated);
+
+        return redirect()->back()->with('success', 'Data berhasil diupdate');
+    }
+
+    public function destroy(Kecelakaan $kecelakaan)
+    {
+        Kecelakaan::where('id_kecelakaan', $kecelakaan->id_kecelakaan)->delete();
+
+        return redirect()->back()->with('success', 'Data berhasil dihapus');
+    }
 }

@@ -39,14 +39,15 @@
                                     <td class="text-center">{{ $kecelakaan->meninggal }}</td>
                                     <td class="text-center">{{ $kecelakaan->total }}</td>
                                     <td>
-                                        {{-- <a href="{{ route('kecelakaan.show', $kecelakaan->id_kecelakaan) }}"
+                                        <a href="{{ route('kecelakaan.show', $kecelakaan->id_kecelakaan) }}"
                                             class="btn btn-info btn-sm" data-toggle="Lihat Detail">
                                             <i class="fas fa-eye"></i>
                                         </a>
-                                        <a href="{{ route('kecelakaan.edit', $kecelakaan->id_kecelakaan) }}"
-                                            class="btn btn-warning btn-sm">
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
+                                            data-target="#editModal-{{ $kecelakaan->id_kecelakaan }}">
                                             <i class="fas fa-edit"></i>
-                                        </a>
+                                        </button>
                                         <form action="{{ route('kecelakaan.destroy', $kecelakaan->id_kecelakaan) }}"
                                             class="d-inline-block" method="POST">
                                             @csrf
@@ -55,8 +56,100 @@
                                                 onclick="return confirm('Anda yakin ingin menghapus data lokasi ini?')">
                                                 <i class="fas fa-trash"></i>
                                             </button>
-                                        </form> --}}
+                                        </form>
                                     </td>
+
+                                    <!-- Edit Modal -->
+                                    <div class="modal fade" id="editModal-{{ $kecelakaan->id_kecelakaan }}" tabindex="-1"
+                                        role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <form action="{{ route('kecelakaan.update', $kecelakaan->id_kecelakaan) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="editModalLabel">Edit Data Kecelakaan
+                                                        </h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        @csrf
+                                                        <div class="form-group">
+                                                            <label for="id_lokasi">Nama Jalan</label>
+                                                            <select
+                                                                class="form-control @error('id_lokasi') is-invalid @enderror"
+                                                                name="id_lokasi" id="id_lokasi">
+                                                                <option value="">Pilih Jalan</option>
+                                                                @foreach ($data_lokasi as $id_lokasi => $nama_lokasi)
+                                                                    <option value="{{ $id_lokasi }}"
+                                                                        {{ old('id_lokasi', $id_lokasi) == $id_lokasi ? 'selected' : '' }}>
+                                                                        {{ $nama_lokasi }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                            @error('id_lokasi')
+                                                                <span class="invalid-feedback">{{ $message }}</span>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="waktu">Waktu</label>
+                                                            <input type="date"
+                                                                class="form-control @error('waktu') is-invalid @enderror"
+                                                                name="waktu"
+                                                                value="{{ old('waktu', $kecelakaan->waktu) }}">
+                                                            @error('waktu')
+                                                                <span class="invalid-feedback">{{ $message }}</span>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="korban">Korban</label>
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <input type="number"
+                                                                        class="form-control @error('luka_ringan') is-invalid @enderror"
+                                                                        name="luka_ringan" placeholder="LR"
+                                                                        value="{{ old('luka_ringan', $kecelakaan->luka_ringan) }}">
+                                                                    @error('luka_ringan')
+                                                                        <span
+                                                                            class="invalid-feedback">{{ $message }}</span>
+                                                                    @enderror
+                                                                </div>
+                                                                <div class="col">
+                                                                    <input type="number"
+                                                                        class="form-control @error('luka_berat') is-invalid @enderror"
+                                                                        name="luka_berat" placeholder="LB"
+                                                                        value="{{ old('luka_berat', $kecelakaan->luka_berat) }}">
+                                                                    @error('luka_berat')
+                                                                        <span
+                                                                            class="invalid-feedback">{{ $message }}</span>
+                                                                    @enderror
+                                                                </div>
+                                                                <div class="col">
+                                                                    <input type="number"
+                                                                        class="form-control @error('meninggal') is-invalid @enderror"
+                                                                        name="meninggal" placeholder="MD"
+                                                                        value="{{ old('meninggal', $kecelakaan->meninggal) }}">
+                                                                    @error('meninggal')
+                                                                        <span
+                                                                            class="invalid-feedback">{{ $message }}</span>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Tutup</button>
+                                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -66,8 +159,9 @@
         </div>
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+    <!-- Add Modal -->
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <form action="{{ route('kecelakaan.store') }}" method="POST">
@@ -97,7 +191,8 @@
                         </div>
                         <div class="form-group">
                             <label for="waktu">Waktu</label>
-                            <input type="date" class="form-control @error('waktu') is-invalid @enderror" name="waktu">
+                            <input type="date" class="form-control @error('waktu') is-invalid @enderror"
+                                name="waktu" value="{{ old('waktu') }}">
                             @error('waktu')
                                 <span class="invalid-feedback">{{ $message }}</span>
                             @enderror

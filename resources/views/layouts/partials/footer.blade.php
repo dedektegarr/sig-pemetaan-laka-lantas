@@ -6,6 +6,6 @@
     </div>
     <!-- Default to the left -->
     <strong>Copyright &copy; {{ \Carbon\Carbon::now()->format('Y') }}
-        <a href="{{ env('APP_URL') }}"> SIGKKL</a></strong>
+        <a href="{{ env('APP_URL') }}"> {{ env('APP_NAME') }}</a></strong>
     All rights reserved.
 </footer>

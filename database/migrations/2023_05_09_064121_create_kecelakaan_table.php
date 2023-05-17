@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date('waktu');
             $table->timestamps();
 
-            $table->foreign('id_lokasi')->references('id_lokasi')->on('lokasi');
+            $table->foreign('id_lokasi')->references('id_lokasi')->on('lokasi')->onDelete('cascade');
         });
     }
 
