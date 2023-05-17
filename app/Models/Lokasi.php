@@ -11,13 +11,20 @@ class Lokasi extends Model
 
     protected $table = 'lokasi';
     protected $guarded = ['id_lokasi'];
+    protected $primaryKey = 'id_lokasi';
 
     public function kecamatan()
     {
         return $this->belongsTo(Kecamatan::class, 'id_kecamatan');
     }
+
     public function kelurahan()
     {
         return $this->belongsTo(Kelurahan::class, 'id_kelurahan');
+    }
+
+    public function kecelakaan()
+    {
+        return $this->hasMany(Kecelakaan::class, 'id_lokasi');
     }
 }

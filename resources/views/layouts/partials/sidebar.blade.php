@@ -72,7 +72,8 @@
                      </a>
                      <ul class="nav nav-treeview">
                          <li class="nav-item">
-                             <a href="#" class="nav-link">
+                             <a href="{{ route('kecelakaan.index') }}"
+                                 class="nav-link {{ Request::is('administrator/data/kecelakaan/*') || Route::is('kecelakaan.index') ? 'active' : '' }}">
                                  <i class="far fa-circle nav-icon"></i>
                                  <p>Kecelakaan</p>
                              </a>

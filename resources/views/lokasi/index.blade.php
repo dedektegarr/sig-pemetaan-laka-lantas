@@ -7,10 +7,10 @@
                     <h3 class="card-title">{{ $page_title }}</h3>
                 </div>
                 <div class="card-body">
-                    <table class="table" id="table">
-                        <a href="{{ route('lokasi.tambah') }}" class="btn btn-info btn-sm mb-4">
+                    <table class="table table-hover" id="table">
+                        <a href="{{ route('lokasi.create') }}" class="btn btn-info btn-sm mb-4">
                             <i class="fas fa-plus"></i>
-                            Tambah data</a>
+                            Tambah Data Lokasi</a>
                         <thead>
                             <tr>
                                 <th>No</th>

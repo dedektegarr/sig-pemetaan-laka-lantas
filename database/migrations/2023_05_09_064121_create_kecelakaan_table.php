@@ -17,7 +17,6 @@ return new class extends Migration
             $table->integer('luka_ringan');
             $table->integer('luka_berat');
             $table->integer('meninggal');
-            $table->integer('total');
             $table->date('waktu');
             $table->timestamps();
 

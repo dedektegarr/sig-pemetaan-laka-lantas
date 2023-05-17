@@ -16,7 +16,7 @@ class LokasiController extends Controller
         ]);
     }
 
-    public function tambah()
+    public function create()
     {
         return view('lokasi.tambah', [
             'page_title' => 'Tambah Data Lokasi',
@@ -24,7 +24,7 @@ class LokasiController extends Controller
         ]);
     }
 
-    public function insert(Request $request)
+    public function store(Request $request)
     {
         $validated = $request->validate([
             'kota_kabupaten' => 'required',

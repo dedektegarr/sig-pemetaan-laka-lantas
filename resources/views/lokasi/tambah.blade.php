@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <form action="{{ route('lokasi.insert') }}" method="POST">
+    <form action="{{ route('lokasi.store') }}" method="POST">
         @csrf
         <div class="row">
             <div class="col">

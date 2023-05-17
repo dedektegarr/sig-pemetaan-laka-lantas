@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\KecelakaanController;
 use App\Http\Controllers\LokasiController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,12 +21,18 @@ Route::prefix('administrator')->group(function () {
     })->name('dashboard.index');
 
     Route::prefix('data')->group(function () {
+        // LOKASI
         Route::get('/lokasi', [LokasiController::class, 'index'])->name('lokasi.index');
-        Route::get('/lokasi/tambah', [LokasiController::class, 'tambah'])->name('lokasi.tambah');
-        Route::post('/lokasi/insert', [LokasiController::class, 'insert'])->name('lokasi.insert');
+        Route::get('/lokasi/tambah', [LokasiController::class, 'create'])->name('lokasi.create');
+        Route::post('/lokasi/store', [LokasiController::class, 'store'])->name('lokasi.store');
         Route::get('/lokasi/detail/{lokasi:id_lokasi}', [LokasiController::class, 'show'])->name('lokasi.show');
         Route::get('/lokasi/{lokasi:id_lokasi}/edit', [LokasiController::class, 'edit'])->name('lokasi.edit');
         Route::patch('/lokasi/{lokasi:id_lokasi}/update', [LokasiController::class, 'update'])->name('lokasi.update');
         Route::delete('/lokasi/{lokasi:id_lokasi}/destroy', [LokasiController::class, 'destroy'])->name('lokasi.destroy');
+
+        // KECELAKAAN
+        Route::get('/kecelakaan', [KecelakaanController::class, 'index'])->name('kecelakaan.index');
+        Route::get('/kecelakaan/tambah', [KecelakaanController::class, 'create'])->name('kecelakaan.create');
+        Route::post('/kecelakaan/store', [KecelakaanController::class, 'store'])->name('kecelakaan.store');
     });
 });
