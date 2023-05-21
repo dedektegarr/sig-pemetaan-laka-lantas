@@ -12,7 +12,7 @@ class KecelakaanController extends Controller
     {
         $data_kecelakaan = [];
 
-        foreach (Kecelakaan::all() as $kecelakaan) {
+        foreach (Kecelakaan::orderByDesc('created_at')->get() as $kecelakaan) {
             $kecelakaan['total'] = $kecelakaan->luka_ringan + $kecelakaan->luka_berat + $kecelakaan->meninggal;
             $data_kecelakaan[] = $kecelakaan;
         }

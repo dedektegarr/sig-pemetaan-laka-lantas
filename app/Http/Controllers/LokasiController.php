@@ -47,7 +47,6 @@ class LokasiController extends Controller
 
         foreach ($lokasi->kecelakaan as $kecelakaan) {
             $kecelakaan['total'] = $kecelakaan->luka_ringan + $kecelakaan->luka_berat + $kecelakaan->meninggal;
-            $kecelakaan['tahun'] = Carbon::parse($kecelakaan->tanggal)->format('Y');
             $data_kecelakaan[] = $kecelakaan;
         }
 

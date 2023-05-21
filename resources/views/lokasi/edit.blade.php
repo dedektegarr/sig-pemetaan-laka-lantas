@@ -64,7 +64,7 @@
                     <!-- /.card-body -->
 
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Update</button>
+                        <button type="submit" class="btn btn-primary btn-block">Simpan</button>
                     </div>
                 </div>
             </div>
