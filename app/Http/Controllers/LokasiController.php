@@ -34,7 +34,7 @@ class LokasiController extends Controller
             'longitude' => 'required|numeric',
             'latitude' => 'required|numeric',
             'keterangan' => 'nullable|max:255',
-            'nama_jalan' => 'required|max:255'
+            'nama_jalan' => 'required|max:255|unique:lokasi'
         ]);
 
         Lokasi::create($validated);
@@ -68,15 +68,20 @@ class LokasiController extends Controller
 
     public function update(Request $request, Lokasi $lokasi)
     {
-        $validated = $request->validate([
+        $rules = [
             'kota_kabupaten' => 'required',
             'id_kecamatan' => 'required|numeric|max_digits:11',
             'id_kelurahan' => 'required|numeric|max_digits:11',
             'longitude' => 'required|numeric',
             'latitude' => 'required|numeric',
-            'keterangan' => 'nullable|max:255',
-            'nama_jalan' => 'required|max:255'
-        ]);
+            'keterangan' => 'nullable|max:255'
+        ];
+
+        if ($lokasi->nama_jalan != $request->nama_jalan) {
+            $rules['nama_jalan'] = 'required|max:255|unique:lokasi';
+        }
+
+        $validated = $request->validate($rules);
 
         Lokasi::where('id_lokasi', $lokasi->id_lokasi)->update($validated);
         return redirect()->route('lokasi.index')->with('success', 'Data berhasil diupdate');

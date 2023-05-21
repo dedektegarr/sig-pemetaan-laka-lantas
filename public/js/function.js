@@ -46,6 +46,13 @@ const newOptionElement = (parent, data, isSelected) => {
 const resultElement = (data) => {
     $('#results').html('');
     for (let value of data) {
+        // let subDisctrict = '';
+
+        // if (value.address.subdistrict) {
+        //     const subDisctrictArr = value.address.subdistrict.split(' ');
+        //     subDisctrict = subDisctrictArr.slice(0, subDisctrictArr.length - 1).join(' ');
+        // }
+
         const newList = document.createElement('li');
         newList.classList.add('result-item');
         newList.setAttribute('data-coor', `${value.position.lng}, ${value.position.lat}`);

@@ -10,9 +10,15 @@
                         </div>
                         <div class="col">
                             <div class="float-right">
-                                <a href="#" class="btn btn-warning btn-sm">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
+                                    data-target="#addModal">
                                     <i class="fas fa-print"></i>
-                                    Cetak</a>
+                                    Cetak
+                                </button>
+                                {{-- <a href="#" class="btn btn-warning btn-sm">
+                                    <i class="fas fa-print"></i>
+                                    Cetak</a> --}}
                                 <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
                                     data-target="#addModal">
