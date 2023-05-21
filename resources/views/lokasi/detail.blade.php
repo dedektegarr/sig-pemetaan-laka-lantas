@@ -1,10 +1,10 @@
 @extends('layouts.app')
 @section('content')
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-7">
             <div class="card card-primary card-outline">
                 <div class="card-header">
-                    <div class="row">
+                    <div class="row align-items-center">
                         <div class="col">
                             <h3 class="card-title">
                                 <i class="fas fa-map-marker-alt mr-1"></i>
@@ -67,6 +67,49 @@
                             </table>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-5">
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                    <h3 class="card-title">Data Kecelakaan</h3>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered table-hover text-center">
+                        <thead>
+                            <tr>
+                                <th rowspan="2" class="align-middle">Tahun</th>
+                                <th colspan="4">Korban</th>
+                            </tr>
+                            <tr>
+                                <th class="bg-info">LR</th>
+                                <th class="bg-warning">LB</th>
+                                <th class="bg-danger">MD</th>
+                                <th class="bg-primary">Total</th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            @forelse ($data_kecelakaan as $kecelakaan)
+                                <tr>
+                                    <td>{{ $kecelakaan->tahun }}</td>
+                                    <td>{{ $kecelakaan->luka_ringan }}</td>
+                                    <td>{{ $kecelakaan->luka_berat }}</td>
+                                    <td>{{ $kecelakaan->meninggal }}</td>
+                                    <td>{{ $kecelakaan->total }}</td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5">Tidak ada data kecelakaan</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <a href="" class="btn btn-default btn-block">Lihat lebih lengkap</a>
                 </div>
             </div>
         </div>

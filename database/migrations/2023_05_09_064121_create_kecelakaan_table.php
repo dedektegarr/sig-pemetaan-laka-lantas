@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('luka_ringan');
             $table->integer('luka_berat');
             $table->integer('meninggal');
-            $table->date('waktu');
+            $table->date('tanggal');
             $table->timestamps();
 
             $table->foreign('id_lokasi')->references('id_lokasi')->on('lokasi')->onDelete('cascade');

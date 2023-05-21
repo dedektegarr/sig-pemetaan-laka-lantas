@@ -5,7 +5,7 @@
         Anything you want
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; {{ \Carbon\Carbon::now()->format('Y') }}
+    <strong>Copyright &copy; {{ date('Y') }}
         <a href="{{ env('APP_URL') }}"> {{ env('APP_NAME') }}</a></strong>
     All rights reserved.
 </footer>

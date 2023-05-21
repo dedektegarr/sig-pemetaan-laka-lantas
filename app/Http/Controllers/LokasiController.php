@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kecamatan;
 use App\Models\Lokasi;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class LokasiController extends Controller
@@ -42,9 +43,18 @@ class LokasiController extends Controller
 
     public function show(Lokasi $lokasi)
     {
+        $data_kecelakaan = [];
+
+        foreach ($lokasi->kecelakaan as $kecelakaan) {
+            $kecelakaan['total'] = $kecelakaan->luka_ringan + $kecelakaan->luka_berat + $kecelakaan->meninggal;
+            $kecelakaan['tahun'] = Carbon::parse($kecelakaan->tanggal)->format('Y');
+            $data_kecelakaan[] = $kecelakaan;
+        }
+
         return view('lokasi.detail', [
             'page_title' => 'Detail Lokasi',
-            'lokasi' => $lokasi
+            'lokasi' => $lokasi,
+            'data_kecelakaan' => $data_kecelakaan
         ]);
     }
 

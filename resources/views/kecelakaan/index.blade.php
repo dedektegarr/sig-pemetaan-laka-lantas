@@ -4,43 +4,55 @@
         <div class="col-md-12">
             <div class="card card-primary card-outline">
                 <div class="card-header">
-                    <h3 class="card-title">{{ $page_title }}</h3>
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h3 class="card-title">{{ $page_title }}</h3>
+                        </div>
+                        <div class="col">
+                            <div class="float-right">
+                                <a href="#" class="btn btn-warning btn-sm">
+                                    <i class="fas fa-print"></i>
+                                    Cetak</a>
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
+                                    data-target="#addModal">
+                                    <i class="fas fa-plus"></i>
+                                    Tambah Data Kecelakaan
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
-                    <table class="table table-bordered table-hover" id="table">
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-info btn-sm mb-4" data-toggle="modal" data-target="#addModal">
-                            <i class="fas fa-plus"></i>
-                            Tambah Data Kecelakaan
-                        </button>
+                    <table class="table table-bordered table-hover text-center" id="table">
                         <thead>
                             <tr>
-                                <th rowspan="2" style="width:15px" class="text-center align-middle">No</th>
-                                <th rowspan="2" class="text-center align-middle">Nama Jalan</th>
-                                <th rowspan="2" class="text-center align-middle">Tahun</th>
-                                <th colspan="4" class="text-center">Korban</th>
-                                <th rowspan="2" class="text-center align-middle">Aksi</th>
+                                <th rowspan="2" style="width:15px" class=" align-middle">No</th>
+                                <th rowspan="2" class=" align-middle">Nama Jalan</th>
+                                <th rowspan="2" class=" align-middle">Tahun</th>
+                                <th colspan="4">Korban</th>
+                                <th rowspan="2" class=" align-middle">Aksi</th>
                             </tr>
                             <tr>
-                                <th class="text-center bg-info">Luka Ringan</th>
-                                <th class="text-center bg-warning">Luka Berat</th>
-                                <th class="text-center bg-danger">Meninggal</th>
-                                <th class="text-center bg-primary">Total</th>
+                                <th class=" bg-info">Luka Ringan</th>
+                                <th class=" bg-warning">Luka Berat</th>
+                                <th class=" bg-danger">Meninggal</th>
+                                <th class=" bg-primary">Total</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($data_kecelakaan as $kecelakaan)
                                 <tr>
-                                    <td class="text-center">{{ $loop->iteration }}.</td>
-                                    <td class="text-center">
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>
                                         <a href="{{ route('lokasi.show', $kecelakaan->id_lokasi) }}">{{ $kecelakaan->lokasi->nama_jalan }}
                                         </a>
                                     </td>
-                                    <td class="text-center">{{ $kecelakaan->waktu }}</td>
-                                    <td class="text-center">{{ $kecelakaan->luka_ringan }}</td>
-                                    <td class="text-center">{{ $kecelakaan->luka_berat }}</td>
-                                    <td class="text-center">{{ $kecelakaan->meninggal }}</td>
-                                    <td class="text-center">{{ $kecelakaan->total }}</td>
+                                    <td>{{ $kecelakaan->tanggal }}</td>
+                                    <td>{{ $kecelakaan->luka_ringan }}</td>
+                                    <td>{{ $kecelakaan->luka_berat }}</td>
+                                    <td>{{ $kecelakaan->meninggal }}</td>
+                                    <td>{{ $kecelakaan->total }}</td>
                                     <td>
                                         <a href="{{ route('kecelakaan.show', $kecelakaan->id_kecelakaan) }}"
                                             class="btn btn-info btn-sm" data-toggle="Lihat Detail">
@@ -99,12 +111,12 @@
                                                             @enderror
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="waktu">Waktu</label>
+                                                            <label for="tanggal">Tanggal</label>
                                                             <input type="date"
-                                                                class="form-control @error('waktu') is-invalid @enderror"
-                                                                name="waktu"
-                                                                value="{{ old('waktu', $kecelakaan->waktu) }}">
-                                                            @error('waktu')
+                                                                class="form-control @error('tanggal') is-invalid @enderror"
+                                                                name="tanggal"
+                                                                value="{{ old('tanggal', $kecelakaan->tanggal) }}">
+                                                            @error('tanggal')
                                                                 <span class="invalid-feedback">{{ $message }}</span>
                                                             @enderror
                                                         </div>
@@ -193,10 +205,10 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="waktu">Waktu</label>
-                            <input type="date" class="form-control @error('waktu') is-invalid @enderror"
-                                name="waktu" value="{{ old('waktu') }}">
-                            @error('waktu')
+                            <label for="tanggal">Tanggal</label>
+                            <input type="date" class="form-control @error('tanggal') is-invalid @enderror"
+                                name="tanggal" value="{{ old('tanggal') }}">
+                            @error('tanggal')
                                 <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>
