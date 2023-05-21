@@ -32,7 +32,10 @@
                             @foreach ($data_kecelakaan as $kecelakaan)
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}.</td>
-                                    <td class="text-center">{{ $kecelakaan->lokasi->nama_jalan }}</td>
+                                    <td class="text-center">
+                                        <a href="{{ route('lokasi.show', $kecelakaan->id_lokasi) }}">{{ $kecelakaan->lokasi->nama_jalan }}
+                                        </a>
+                                    </td>
                                     <td class="text-center">{{ $kecelakaan->waktu }}</td>
                                     <td class="text-center">{{ $kecelakaan->luka_ringan }}</td>
                                     <td class="text-center">{{ $kecelakaan->luka_berat }}</td>

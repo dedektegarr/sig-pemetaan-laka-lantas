@@ -71,7 +71,17 @@
             <div class="col-md-8">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
-                        <h3 class="card-title">Koordinat</h3>
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h3 class="card-title">Koordinat</h3>
+                            </div>
+                            <div class="col">
+                                <a href="{{ url()->previous() }}" class="btn btn-sm btn-secondary float-right">
+                                    <i class="fas fa-arrow-left"></i>
+                                    Kembali
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="form-group">

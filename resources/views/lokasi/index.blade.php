@@ -4,13 +4,24 @@
         <div class="col-md-12">
             <div class="card card-primary card-outline">
                 <div class="card-header">
-                    <h3 class="card-title">{{ $page_title }}</h3>
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h3 class="card-title">{{ $page_title }}</h3>
+                        </div>
+                        <div class="col">
+                            <div class="float-right">
+                                <a href="#" class="btn btn-warning btn-sm">
+                                    <i class="fas fa-print"></i>
+                                    Cetak</a>
+                                <a href="{{ route('lokasi.create') }}" class="btn btn-info btn-sm">
+                                    <i class="fas fa-plus"></i>
+                                    Tambah Data Lokasi</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <table class="table table-hover" id="table">
-                        <a href="{{ route('lokasi.create') }}" class="btn btn-info btn-sm mb-4">
-                            <i class="fas fa-plus"></i>
-                            Tambah Data Lokasi</a>
                         <thead>
                             <tr>
                                 <th>No</th>
