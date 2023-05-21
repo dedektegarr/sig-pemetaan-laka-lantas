@@ -92,7 +92,6 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        @csrf
                                                         <div class="form-group">
                                                             <label for="id_lokasi">Nama Jalan</label>
                                                             <select
@@ -101,7 +100,7 @@
                                                                 <option value="">Pilih Jalan</option>
                                                                 @foreach ($data_lokasi as $id_lokasi => $nama_lokasi)
                                                                     <option value="{{ $id_lokasi }}"
-                                                                        {{ old('id_lokasi', $id_lokasi) == $id_lokasi ? 'selected' : '' }}>
+                                                                        {{ old('id_lokasi', $kecelakaan->id_lokasi) == $id_lokasi ? 'selected' : '' }}>
                                                                         {{ $nama_lokasi }}
                                                                     </option>
                                                                 @endforeach
@@ -180,6 +179,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <form action="{{ route('kecelakaan.store') }}" method="POST">
+                    @csrf
                     <div class="modal-header">
                         <h5 class="modal-title" id="addModalLabel">Tambah Data Kecelakaan</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -187,7 +187,6 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        @csrf
                         <div class="form-group">
                             <label for="id_lokasi">Nama Jalan</label>
                             <select class="form-control @error('id_lokasi') is-invalid @enderror" name="id_lokasi"
