@@ -12,17 +12,19 @@ class KecelakaanController extends Controller
     public function index()
     {
         $data_kecelakaan = [];
+        $data_bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'Noveber', 'Desember'];
 
-        foreach (Kecelakaan::orderByDesc('created_at')->get() as $kecelakaan) {
+        foreach (Kecelakaan::latest()->filter()->get() as $kecelakaan) {
             $kecelakaan['total'] = $kecelakaan->luka_ringan + $kecelakaan->luka_berat + $kecelakaan->meninggal;
             $data_kecelakaan[] = $kecelakaan;
         }
 
         return view('kecelakaan.index', [
             'page_title' => 'Data Kecelakaan',
-            'data_lokasi' => Lokasi::orderByDesc('nama_jalan')->get(),
+            'data_lokasi' => Lokasi::orderBy('nama_jalan', 'asc')->get(),
             'data_kecamatan' => Kecamatan::all(),
-            'data_kecelakaan' => collect($data_kecelakaan)
+            'data_kecelakaan' => collect($data_kecelakaan),
+            'data_bulan' => $data_bulan
         ]);
     }
 
