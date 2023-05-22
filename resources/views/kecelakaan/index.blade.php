@@ -34,10 +34,12 @@
                         <thead>
                             <tr>
                                 <th rowspan="2" style="width:15px" class=" align-middle">No</th>
+                                <th rowspan="2" class=" align-middle">No. Laka</th>
                                 <th rowspan="2" class=" align-middle">Nama Jalan</th>
-                                <th rowspan="2" class=" align-middle">Tahun</th>
+                                <th rowspan="2" class=" align-middle">Kecamatan</th>
+                                <th rowspan="2" class=" align-middle">Tanggal Kejadian</th>
                                 <th colspan="4">Korban</th>
-                                <th rowspan="2" class=" align-middle">Aksi</th>
+                                <th rowspan="2" class=" align-middle" width="120px">Aksi</th>
                             </tr>
                             <tr>
                                 <th class=" bg-info">Luka Ringan</th>
@@ -50,10 +52,12 @@
                             @foreach ($data_kecelakaan as $kecelakaan)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
+                                    <td style="max-width: 150px; text-transform: uppercase">{{ $kecelakaan->no_laka }}</td>
                                     <td>
                                         <a href="{{ route('lokasi.show', $kecelakaan->id_lokasi) }}">{{ $kecelakaan->lokasi->nama_jalan }}
                                         </a>
                                     </td>
+                                    <td>{{ $kecelakaan->lokasi->kecamatan->nama }}</td>
                                     <td>{{ $kecelakaan->tanggal }}</td>
                                     <td>{{ $kecelakaan->luka_ringan }}</td>
                                     <td>{{ $kecelakaan->luka_berat }}</td>
@@ -99,15 +103,28 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="form-group">
+                                                            <label for="no_laka">No. Laka</label>
+                                                            <input type="text"
+                                                                class="form-control @error('no_laka') is-invalid @enderror"
+                                                                name="no_laka"
+                                                                value="{{ old('no_laka', $kecelakaan->no_laka) }}"
+                                                                placeholder="LP/A/1/I/{{ date('Y') }}"
+                                                                style="text-transform: uppercase">
+                                                            @error('no_laka')
+                                                                <span class="invalid-feedback">{{ $message }}</span>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="form-group">
                                                             <label for="id_lokasi">Nama Jalan</label>
                                                             <select
                                                                 class="form-control @error('id_lokasi') is-invalid @enderror"
                                                                 name="id_lokasi" id="id_lokasi">
                                                                 <option value="">Pilih Jalan</option>
-                                                                @foreach ($data_lokasi as $id_lokasi => $nama_lokasi)
-                                                                    <option value="{{ $id_lokasi }}"
-                                                                        {{ old('id_lokasi', $kecelakaan->id_lokasi) == $id_lokasi ? 'selected' : '' }}>
-                                                                        {{ $nama_lokasi }}
+                                                                @foreach ($data_lokasi as $lokasi)
+                                                                    <option value="{{ $lokasi->id_lokasi }}"
+                                                                        {{ old('id_lokasi', $kecelakaan->id_lokasi) == $lokasi->id_lokasi ? 'selected' : '' }}>
+                                                                        {{ $lokasi->nama_jalan }}
+                                                                        {{ $lokasi->kecamatan->nama }}
                                                                     </option>
                                                                 @endforeach
                                                             </select>
@@ -117,7 +134,7 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="tanggal">Tanggal</label>
-                                                            <input type="date"
+                                                            <input type="datetime-local"
                                                                 class="form-control @error('tanggal') is-invalid @enderror"
                                                                 name="tanggal"
                                                                 value="{{ old('tanggal', $kecelakaan->tanggal) }}">
@@ -194,14 +211,23 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
+                            <label for="no_laka">No. Laka</label>
+                            <input type="text" class="form-control @error('no_laka') is-invalid @enderror"
+                                name="no_laka" value="{{ old('no_laka') }}" placeholder="LP/A/1/I/{{ date('Y') }}"
+                                style="text-transform: uppercase">
+                            @error('no_laka')
+                                <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label for="id_lokasi">Nama Jalan</label>
                             <select class="form-control @error('id_lokasi') is-invalid @enderror" name="id_lokasi"
                                 id="id_lokasi">
                                 <option value="">Pilih Jalan</option>
-                                @foreach ($data_lokasi as $id_lokasi => $nama_lokasi)
-                                    <option value="{{ $id_lokasi }}"
-                                        {{ old('id_lokasi') == $id_lokasi ? 'selected' : '' }}>
-                                        {{ $nama_lokasi }}
+                                @foreach ($data_lokasi as $lokasi)
+                                    <option value="{{ $lokasi->id_lokasi }}"
+                                        {{ old('id_lokasi') == $lokasi->id_lokasi ? 'selected' : '' }}>
+                                        {{ $lokasi->nama_jalan }} {{ $lokasi->kecamatan->nama }}
                                     </option>
                                 @endforeach
                             </select>
@@ -211,7 +237,7 @@
                         </div>
                         <div class="form-group">
                             <label for="tanggal">Tanggal</label>
-                            <input type="date" class="form-control @error('tanggal') is-invalid @enderror"
+                            <input type="datetime-local" class="form-control @error('tanggal') is-invalid @enderror"
                                 name="tanggal" value="{{ old('tanggal') }}">
                             @error('tanggal')
                                 <span class="invalid-feedback">{{ $message }}</span>

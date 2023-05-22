@@ -46,20 +46,26 @@ const newOptionElement = (parent, data, isSelected) => {
 const resultElement = (data) => {
     $('#results').html('');
     for (let value of data) {
-        // let subDisctrict = '';
+        let subDisctrict = '';
+        let district = '';
+        let street = '';
 
-        // if (value.address.subdistrict) {
-        //     const subDisctrictArr = value.address.subdistrict.split(' ');
-        //     subDisctrict = subDisctrictArr.slice(0, subDisctrictArr.length - 1).join(' ');
-        // }
+        if (value.address.subdistrict) {
+            const subDisctrictArr = value.address.subdistrict.split(' ');
+            subDisctrict = ', ' + subDisctrictArr.slice(0, subDisctrictArr.length - 1).join(' ') + ',';
+        }
+
+        if (value.address.district) {
+            district = value.address.district;
+        }
 
         const newList = document.createElement('li');
         newList.classList.add('result-item');
         newList.setAttribute('data-coor', `${value.position.lng}, ${value.position.lat}`);
-        newList.innerText = `${value.address.street}, ${value.address.city}`;
+        newList.innerText = `${value.address.street}${subDisctrict} ${district}`;
 
-        if (value.address.street) {
-            $('#results').append(newList);
-        }
+        // if (value.address.street) {
+        $('#results').append(newList);
+        // }
     }
 }

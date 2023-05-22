@@ -19,7 +19,7 @@ class KecelakaanController extends Controller
 
         return view('kecelakaan.index', [
             'page_title' => 'Data Kecelakaan',
-            'data_lokasi' => Lokasi::orderByDesc('created_at')->pluck('nama_jalan', 'id_lokasi'),
+            'data_lokasi' => Lokasi::orderByDesc('nama_jalan')->get(),
             'data_kecelakaan' => collect($data_kecelakaan)
         ]);
     }
@@ -28,6 +28,7 @@ class KecelakaanController extends Controller
     {
         $validated = $request->validate([
             'id_lokasi' => 'required|numeric',
+            'no_laka' => 'required|unique:kecelakaan',
             'tanggal' => 'required|date',
             'luka_ringan' => 'required|numeric',
             'luka_berat' => 'required|numeric',
@@ -41,13 +42,19 @@ class KecelakaanController extends Controller
 
     public function update(Request $request, Kecelakaan $kecelakaan)
     {
-        $validated = $request->validate([
+        $rules = [
             'id_lokasi' => 'required|numeric',
             'tanggal' => 'required|date',
             'luka_ringan' => 'required|numeric',
             'luka_berat' => 'required|numeric',
             'meninggal' => 'required|numeric'
-        ]);
+        ];
+
+        if ($request->no_laka != $kecelakaan->no_laka) {
+            $rules['no_laka'] = 'required|unique:kecelakaan';
+        }
+
+        $validated = $request->validate($rules);
 
         Kecelakaan::where('id_kecelakaan', $kecelakaan->id_kecelakaan)->update($validated);
 
