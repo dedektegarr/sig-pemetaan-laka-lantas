@@ -14,7 +14,7 @@
                                 <button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
                                     data-target="#printModal">
                                     <i class="fas fa-print"></i>
-                                    Cetak
+                                    Export
                                 </button>
                                 <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
                                     data-target="#addModal">
@@ -197,7 +197,7 @@
                                                         <div class="form-group">
                                                             <label for="id_lokasi">Nama Jalan</label>
                                                             <select
-                                                                class="form-control select2-edit @error('id_lokasi') is-invalid @enderror"
+                                                                class="form-control @error('id_lokasi') is-invalid @enderror"
                                                                 name="id_lokasi" id="id_lokasi">
                                                                 <option value="">Pilih Jalan</option>
                                                                 @foreach ($data_lokasi as $lokasi)
@@ -366,7 +366,7 @@
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form action="{{ route('kecelakaan.index') }}" method="GET">
+                <form action="" method="GET">
                     <div class="modal-header">
                         <h5 class="modal-title" id="printModalLabel">Cetak Data Kecelakaan</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -376,11 +376,12 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="id_kecamatan">Cetak Berdasarkan</label>
-                            <select class="form-control @error('id_kecamatan') is-invalid @enderror" name="id_kecamatan"
-                                id="id_kecamatan">
+                            <select class="form-control  select2-print @error('id_kecamatan') is-invalid @enderror"
+                                name="id_kecamatan" id="id_kecamatan">
                                 <option value="all">Semua Kecamatan</option>
                                 @foreach ($data_kecamatan as $kecamatan)
-                                    <option value="{{ $kecamatan->id }}" {{ old('id_kecamatan') ? 'selected' : '' }}>
+                                    <option value="{{ $kecamatan->id }}"
+                                        {{ request('id_kecamatan') == $kecamatan->id ? 'selected' : '' }}>
                                         {{ $kecamatan->nama }}
                                     </option>
                                 @endforeach
@@ -394,19 +395,12 @@
                                 <div class="form-group">
                                     <select class="form-control @error('bulan') is-invalid @enderror" name="bulan"
                                         id="bulan">
-                                        <option value="all">Dari Bulan</option>
-                                        <option value="january">Januari</option>
-                                        <option value="february">Februari</option>
-                                        <option value="march">Maret</option>
-                                        <option value="april">April</option>
-                                        <option value="may">Mei</option>
-                                        <option value="june">Juni</option>
-                                        <option value="july">Juli</option>
-                                        <option value="august">Agustus</option>
-                                        <option value="september">September</option>
-                                        <option value="october">Oktober</option>
-                                        <option value="november">November</option>
-                                        <option value="december">Desember</option>
+                                        <option value="">Sampai Bulan</option>
+                                        @foreach ($data_bulan as $index => $bulan)
+                                            <option value="{{ $index + 1 }}"
+                                                {{ request('bulan') == $index + 1 ? 'selected' : '' }}>
+                                                {{ $bulan }}</option>
+                                        @endforeach
                                     </select>
                                     @error('bulan')
                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -418,19 +412,12 @@
                                 <div class="form-group">
                                     <select class="form-control @error('bulan_akhir') is-invalid @enderror"
                                         name="bulan_akhir" id="bulan_akhir">
-                                        <option value="alln">Sampai Bulan</option>
-                                        <option value="january">Januari</option>
-                                        <option value="february">Februari</option>
-                                        <option value="march">Maret</option>
-                                        <option value="april">April</option>
-                                        <option value="may">Mei</option>
-                                        <option value="june">Juni</option>
-                                        <option value="july">Juli</option>
-                                        <option value="august">Agustus</option>
-                                        <option value="september">September</option>
-                                        <option value="october">Oktober</option>
-                                        <option value="november">November</option>
-                                        <option value="december">Desember</option>
+                                        <option value="">Sampai Bulan</option>
+                                        @foreach ($data_bulan as $index => $bulan)
+                                            <option value="{{ $index + 1 }}"
+                                                {{ request('bulan_akhir') == $index + 1 ? 'selected' : '' }}>
+                                                {{ $bulan }}</option>
+                                        @endforeach
                                     </select>
                                     @error('bulan_akhir')
                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -445,11 +432,13 @@
                                         @php
                                             $startYear = 2020;
                                             $endYear = date('Y');
-                                            $years = range($startYear, $endYear);
+                                            $years = range($endYear, $startYear);
                                         @endphp
 
                                         @foreach ($years as $year)
-                                            <option value="{{ $year }}">{{ $year }}</option>
+                                            <option value="{{ $year }}"
+                                                {{ request('tahun') == $year ? 'selected' : '' }}>{{ $year }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -458,7 +447,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        <button type="submit" class="btn btn-primary">Export</button>
                     </div>
                 </form>
             </div>
@@ -472,6 +461,7 @@
                 ordering: false
             });
 
+            // SELECT2
             const actionBtn = $('#actionBtn');
             actionBtn.on('click', function(e) {
                 const editModal = e.target.getAttribute('data-target');
@@ -479,11 +469,12 @@
                     $('#id_lokasi').select2();
                 })
             });
-
             $('.select2').select2();
-
             $('.select2-add').select2({
                 dropdownParent: '#addModal'
+            });
+            $('.select2-print').select2({
+                dropdownParent: '#printModal'
             });
         });
 
