@@ -12,14 +12,10 @@
                             <div class="float-right">
                                 <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
-                                    data-target="#addModal">
+                                    data-target="#printModal">
                                     <i class="fas fa-print"></i>
                                     Cetak
                                 </button>
-                                {{-- <a href="#" class="btn btn-warning btn-sm">
-                                    <i class="fas fa-print"></i>
-                                    Cetak</a> --}}
-                                <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
                                     data-target="#addModal">
                                     <i class="fas fa-plus"></i>
@@ -264,6 +260,93 @@
                                     <input type="number" class="form-control @error('meninggal') is-invalid @enderror"
                                         name="meninggal" placeholder="MD" value="{{ old('meninggal') }}">
                                     @error('meninggal')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Print Modal -->
+    <div class="modal fade" id="printModal" tabindex="-1" role="dialog" aria-labelledby="printModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="{{ route('kecelakaan.index') }}" method="GET">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="printModalLabel">Cetak Data Kecelakaan</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="id_kecamatan">Cetak Berdasarkan</label>
+                            <select class="form-control @error('id_kecamatan') is-invalid @enderror" name="id_kecamatan"
+                                id="id_kecamatan">
+                                <option value="all">Semua Kecamatan</option>
+                                @foreach ($data_kecamatan as $kecamatan)
+                                    <option value="{{ $kecamatan->id }}" {{ old('id_kecamatan') ? 'selected' : '' }}>
+                                        {{ $kecamatan->nama }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('id_kecamatan')
+                                <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <select class="form-control @error('bulan') is-invalid @enderror" name="bulan"
+                                        id="bulan">
+                                        <option value="all">Dari Bulan</option>
+                                        <option value="january">Januari</option>
+                                        <option value="february">Februari</option>
+                                        <option value="march">Maret</option>
+                                        <option value="april">April</option>
+                                        <option value="may">Mei</option>
+                                        <option value="june">Juni</option>
+                                        <option value="july">Juli</option>
+                                        <option value="august">Agustus</option>
+                                        <option value="september">September</option>
+                                        <option value="october">Oktober</option>
+                                        <option value="november">November</option>
+                                        <option value="december">Desember</option>
+                                    </select>
+                                    @error('bulan')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="form-group">
+                                    <select class="form-control @error('bulan_akhir') is-invalid @enderror"
+                                        name="bulan_akhir" id="bulan_akhir">
+                                        <option value="all">Sampai Bulan</option>
+                                        <option value="january">Januari</option>
+                                        <option value="february">Februari</option>
+                                        <option value="march">Maret</option>
+                                        <option value="april">April</option>
+                                        <option value="may">Mei</option>
+                                        <option value="june">Juni</option>
+                                        <option value="july">Juli</option>
+                                        <option value="august">Agustus</option>
+                                        <option value="september">September</option>
+                                        <option value="october">Oktober</option>
+                                        <option value="november">November</option>
+                                        <option value="december">Desember</option>
+                                    </select>
+                                    @error('bulan_akhir')
                                         <span class="invalid-feedback">{{ $message }}</span>
                                     @enderror
                                 </div>

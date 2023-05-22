@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kecamatan;
 use App\Models\Kecelakaan;
 use App\Models\Lokasi;
 use Illuminate\Http\Request;
@@ -20,6 +21,7 @@ class KecelakaanController extends Controller
         return view('kecelakaan.index', [
             'page_title' => 'Data Kecelakaan',
             'data_lokasi' => Lokasi::orderByDesc('nama_jalan')->get(),
+            'data_kecamatan' => Kecamatan::all(),
             'data_kecelakaan' => collect($data_kecelakaan)
         ]);
     }
