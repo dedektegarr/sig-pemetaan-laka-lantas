@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\KecelakaanController;
 use App\Http\Controllers\LokasiController;
+use App\Models\Kecelakaan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,5 +38,6 @@ Route::prefix('administrator')->group(function () {
         Route::patch('/kecelakaan/{kecelakaan:id_kecelakaan}/detail', [KecelakaanController::class, 'show'])->name('kecelakaan.show');
         Route::patch('/kecelakaan/{kecelakaan:id_kecelakaan}/update', [KecelakaanController::class, 'update'])->name('kecelakaan.update');
         Route::delete('/kecelakaan/{kecelakaan:id_kecelakaan}/destroy', [KecelakaanController::class, 'destroy'])->name('kecelakaan.destroy');
+        Route::get('/kecelakaan/export', [KecelakaanController::class, 'export'])->name('kecelakaan.export');
     });
 });

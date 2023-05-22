@@ -366,7 +366,7 @@
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form action="" method="GET">
+                <form action="{{ route('kecelakaan.export') }}" method="GET">
                     <div class="modal-header">
                         <h5 class="modal-title" id="printModalLabel">Cetak Data Kecelakaan</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">

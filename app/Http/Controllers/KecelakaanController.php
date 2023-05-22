@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\KecelakaanExport;
 use App\Models\Kecamatan;
 use App\Models\Kecelakaan;
 use App\Models\Lokasi;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class KecelakaanController extends Controller
 {
@@ -70,5 +72,10 @@ class KecelakaanController extends Controller
         Kecelakaan::where('id_kecelakaan', $kecelakaan->id_kecelakaan)->delete();
 
         return redirect()->back()->with('success', 'Data berhasil dihapus');
+    }
+
+    public function export()
+    {
+        return Excel::download(new KecelakaanExport, 'test.xlsx');
     }
 }
