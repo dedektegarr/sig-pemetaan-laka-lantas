@@ -26,6 +26,94 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    <form action="{{ route('kecelakaan.index') }}" method="GET">
+                        <div class="form-group">
+                            <label for="id_kecamatan">Filter</label>
+                            <select class="form-control @error('id_kecamatan') is-invalid @enderror" name="id_kecamatan"
+                                id="id_kecamatan">
+                                <option value="all">Semua Kecamatan</option>
+                                @foreach ($data_kecamatan as $kecamatan)
+                                    <option value="{{ $kecamatan->id }}" {{ old('id_kecamatan') ? 'selected' : '' }}>
+                                        {{ $kecamatan->nama }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('id_kecamatan')
+                                <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <select class="form-control @error('bulan') is-invalid @enderror" name="bulan"
+                                        id="bulan">
+                                        <option value="">Dari Bulan</option>
+                                        <option value="january">Januari</option>
+                                        <option value="february">Februari</option>
+                                        <option value="march">Maret</option>
+                                        <option value="april">April</option>
+                                        <option value="may">Mei</option>
+                                        <option value="june">Juni</option>
+                                        <option value="july">Juli</option>
+                                        <option value="august">Agustus</option>
+                                        <option value="september">September</option>
+                                        <option value="october">Oktober</option>
+                                        <option value="november">November</option>
+                                        <option value="december">Desember</option>
+                                    </select>
+                                    @error('bulan')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="form-group">
+                                    <select class="form-control @error('bulan_akhir') is-invalid @enderror"
+                                        name="bulan_akhir" id="bulan_akhir">
+                                        <option value="">Sampai Bulan</option>
+                                        <option value="january">Januari</option>
+                                        <option value="february">Februari</option>
+                                        <option value="march">Maret</option>
+                                        <option value="april">April</option>
+                                        <option value="may">Mei</option>
+                                        <option value="june">Juni</option>
+                                        <option value="july">Juli</option>
+                                        <option value="august">Agustus</option>
+                                        <option value="september">September</option>
+                                        <option value="october">Oktober</option>
+                                        <option value="november">November</option>
+                                        <option value="december">Desember</option>
+                                    </select>
+                                    @error('bulan_akhir')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="form-group">
+                                    <select required name="tahun"
+                                        class="form-control @error('bulan_akhir') is-invalid @enderror">
+                                        @php
+                                            $startYear = 2020;
+                                            $endYear = date('Y');
+                                            $years = range($startYear, $endYear);
+                                        @endphp
+
+                                        @foreach ($years as $year)
+                                            <option value="{{ $year }}">{{ $year }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <button type="submit" class="btn btn-primary">Simpan</button>
+
+                            </div>
+                        </div>
+                    </form>
+
                     <table class="table table-bordered table-hover text-center" id="table">
                         <thead>
                             <tr>
@@ -48,7 +136,9 @@
                             @foreach ($data_kecelakaan as $kecelakaan)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td style="max-width: 150px; text-transform: uppercase">{{ $kecelakaan->no_laka }}</td>
+                                    <td style="max-width: 150px; text-transform: uppercase">
+                                        {{ $kecelakaan->no_laka }}
+                                    </td>
                                     <td>
                                         <a href="{{ route('lokasi.show', $kecelakaan->id_lokasi) }}">{{ $kecelakaan->lokasi->nama_jalan }}
                                         </a>
@@ -81,16 +171,20 @@
                                     </td>
 
                                     <!-- Edit Modal -->
-                                    <div class="modal fade" id="editModal-{{ $kecelakaan->id_kecelakaan }}" tabindex="-1"
-                                        role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="editModal-{{ $kecelakaan->id_kecelakaan }}"
+                                        tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+                                        aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
-                                                <form action="{{ route('kecelakaan.update', $kecelakaan->id_kecelakaan) }}"
+                                                <form
+                                                    action="{{ route('kecelakaan.update', $kecelakaan->id_kecelakaan) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('PATCH')
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="editModalLabel">Edit Data Kecelakaan
+                                                        <h5 class="modal-title" id="editModalLabel">Edit
+                                                            Data
+                                                            Kecelakaan
                                                         </h5>
                                                         <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close">
@@ -188,8 +282,10 @@
                         </tbody>
                     </table>
                 </div>
+                </form>
             </div>
         </div>
+    </div>
     </div>
 
     <!-- Add Modal -->
@@ -332,7 +428,7 @@
                                 <div class="form-group">
                                     <select class="form-control @error('bulan_akhir') is-invalid @enderror"
                                         name="bulan_akhir" id="bulan_akhir">
-                                        <option value="all">Sampai Bulan</option>
+                                        <option value="alln">Sampai Bulan</option>
                                         <option value="january">Januari</option>
                                         <option value="february">Februari</option>
                                         <option value="march">Maret</option>
@@ -349,6 +445,23 @@
                                     @error('bulan_akhir')
                                         <span class="invalid-feedback">{{ $message }}</span>
                                     @enderror
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="form-group">
+                                    <select name="tahun"
+                                        class="form-control @error('bulan_akhir') is-invalid @enderror">
+                                        @php
+                                            $startYear = 2020;
+                                            $endYear = date('Y');
+                                            $years = range($startYear, $endYear);
+                                        @endphp
+
+                                        @foreach ($years as $year)
+                                            <option value="{{ $year }}">{{ $year }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>
