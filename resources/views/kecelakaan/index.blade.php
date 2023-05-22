@@ -98,12 +98,13 @@
                                 </div>
                             </div>
                             <div class="col">
-                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-search"></i></button>
 
                             </div>
                         </div>
                     </form>
-
+                    <hr>
                     <table class="table table-bordered table-hover text-center" id="table">
                         <thead>
                             <tr>
