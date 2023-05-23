@@ -69,3 +69,10 @@ const resultElement = (data) => {
         // }
     }
 }
+
+// SELECT2
+const select2Init = (element, parent) => {
+    $(element).select2({
+        dropdownParent: parent
+    });
+}

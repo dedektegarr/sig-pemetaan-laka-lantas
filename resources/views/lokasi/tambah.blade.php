@@ -121,7 +121,7 @@
             }
 
             $(window).on('click', () => $('#results').css('display', 'none'));
-            $('.select2').select2();
+            select2Init('.select2');
 
             if ($('#longitude').val() && $('#latitude').val()) {
                 setMap({

@@ -29,8 +29,8 @@
                     <form action="{{ route('kecelakaan.index') }}" method="GET">
                         <div class="form-group">
                             <label for="id_kecamatan">Filter</label>
-                            <select class="form-control select2 @error('id_kecamatan') is-invalid @enderror"
-                                name="id_kecamatan" id="id_kecamatan">
+                            <select class="form-control @error('id_kecamatan') is-invalid @enderror" name="id_kecamatan"
+                                id="id_kecamatan">
                                 <option value="">Semua Kecamatan</option>
                                 @foreach ($data_kecamatan as $kecamatan)
                                     <option value="{{ $kecamatan->id }}"
@@ -112,7 +112,7 @@
                                 <th rowspan="2" class=" align-middle">No. Laka</th>
                                 <th rowspan="2" class=" align-middle">Nama Jalan</th>
                                 <th rowspan="2" class=" align-middle">Kecamatan</th>
-                                <th rowspan="2" class=" align-middle">Tanggal Kejadian</th>
+                                <th rowspan="2" class=" align-middle">Tgl. Kejadian</th>
                                 <th colspan="4">Korban</th>
                                 <th rowspan="2" class=" align-middle" width="120px">Aksi</th>
                             </tr>
@@ -135,7 +135,7 @@
                                         </a>
                                     </td>
                                     <td>{{ $kecelakaan->lokasi->kecamatan->nama }}</td>
-                                    <td>{{ $kecelakaan->tanggal }}</td>
+                                    <td>{{ $kecelakaan->tgl_kejadian }}</td>
                                     <td>{{ $kecelakaan->luka_ringan }}</td>
                                     <td>{{ $kecelakaan->luka_berat }}</td>
                                     <td>{{ $kecelakaan->meninggal }}</td>
@@ -213,12 +213,22 @@
                                                             @enderror
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="tanggal">Tanggal</label>
+                                                            <label for="tgl_lp">Tanggal Laporan</label>
+                                                            <input type="date"
+                                                                class="form-control @error('tgl_lp') is-invalid @enderror"
+                                                                name="tgl_lp"
+                                                                value="{{ old('tgl_lp', $kecelakaan->tgl_lp) }}">
+                                                            @error('tgl_lp')
+                                                                <span class="invalid-feedback">{{ $message }}</span>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="tgl_kejadian">Tanggal kejadian</label>
                                                             <input type="datetime-local"
-                                                                class="form-control @error('tanggal') is-invalid @enderror"
-                                                                name="tanggal"
-                                                                value="{{ old('tanggal', $kecelakaan->tanggal) }}">
-                                                            @error('tanggal')
+                                                                class="form-control @error('tgl_kejadian') is-invalid @enderror"
+                                                                name="tgl_kejadian"
+                                                                value="{{ old('tgl_kejadian', $kecelakaan->tgl_kejadian) }}">
+                                                            @error('tgl_kejadian')
                                                                 <span class="invalid-feedback">{{ $message }}</span>
                                                             @enderror
                                                         </div>
@@ -318,10 +328,18 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="tanggal">Tanggal</label>
-                            <input type="datetime-local" class="form-control @error('tanggal') is-invalid @enderror"
-                                name="tanggal" value="{{ old('tanggal') }}">
-                            @error('tanggal')
+                            <label for="tgl_lp">Tanggal Laporan</label>
+                            <input type="date" class="form-control @error('tgl_lp') is-invalid @enderror"
+                                name="tgl_lp" value="{{ old('tgl_lp') }}">
+                            @error('tgl_lp')
+                                <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="tgl_kejadian">Tanggal Kejadian</label>
+                            <input type="datetime-local" class="form-control @error('tgl_kejadian') is-invalid @enderror"
+                                name="tgl_kejadian" value="{{ old('tgl_kejadian') }}">
+                            @error('tgl_kejadian')
                                 <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>
@@ -376,8 +394,8 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="id_kecamatan">Cetak Berdasarkan</label>
-                            <select class="form-control  select2-print @error('id_kecamatan') is-invalid @enderror"
-                                name="id_kecamatan" id="id_kecamatan">
+                            <select class="form-control @error('id_kecamatan') is-invalid @enderror" name="id_kecamatan"
+                                id="id_kecamatan_print">
                                 <option value="all">Semua Kecamatan</option>
                                 @foreach ($data_kecamatan as $kecamatan)
                                     <option value="{{ $kecamatan->id }}"
@@ -466,16 +484,13 @@
             actionBtn.on('click', function(e) {
                 const editModal = e.target.getAttribute('data-target');
                 $(editModal).on('show.bs.modal', function() {
-                    $('#id_lokasi').select2();
+                    select2Init('#id_lokasi', editModal);
                 })
             });
-            $('.select2').select2();
-            $('.select2-add').select2({
-                dropdownParent: '#addModal'
-            });
-            $('.select2-print').select2({
-                dropdownParent: '#printModal'
-            });
+
+            select2Init('#id_kecamatan');
+            select2Init('#id_kecamatan_print', '#printModal');
+            select2Init('.select2-add', '#addModal');
         });
 
         // Alert ketika data berhasil ditambahkan

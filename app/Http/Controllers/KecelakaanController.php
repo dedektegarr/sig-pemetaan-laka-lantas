@@ -35,7 +35,8 @@ class KecelakaanController extends Controller
         $validated = $request->validate([
             'id_lokasi' => 'required|numeric',
             'no_laka' => 'required|unique:kecelakaan',
-            'tanggal' => 'required|date',
+            'tgl_kejadian' => 'required|date',
+            'tgl_lp' => 'required|date',
             'luka_ringan' => 'required|numeric',
             'luka_berat' => 'required|numeric',
             'meninggal' => 'required|numeric'
@@ -50,7 +51,8 @@ class KecelakaanController extends Controller
     {
         $rules = [
             'id_lokasi' => 'required|numeric',
-            'tanggal' => 'required|date',
+            'tgl_kejadian' => 'required|date',
+            'tgl_lp' => 'required|date',
             'luka_ringan' => 'required|numeric',
             'luka_berat' => 'required|numeric',
             'meninggal' => 'required|numeric'
