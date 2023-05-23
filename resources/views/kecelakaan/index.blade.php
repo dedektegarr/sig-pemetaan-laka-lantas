@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('kecelakaan.index') }}" method="GET" class="bg-secondary mb-3 p-3 rounded">
+                    <form action="{{ route('kecelakaan.index') }}" method="GET">
                         <div class="form-group">
                             <label for="id_kecamatan">Filter</label>
                             <select class="form-control @error('id_kecamatan') is-invalid @enderror" name="id_kecamatan"
@@ -109,6 +109,7 @@
                             </div>
                         </div>
                     </form>
+                    <hr>
                     <table class="table table-bordered table-hover text-center" id="table">
                         <thead>
                             <tr>
