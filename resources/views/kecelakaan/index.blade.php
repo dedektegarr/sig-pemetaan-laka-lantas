@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('kecelakaan.index') }}" method="GET">
+                    <form action="{{ route('kecelakaan.index') }}" method="GET" class="bg-secondary mb-3 p-3 rounded">
                         <div class="form-group">
                             <label for="id_kecamatan">Filter</label>
                             <select class="form-control @error('id_kecamatan') is-invalid @enderror" name="id_kecamatan"
@@ -99,12 +99,16 @@
                             </div>
                             <div class="col">
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-search"></i></button>
-
+                                    <i class="fas fa-search"></i>
+                                    Cari
+                                </button>
+                                <button type="button" id="resetBtn" class="btn btn-secondary">
+                                    <i class="fas fa-sync"></i>
+                                    Reset
+                                </button>
                             </div>
                         </div>
                     </form>
-                    <hr>
                     <table class="table table-bordered table-hover text-center" id="table">
                         <thead>
                             <tr>
@@ -162,8 +166,9 @@
                                     </td>
 
                                     <!-- Edit Modal -->
-                                    <div class="modal fade" id="editModal-{{ $kecelakaan->id_kecelakaan }}" tabindex="-1"
-                                        role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="editModal-{{ $kecelakaan->id_kecelakaan }}"
+                                        tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+                                        aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <form
@@ -330,7 +335,7 @@
                         <div class="form-group">
                             <label for="tgl_lp">Tanggal Laporan</label>
                             <input type="date" class="form-control @error('tgl_lp') is-invalid @enderror"
-                                name="tgl_lp" value="{{ old('tgl_lp') }}">
+                                name="tgl_lp" value="{{ old('tgl_lp') }}" id="tgl_lp">
                             @error('tgl_lp')
                                 <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
@@ -474,6 +479,12 @@
 @endsection
 @push('script')
     <script>
+        // RESET FILTER
+        $('#resetBtn').on('click', function() {
+            window.history.replaceState({}, document.title, window.location.pathname);
+            window.location.reload();
+        });
+
         $(document).ready(function() {
             $('#table').DataTable({
                 ordering: false
@@ -491,6 +502,9 @@
             select2Init('#id_kecamatan');
             select2Init('#id_kecamatan_print', '#printModal');
             select2Init('.select2-add', '#addModal');
+
+            // set tanggal saat ini kedalam form tanggal LP
+            $('#tgl_lp').val(new Date().toISOString().split("T")[0]);
         });
 
         // Alert ketika data berhasil ditambahkan
