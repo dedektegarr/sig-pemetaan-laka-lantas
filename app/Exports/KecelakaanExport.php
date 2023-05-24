@@ -12,6 +12,6 @@ class KecelakaanExport implements FromCollection
      */
     public function collection()
     {
-        return Kecelakaan::filter()->get();
+        return Kecelakaan::latest()->filter()->get();
     }
 }

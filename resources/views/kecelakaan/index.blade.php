@@ -402,7 +402,7 @@
                             <label for="id_kecamatan">Cetak Berdasarkan</label>
                             <select class="form-control @error('id_kecamatan') is-invalid @enderror" name="id_kecamatan"
                                 id="id_kecamatan_print">
-                                <option value="all">Semua Kecamatan</option>
+                                <option value="">Semua Kecamatan</option>
                                 @foreach ($data_kecamatan as $kecamatan)
                                     <option value="{{ $kecamatan->id }}"
                                         {{ request('id_kecamatan') == $kecamatan->id ? 'selected' : '' }}>
