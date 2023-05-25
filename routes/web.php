@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\KecelakaanController;
 use App\Http\Controllers\LokasiController;
+use App\Http\Controllers\PetaController;
 use App\Models\Kecelakaan;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,8 @@ Route::prefix('administrator')->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard/index');
     })->name('dashboard.index');
+
+    Route::get('/peta', [PetaController::class, 'index'])->name('peta.index');
 
     Route::prefix('data')->group(function () {
         // LOKASI
