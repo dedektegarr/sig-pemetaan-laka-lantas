@@ -6,13 +6,18 @@ use App\Models\Kecelakaan;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\WithStrictNullComparison;
 use Maatwebsite\Excel\Concerns\WithStyles;
-use PhpOffice\PhpSpreadsheet\Style\Alignment as StyleAlignment;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Color;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class KecelakaanExport implements FromCollection, ShouldAutoSize, WithHeadings, WithStyles, WithMapping
+class KecelakaanExport implements FromCollection, ShouldAutoSize, WithHeadings, WithStyles, WithMapping, WithStrictNullComparison, WithColumnWidths
 {
     /**
      * @return \Illuminate\Support\Collection
@@ -49,24 +54,50 @@ class KecelakaanExport implements FromCollection, ShouldAutoSize, WithHeadings, 
 
     public function styles(Worksheet $sheet)
     {
+        // HEADING CELL
         $sheet->getStyle('A1:' . $sheet->getHighestColumn() . 1)
             ->getFont()
             ->setSize(15)
             ->setBold(true);
+        $sheet->getStyle('A1:' . $sheet->getHighestColumn() . 1)
+            ->getFill()
+            ->setFillType(Fill::FILL_SOLID)
+            ->getStartColor()
+            ->setARGB(Color::COLOR_YELLOW);
 
+        // ALL CELL
         $sheet->getStyle('A1:' . $sheet->getHighestColumn() . $sheet->getHighestRow())
             ->getAlignment()
-            ->setHorizontal(StyleAlignment::HORIZONTAL_CENTER);
+            ->setHorizontal(Alignment::HORIZONTAL_CENTER)
+            ->setVertical(Alignment::VERTICAL_CENTER);
+        $sheet->getStyle('A1:' . $sheet->getHighestColumn() . $sheet->getHighestRow())
+            ->getBorders()
+            ->getAllBorders()
+            ->setBorderStyle(Border::BORDER_THIN)
+            ->setColor(new Color(Color::COLOR_BLACK));
+        $sheet->getStyle('A1:' . $sheet->getHighestColumn() . $sheet->getHighestRow())
+            ->getAlignment()
+            ->setWrapText(true);
+    }
+
+    public function columnWidths(): array
+    {
+        return [
+            'B' => 20,
+            'C' => 15,
+            'D' => 15,
+            'E' => 15,
+        ];
     }
 
     public function map($row): array
     {
         return [
             strtoupper($row['no_laka']),
-            $row['luka_ringan'],
-            $row['luka_berat'],
-            $row['meninggal'],
             $row['tgl_kejadian'],
+            $row['meninggal'],
+            $row['luka_berat'],
+            $row['luka_ringan'],
             $row['nama_jalan'],
             $row['kecamatan'],
         ];
