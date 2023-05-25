@@ -47,7 +47,7 @@
                      </a>
                  </li>
                  <li class="nav-item">
-                     <a href="{{route('peta.index')}}" class="nav-link">
+                     <a href="{{ route('peta.index') }}" class="nav-link {{ Route::is('peta.index') ? 'active' : '' }}">
                          <i class="nav-icon fas fa-map"></i>
                          <p>
                              Peta
