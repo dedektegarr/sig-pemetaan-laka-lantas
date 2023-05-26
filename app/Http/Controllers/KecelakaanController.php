@@ -30,43 +30,105 @@ class KecelakaanController extends Controller
         ]);
     }
 
+    public function create()
+    {
+        return view('kecelakaan.tambah', [
+            'page_title' => 'Tambah Data Kecelakaan',
+            'data_kecamatan' => Kecamatan::all()
+        ]);
+    }
+
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'id_lokasi' => 'required|numeric',
+        $data_kecelakaan = [
+            // 'id_lokasi' => 'required|numeric',
             'no_laka' => 'required|unique:kecelakaan',
             'tgl_kejadian' => 'required|date',
             'tgl_lp' => 'required|date',
             'luka_ringan' => 'required|numeric',
             'luka_berat' => 'required|numeric',
-            'meninggal' => 'required|numeric'
+            'meninggal' => 'required|numeric',
+            'keterangan' => 'nullable'
+        ];
+
+        $data_lokasi = [
+            'kota_kabupaten' => 'required',
+            'id_kecamatan' => 'required|numeric|max_digits:11',
+            'id_kelurahan' => 'required|numeric|max_digits:11',
+            'longitude' => 'required|numeric',
+            'latitude' => 'required|numeric',
+            'nama_jalan' => 'required|max:255'
+        ];
+
+        $request->validate(array_merge($data_kecelakaan, $data_lokasi));
+
+        $storedLokasi = Lokasi::create($request->except($data_kecelakaan));
+
+        if ($storedLokasi->exists()) {
+            $request['id_lokasi'] = $storedLokasi->id_lokasi;
+            Kecelakaan::create($request->except($data_lokasi));
+        }
+
+        return redirect()->route('kecelakaan.index')->with('success', 'Data berhasil ditambah');
+    }
+
+    public function edit(Kecelakaan $kecelakaan)
+    {
+        return view('kecelakaan.edit', [
+            'page_title' => 'Edit Data Kecelakaan',
+            'kecelakaan' => $kecelakaan,
+            'data_kecamatan' => Kecamatan::all()
         ]);
-
-        Kecelakaan::create($validated);
-
-        return redirect()->back()->with('success', 'Data berhasil ditambah');
     }
 
     public function update(Request $request, Kecelakaan $kecelakaan)
     {
         $rules = [
-            'id_lokasi' => 'required|numeric',
+            // 'no_laka' => 'nullable',
             'tgl_kejadian' => 'required|date',
             'tgl_lp' => 'required|date',
             'luka_ringan' => 'required|numeric',
             'luka_berat' => 'required|numeric',
-            'meninggal' => 'required|numeric'
+            'meninggal' => 'required|numeric',
+            'keterangan' => 'nullable',
+            'kota_kabupaten' => 'required',
+            'id_kecamatan' => 'required|numeric|max_digits:11',
+            'id_kelurahan' => 'required|numeric|max_digits:11',
+            'longitude' => 'required|numeric',
+            'latitude' => 'required|numeric',
+            'nama_jalan' => 'required|max:255'
         ];
 
         if ($request->no_laka != $kecelakaan->no_laka) {
             $rules['no_laka'] = 'required|unique:kecelakaan';
         }
 
-        $validated = $request->validate($rules);
+        $request->validate($rules);
 
-        Kecelakaan::where('id_kecelakaan', $kecelakaan->id_kecelakaan)->update($validated);
+        $data_lokasi = [
+            'nama_jalan' => $request->nama_jalan,
+            'kota_kabupaten' => $request->kota_kabupaten,
+            'id_kecamatan' => $request->id_kecamatan,
+            'id_kelurahan' => $request->id_kelurahan,
+            'longitude' => $request->longitude,
+            'latitude' => $request->latitude,
+        ];
 
-        return redirect()->back()->with('success', 'Data berhasil diupdate');
+        $data_kecelakaan = [
+            'no_laka' => $request->no_laka,
+            'tgl_lp' => $request->tgl_lp,
+            'luka_ringan' => $request->luka_ringan,
+            'luka_berat' => $request->luka_berat,
+            'meninggal' => $request->meninggal,
+            'keterangan' => $request->keterangan,
+            'tgl_kejadian' => $request->tgl_kejadian,
+        ];
+
+
+        Lokasi::where('id_lokasi', $kecelakaan->id_lokasi)->update($data_lokasi);
+        Kecelakaan::where('id_kecelakaan', $kecelakaan->id_kecelakaan)->update($data_kecelakaan);
+
+        return redirect()->route('kecelakaan.index')->with('success', 'Data berhasil diupdate');
     }
 
     public function destroy(Kecelakaan $kecelakaan)

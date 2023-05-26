@@ -25,6 +25,6 @@ class Lokasi extends Model
 
     public function kecelakaan()
     {
-        return $this->hasMany(Kecelakaan::class, 'id_lokasi');
+        return $this->hasOne(Kecelakaan::class, 'id_lokasi');
     }
 }

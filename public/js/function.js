@@ -64,9 +64,9 @@ const resultElement = (data) => {
         newList.setAttribute('data-coor', `${value.position.lng}, ${value.position.lat}`);
         newList.innerText = `${value.address.street}${subDisctrict} ${district}`;
 
-        // if (value.address.street) {
-        $('#results').append(newList);
-        // }
+        if (value.address.street) {
+            $('#results').append(newList);
+        }
     }
 }
 

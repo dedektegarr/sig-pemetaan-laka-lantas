@@ -16,11 +16,10 @@
                                     <i class="fas fa-print"></i>
                                     Export
                                 </button>
-                                <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
-                                    data-target="#addModal">
+                                <a href="{{ route('kecelakaan.create') }}" class="btn btn-info btn-sm">
                                     <i class="fas fa-plus"></i>
                                     Tambah Data Kecelakaan
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -146,15 +145,14 @@
                                     <td>{{ $kecelakaan->meninggal }}</td>
                                     <td>{{ $kecelakaan->total }}</td>
                                     <td id="actionBtn">
-                                        <a href="{{ route('kecelakaan.show', $kecelakaan->id_kecelakaan) }}"
-                                            class="btn btn-info btn-sm" data-toggle="Lihat Detail">
+                                        <a href="" class="btn btn-info btn-sm" data-toggle="Lihat Detail">
                                             <i class="fas fa-eye"></i>
                                         </a>
                                         <!-- Button trigger modal -->
-                                        <button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
-                                            data-target="#editModal-{{ $kecelakaan->id_kecelakaan }}" id="editBtn">
+                                        <a href="{{ route('kecelakaan.edit', $kecelakaan->id_kecelakaan) }}"
+                                            class="btn btn-warning btn-sm">
                                             <i class="fas fa-edit"></i>
-                                        </button>
+                                        </a>
                                         <form action="{{ route('kecelakaan.destroy', $kecelakaan->id_kecelakaan) }}"
                                             class="d-inline-block" method="POST">
                                             @csrf
@@ -167,9 +165,8 @@
                                     </td>
 
                                     <!-- Edit Modal -->
-                                    <div class="modal fade" id="editModal-{{ $kecelakaan->id_kecelakaan }}"
-                                        tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
-                                        aria-hidden="true">
+                                    <div class="modal fade" id="editModal-{{ $kecelakaan->id_kecelakaan }}" tabindex="-1"
+                                        role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <form
@@ -292,97 +289,6 @@
             </div>
         </div>
     </div>
-    </div>
-
-    <!-- Add Modal -->
-    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <form action="{{ route('kecelakaan.store') }}" method="POST">
-                    @csrf
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addModalLabel">Tambah Data Kecelakaan</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="no_laka">No. Laka</label>
-                            <input type="text" class="form-control @error('no_laka') is-invalid @enderror"
-                                name="no_laka" value="{{ old('no_laka') }}" placeholder="LP/A/1/I/{{ date('Y') }}"
-                                style="text-transform: uppercase">
-                            @error('no_laka')
-                                <span class="invalid-feedback">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="id_lokasi">Nama Jalan</label>
-                            <select class="form-control select2-add @error('id_lokasi') is-invalid @enderror"
-                                name="id_lokasi" id="id_lokasi">
-                                <option value="">Pilih Jalan</option>
-                                @foreach ($data_lokasi as $lokasi)
-                                    <option value="{{ $lokasi->id_lokasi }}"
-                                        {{ old('id_lokasi') == $lokasi->id_lokasi ? 'selected' : '' }}>
-                                        {{ $lokasi->nama_jalan }} {{ $lokasi->kecamatan->nama }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('id_lokasi')
-                                <span class="invalid-feedback">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="tgl_lp">Tanggal Laporan</label>
-                            <input type="date" class="form-control @error('tgl_lp') is-invalid @enderror"
-                                name="tgl_lp" value="{{ old('tgl_lp') }}" id="tgl_lp">
-                            @error('tgl_lp')
-                                <span class="invalid-feedback">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="tgl_kejadian">Tanggal Kejadian</label>
-                            <input type="datetime-local" class="form-control @error('tgl_kejadian') is-invalid @enderror"
-                                name="tgl_kejadian" value="{{ old('tgl_kejadian') }}">
-                            @error('tgl_kejadian')
-                                <span class="invalid-feedback">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="korban">Korban</label>
-                            <div class="row">
-                                <div class="col">
-                                    <input type="number" class="form-control @error('luka_ringan') is-invalid @enderror"
-                                        name="luka_ringan" placeholder="LR" value="{{ old('luka_ringan') }}">
-                                    @error('luka_ringan')
-                                        <span class="invalid-feedback">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                                <div class="col">
-                                    <input type="number" class="form-control @error('luka_berat') is-invalid @enderror"
-                                        name="luka_berat" placeholder="LB" value="{{ old('luka_berat') }}">
-                                    @error('luka_berat')
-                                        <span class="invalid-feedback">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                                <div class="col">
-                                    <input type="number" class="form-control @error('meninggal') is-invalid @enderror"
-                                        name="meninggal" placeholder="MD" value="{{ old('meninggal') }}">
-                                    @error('meninggal')
-                                        <span class="invalid-feedback">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                    </div>
-                </form>
-            </div>
-        </div>
     </div>
 
     <!-- Print Modal -->

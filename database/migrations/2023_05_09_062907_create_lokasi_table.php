@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('kota_kabupaten');
             $table->float('longitude', 9, 6);
             $table->float('latitude', 9, 6);
-            $table->text('keterangan')->nullable();
             $table->timestamps();
         });
     }

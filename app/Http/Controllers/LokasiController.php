@@ -11,9 +11,11 @@ class LokasiController extends Controller
 {
     public function index()
     {
+        $data = Lokasi::all()->unique('nama_jalan');
+
         return view('lokasi.index', [
             'page_title' => 'Data Lokasi',
-            'data_lokasi' => Lokasi::orderByDesc('created_at')->get()
+            'data_lokasi' => $data
         ]);
     }
 

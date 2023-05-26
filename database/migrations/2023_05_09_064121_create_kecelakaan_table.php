@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('meninggal');
             $table->date('tgl_lp');
             $table->datetime('tgl_kejadian');
+            $table->text('keterangan')->nullable();
             $table->timestamps();
 
             $table->foreign('id_lokasi')->references('id_lokasi')->on('lokasi')->onDelete('cascade');

@@ -1,16 +1,42 @@
 @extends('layouts.app')
 @section('content')
-    <form action="{{ route('lokasi.store') }}" method="POST">
+    <form action="{{ route('kecelakaan.store') }}" method="POST">
         @csrf
         <div class="row">
-            <div class="col">
+            <div class="col-md-12">
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h3 class="card-title">Lokasi Kejadian</h3>
+                            </div>
+                            <div class="col">
+                                <a href="{{ url()->previous() }}" class="btn btn-sm btn-secondary float-right">
+                                    <i class="fas fa-arrow-left"></i>
+                                    Kembali
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="nama_jalan">Nama Jalan</label>
+                            <div class="form-autocomplete">
+                                <input type="text" name="nama_jalan" class="form-control" placeholder="Cari jalan..."
+                                    autocomplete="off" id="nama_jalan" value="{{ old('nama_jalan') }}">
+                                <div class="result" id="results"></div>
+                            </div>
+                        </div>
+                        <div id='map' style='height: 350px;'></div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
-                        <h3 class="card-title">Tambah Data Lokasi</h3>
+                        <h3 class="card-title">Lokasi Kejadian</h3>
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
@@ -55,45 +81,81 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title">Data Kecelakaan</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="no_laka">No. Laka</label>
+                            <input type="text" class="form-control @error('no_laka') is-invalid @enderror" name="no_laka"
+                                value="{{ old('no_laka') }}" placeholder="LP/A/1/I/{{ date('Y') }}"
+                                style="text-transform: uppercase">
+                            @error('no_laka')
+                                <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="tgl_lp">Tanggal Laporan</label>
+                            <input type="date" class="form-control @error('tgl_lp') is-invalid @enderror" name="tgl_lp"
+                                value="{{ old('tgl_lp') }}" id="tgl_lp">
+                            @error('tgl_lp')
+                                <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="tgl_kejadian">Tanggal Kejadian</label>
+                            <input type="datetime-local" class="form-control @error('tgl_kejadian') is-invalid @enderror"
+                                name="tgl_kejadian" value="{{ old('tgl_kejadian') }}">
+                            @error('tgl_kejadian')
+                                <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="korban">Korban</label>
+                            <div class="row">
+                                <div class="col">
+                                    <input type="number" class="form-control @error('luka_ringan') is-invalid @enderror"
+                                        name="luka_ringan" placeholder="LR" value="{{ old('luka_ringan') }}">
+                                    @error('luka_ringan')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="col">
+                                    <input type="number" class="form-control @error('luka_berat') is-invalid @enderror"
+                                        name="luka_berat" placeholder="LB" value="{{ old('luka_berat') }}">
+                                    @error('luka_berat')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="col">
+                                    <input type="number" class="form-control @error('meninggal') is-invalid @enderror"
+                                        name="meninggal" placeholder="MD" value="{{ old('meninggal') }}">
+                                    @error('meninggal')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label for="keterangan">Keterangan</label>
                             <textarea name="keterangan" id="keterangan" rows="3" class="form-control">{{ old('keterangan') }}</textarea>
                         </div>
                     </div>
-                    <!-- /.card-body -->
+                </div>
 
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary btn-block">Simpan</button>
-                    </div>
-                </div>
             </div>
-            <div class="col-md-8">
-                <div class="card card-primary card-outline">
-                    <div class="card-header">
-                        <div class="row align-items-center">
-                            <div class="col">
-                                <h3 class="card-title">Koordinat</h3>
-                            </div>
-                            <div class="col">
-                                <a href="{{ url()->previous() }}" class="btn btn-sm btn-secondary float-right">
-                                    <i class="fas fa-arrow-left"></i>
-                                    Kembali
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group">
-                            <label for="nama_jalan">Nama Jalan</label>
-                            <div class="form-autocomplete">
-                                <input type="text" name="nama_jalan" class="form-control" placeholder="Cari jalan..."
-                                    autocomplete="off" id="nama_jalan" value="{{ old('nama_jalan') }}">
-                                <div class="result" id="results"></div>
-                            </div>
-                        </div>
-                        <div id='map' style='height: 350px;'></div>
-                    </div>
-                </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button type="submit" class="btn btn-primary float-right mb-5">
+                    <i class="fas fa-save mr-1"></i>
+                    Simpan</button>
             </div>
         </div>
     </form>
@@ -103,7 +165,19 @@
         // API Wilayan Bengkulu
         const wilayahAPI = "http://localhost:8000/api";
 
+        // tampilkan validasi alert
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                toastr.error('{{ $error }}', '', {
+                    timeOut: 10000
+                });
+            @endforeach
+        @endif
+
         $(document).ready(function() {
+            // Inisiasi
+            select2Init('.select2');
+
             // Menampilkan Map
             setMap({
                 lng: 102.263641,
@@ -120,9 +194,6 @@
                 });
             }
 
-            $(window).on('click', () => $('#results').css('display', 'none'));
-            select2Init('.select2');
-
             if ($('#longitude').val() && $('#latitude').val()) {
                 setMap({
                     lng: $('#longitude').val(),
@@ -131,15 +202,6 @@
                 });
             }
         });
-
-        // tampilkan validasi
-        @if ($errors->any())
-            @foreach ($errors->all() as $error)
-                toastr.error('{{ $error }}', '', {
-                    timeOut: 10000
-                });
-            @endforeach
-        @endif
 
         // Geocoding
         $('#nama_jalan').on('input', function() {
@@ -171,6 +233,7 @@
 
             setMap(position);
         });
+        $(window).on('click', () => $('#results').css('display', 'none'));
 
         // Ketika Kecamatan dipilih
         $('#kecamatan').on('select2:select', function(e) {
