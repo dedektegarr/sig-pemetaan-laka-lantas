@@ -35,7 +35,7 @@
                         <tbody>
                             @foreach ($data_lokasi as $lokasi)
                                 <tr>
-                                    <td>{{ $loop->iteration }}.</td>
+                                    <td>{{ $loop->iteration }}</td>
                                     <td>{{ $lokasi->nama_jalan }}</td>
                                     <td>{{ $lokasi->kota_kabupaten }}</td>
                                     <td>{{ $lokasi->kecamatan->nama }}</td>
