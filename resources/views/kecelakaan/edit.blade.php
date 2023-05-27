@@ -198,7 +198,8 @@
             if ($('#kecamatan').val()) {
                 $('#kelurahan_desa').html('');
                 $.get(`${wilayahAPI}/kelurahan?id_kecamatan=${$('#kecamatan').val()}`, function(response) {
-                    newOptionElement($('#kelurahan_desa'), response.kelurahan);
+                    newOptionElement($('#kelurahan_desa'), response.kelurahan,
+                        {{ $kecelakaan->lokasi->id_kelurahan }});
                 });
             }
 
@@ -247,7 +248,6 @@
         // Ketika Kecamatan dipilih
         $('#kecamatan').on('select2:select', function(e) {
             const id = e.params.data.id;
-            console.log(e.params.data);
             $('#kelurahan_desa').html('<option value="">Pilih Kecamatan Terlebih Dahulu</option>');
             if (id) {
                 $('#kelurahan_desa').html('');

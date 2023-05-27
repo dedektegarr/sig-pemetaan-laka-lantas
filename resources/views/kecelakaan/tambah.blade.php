@@ -238,7 +238,6 @@
         // Ketika Kecamatan dipilih
         $('#kecamatan').on('select2:select', function(e) {
             const id = e.params.data.id;
-            console.log(e.params.data);
             $('#kelurahan_desa').html('<option value="">Pilih Kecamatan Terlebih Dahulu</option>');
             if (id) {
                 $('#kelurahan_desa').html('');

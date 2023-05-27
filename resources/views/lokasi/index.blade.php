@@ -23,9 +23,11 @@
                             <tr>
                                 <th>No</th>
                                 <th>Nama Jalan</th>
-                                <th>Kota / Kabupaten</th>
-                                <th>Kecamatan</th>
                                 <th>Kelurahan / Desa</th>
+                                <th>Kecamatan</th>
+                                <th>Kota / Kabupaten</th>
+                                <th>Bujur</th>
+                                <th>Lintang</th>
                                 <th>AKsi</th>
                             </tr>
                         </thead>
@@ -34,9 +36,11 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $lokasi->nama_jalan }}</td>
-                                    <td>{{ $lokasi->kota_kabupaten }}</td>
-                                    <td>{{ $lokasi->kecamatan->nama }}</td>
                                     <td>{{ $lokasi->kelurahan->nama }}</td>
+                                    <td>{{ $lokasi->kecamatan->nama }}</td>
+                                    <td>{{ $lokasi->kota_kabupaten }}</td>
+                                    <td>{{ $lokasi->longitude }}</td>
+                                    <td>{{ $lokasi->latitude }}</td>
                                     <td>
                                         <a href="{{ route('lokasi.show', $lokasi->id_lokasi) }}" class="btn btn-info btn-sm"
                                             data-toggle="Lihat Detail">
