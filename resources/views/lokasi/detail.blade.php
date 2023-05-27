@@ -50,11 +50,6 @@
                                     <td>{{ $lokasi->latitude }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Keterangan</th>
-                                    <td>:</td>
-                                    <td>{{ $lokasi->keterangan }}</td>
-                                </tr>
-                                <tr>
                                     <th>Terkahir di Update</th>
                                     <td>:</td>
                                     <td>{{ $lokasi->updated_at->locale('id')->translatedFormat('d M Y') }}</td>
@@ -62,74 +57,6 @@
                             </table>
                         </div>
                     </div>
-                </div>
-                <div class="card-footer">
-                    <a href="{{ route('lokasi.edit', $lokasi->id_lokasi) }}" class="btn btn-warning btn-sm">
-                        <i class="fas fa-edit"></i>
-                        Edit
-                    </a>
-                    <form action="{{ route('lokasi.destroy', $lokasi->id_lokasi) }}" class="d-inline-block" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger"
-                            onclick="return confirm('Anda yakin ingin menghapus data lokasi ini?')">
-                            <i class="fas fa-trash"></i>
-                            Hapus
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="card card-primary card-outline">
-                <div class="card-header">
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <h3 class="card-title">Data Kecelakaan</h3>
-                        </div>
-                        <div class="col">
-                            <a href="{{ url()->previous() }}" class="btn btn-secondary btn-sm float-right">
-                                <i class="fas fa-arrow-left"></i>
-                                Kembali
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <table class="table table-bordered table-hover text-center">
-                        <thead>
-                            <tr>
-                                <th rowspan="2" class="align-middle">Tahun</th>
-                                <th colspan="4">Korban</th>
-                            </tr>
-                            <tr>
-                                <th class="bg-info">LR</th>
-                                <th class="bg-warning">LB</th>
-                                <th class="bg-danger">MD</th>
-                                <th class="bg-primary">Total</th>
-                            </tr>
-
-                        </thead>
-                        <tbody>
-                            @forelse ($data_kecelakaan as $kecelakaan)
-                                <tr>
-                                    <td>{{ $kecelakaan->tanggal }}</td>
-                                    <td>{{ $kecelakaan->luka_ringan }}</td>
-                                    <td>{{ $kecelakaan->luka_berat }}</td>
-                                    <td>{{ $kecelakaan->meninggal }}</td>
-                                    <td>{{ $kecelakaan->total }}</td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="5">Tidak ada data kecelakaan</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-                <div class="card-footer">
-                    <a href="" class="btn btn-secondary btn-block">Lihat lebih lengkap</a>
                 </div>
             </div>
         </div>

@@ -28,7 +28,7 @@ Route::prefix('administrator')->group(function () {
         // LOKASI
         Route::get('/lokasi', [LokasiController::class, 'index'])->name('lokasi.index');
         Route::post('/lokasi/store', [LokasiController::class, 'store'])->name('lokasi.store');
-        Route::get('/lokasi/{lokasi:id_lokasi}/detail', [LokasiController::class, 'show'])->name('lokasi.show');
+        Route::get('/lokasi/{lokasi:nama_jalan}/detail', [LokasiController::class, 'show'])->name('lokasi.show');
         Route::get('/lokasi/export', [LokasiController::class, 'export'])->name('lokasi.export');
 
         // KECELAKAAN

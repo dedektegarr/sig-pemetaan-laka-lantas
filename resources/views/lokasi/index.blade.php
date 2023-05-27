@@ -43,8 +43,8 @@
                                     <td>{{ $lokasi->longitude }}</td>
                                     <td>{{ $lokasi->latitude }}</td>
                                     <td>
-                                        <a href="{{ route('lokasi.show', $lokasi->id_lokasi) }}" class="btn btn-info btn-sm"
-                                            data-toggle="Lihat Detail">
+                                        <a href="{{ route('lokasi.show', $lokasi->nama_jalan) }}"
+                                            class="btn btn-info btn-sm" data-toggle="Lihat Detail">
                                             <i class="fas fa-eye"></i>
                                             Lihat Peta
                                         </a>

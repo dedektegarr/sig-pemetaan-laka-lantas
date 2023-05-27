@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\KecelakaanExport;
 use App\Exports\LokasiExport;
 use App\Models\Kecamatan;
+use App\Models\Kecelakaan;
 use App\Models\Kelurahan;
 use App\Models\Lokasi;
 use Carbon\Carbon;
@@ -51,12 +52,9 @@ class LokasiController extends Controller
 
     public function show(Lokasi $lokasi)
     {
-        $data_kecelakaan = [];
-
-        foreach ($lokasi->kecelakaan as $kecelakaan) {
-            $kecelakaan['total'] = $kecelakaan->luka_ringan + $kecelakaan->luka_berat + $kecelakaan->meninggal;
-            $data_kecelakaan[] = $kecelakaan;
-        }
+        $data_kecelakaan = Kecelakaan::all()->filter(function ($data) use ($lokasi) {
+            return $lokasi->nama_jalan == $data->lokasi->nama_jalan;
+        });
 
         return view('lokasi.detail', [
             'page_title' => 'Detail Lokasi',
