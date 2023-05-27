@@ -25,7 +25,8 @@ class KecelakaanExport implements FromCollection, ShouldAutoSize, WithHeadings, 
     public function collection()
     {
         $all_data = Kecelakaan::latest()->filter()->get();
-        return $all_data->map(function ($data) {
+        return $all_data->map(function ($data, $index) {
+            $export['no'] = $index + 1;
             $export['no_laka'] = $data->no_laka;
             $export['luka_ringan'] = $data->luka_ringan;
             $export['luka_berat'] = $data->luka_berat;
@@ -40,6 +41,7 @@ class KecelakaanExport implements FromCollection, ShouldAutoSize, WithHeadings, 
     public function headings(): array
     {
         return [
+            'No',
             'No. Laka',
             'Tanggal Kejadian',
             'Jumlah Meninggal Dunia',
@@ -81,16 +83,18 @@ class KecelakaanExport implements FromCollection, ShouldAutoSize, WithHeadings, 
     public function columnWidths(): array
     {
         return [
-            'B' => 20,
-            'C' => 15,
+            'A' => 8,
+            'C' => 20,
             'D' => 15,
             'E' => 15,
+            'F' => 15,
         ];
     }
 
     public function map($row): array
     {
         return [
+            $row['no'],
             strtoupper($row['no_laka']),
             $row['tgl_kejadian'],
             $row['meninggal'],

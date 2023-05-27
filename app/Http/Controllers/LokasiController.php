@@ -52,14 +52,17 @@ class LokasiController extends Controller
 
     public function show(Lokasi $lokasi)
     {
-        $data_kecelakaan = Kecelakaan::all()->filter(function ($data) use ($lokasi) {
+        $data_kecelakaan = Kecelakaan::filter()->get()->filter(function ($data) use ($lokasi) {
             return $lokasi->nama_jalan == $data->lokasi->nama_jalan;
         });
+
+        $data_bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'Noveber', 'Desember'];
 
         return view('lokasi.detail', [
             'page_title' => 'Detail Lokasi',
             'lokasi' => $lokasi,
-            'data_kecelakaan' => $data_kecelakaan
+            'data_kecelakaan' => $data_kecelakaan->values()->all(),
+            'data_bulan' => $data_bulan
         ]);
     }
 

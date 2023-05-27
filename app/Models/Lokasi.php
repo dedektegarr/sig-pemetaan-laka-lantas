@@ -21,6 +21,9 @@ class Lokasi extends Model
         if (request('id_kelurahan') ?? false) {
             $query->where('id_kelurahan', request('id_kelurahan'));
         }
+        if (request('tahun') ?? false) {
+            $query->whereYear('tgl_kejadian', request('tahun'));
+        }
 
         return $query;
     }
