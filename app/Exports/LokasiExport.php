@@ -2,14 +2,10 @@
 
 namespace App\Exports;
 
-use App\Models\Kecelakaan;
-use Carbon\Carbon;
+use App\Models\Lokasi;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
-use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use Maatwebsite\Excel\Concerns\WithHeadings;
-use Maatwebsite\Excel\Concerns\WithMapping;
-use Maatwebsite\Excel\Concerns\WithStrictNullComparison;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
@@ -17,22 +13,22 @@ use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class KecelakaanExport implements FromCollection, ShouldAutoSize, WithHeadings, WithStyles, WithMapping, WithStrictNullComparison, WithColumnWidths
+class LokasiExport implements FromCollection, ShouldAutoSize, WithHeadings, WithStyles
 {
     /**
      * @return \Illuminate\Support\Collection
      */
     public function collection()
     {
-        $all_data = Kecelakaan::latest()->filter()->get();
+        $all_data = Lokasi::latest()->filter()->get();
+
         return $all_data->map(function ($data) {
-            $export['no_laka'] = $data->no_laka;
-            $export['luka_ringan'] = $data->luka_ringan;
-            $export['luka_berat'] = $data->luka_berat;
-            $export['meninggal'] = $data->meninggal;
-            $export['tgl_kejadian'] = Carbon::parse($data->tgl_kejadian)->locale('id')->translatedFormat('d M Y, h:i');
-            $export['nama_jalan'] = $data->lokasi->nama_jalan;
-            $export['kecamatan'] = $data->lokasi->kecamatan->nama;
+            $export['nama_jalan'] = $data->nama_jalan;
+            $export['kelurahan'] = $data->kelurahan->nama;
+            $export['kecamatan'] = $data->kecamatan->nama;
+            $export['kota_kabupaten'] = $data->kota_kabupaten;
+            $export['longitude'] = $data->longitude;
+            $export['latitude'] = $data->latitude;
             return collect($export);
         });
     }
@@ -40,13 +36,12 @@ class KecelakaanExport implements FromCollection, ShouldAutoSize, WithHeadings, 
     public function headings(): array
     {
         return [
-            'No. Laka',
-            'Tanggal Kejadian',
-            'Jumlah Meninggal Dunia',
-            'Jumlah Luka Berat',
-            'Jumlah Luka Ringan',
             'Nama Jalan',
-            'Kecamatan'
+            'Kelurahan',
+            'Kecamatan',
+            'Kota/Kabupaten',
+            'Bujur',
+            'Lintang'
         ];
     }
 
@@ -76,28 +71,5 @@ class KecelakaanExport implements FromCollection, ShouldAutoSize, WithHeadings, 
         $sheet->getStyle('A1:' . $sheet->getHighestColumn() . $sheet->getHighestRow())
             ->getAlignment()
             ->setWrapText(true);
-    }
-
-    public function columnWidths(): array
-    {
-        return [
-            'B' => 20,
-            'C' => 15,
-            'D' => 15,
-            'E' => 15,
-        ];
-    }
-
-    public function map($row): array
-    {
-        return [
-            strtoupper($row['no_laka']),
-            $row['tgl_kejadian'],
-            $row['meninggal'],
-            $row['luka_berat'],
-            $row['luka_ringan'],
-            $row['nama_jalan'],
-            $row['kecamatan'],
-        ];
     }
 }

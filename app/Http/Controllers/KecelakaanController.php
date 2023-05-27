@@ -140,6 +140,6 @@ class KecelakaanController extends Controller
 
     public function export()
     {
-        return Excel::download(new KecelakaanExport, 'test.xlsx');
+        return Excel::download(new KecelakaanExport, 'kecelakaan.xlsx');
     }
 }

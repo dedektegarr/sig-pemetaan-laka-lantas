@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\KecelakaanExport;
+use App\Exports\LokasiExport;
 use App\Models\Kecamatan;
+use App\Models\Kelurahan;
 use App\Models\Lokasi;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class LokasiController extends Controller
 {
@@ -15,7 +19,9 @@ class LokasiController extends Controller
 
         return view('lokasi.index', [
             'page_title' => 'Data Lokasi',
-            'data_lokasi' => $data
+            'data_lokasi' => $data,
+            'data_kecamatan' => Kecamatan::all(),
+            'data_kelurahan' => Kelurahan::all()
         ]);
     }
 
@@ -93,5 +99,10 @@ class LokasiController extends Controller
     {
         Lokasi::where('id_lokasi', $lokasi->id_lokasi)->delete();
         return redirect()->route('lokasi.index')->with('success', 'Data berhasil dihapus');
+    }
+
+    public function export()
+    {
+        return Excel::download(new LokasiExport, 'lokasi.xlsx');
     }
 }

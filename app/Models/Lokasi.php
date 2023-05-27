@@ -13,6 +13,18 @@ class Lokasi extends Model
     protected $guarded = ['id_lokasi'];
     protected $primaryKey = 'id_lokasi';
 
+    public function scopeFilter($query)
+    {
+        if (request('id_kecamatan') ?? false) {
+            $query->where('id_kecamatan', request('id_kecamatan'));
+        }
+        if (request('id_kelurahan') ?? false) {
+            $query->where('id_kelurahan', request('id_kelurahan'));
+        }
+
+        return $query;
+    }
+
     public function kecamatan()
     {
         return $this->belongsTo(Kecamatan::class, 'id_kecamatan');

@@ -181,14 +181,14 @@
             <div class="modal-content">
                 <form action="{{ route('kecelakaan.export') }}" method="GET">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="printModalLabel">Cetak Data Kecelakaan</h5>
+                        <h5 class="modal-title" id="printModalLabel">Export Data Kecelakaan</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="id_kecamatan">Cetak Berdasarkan</label>
+                            <label for="id_kecamatan">Export Berdasarkan</label>
                             <select class="form-control @error('id_kecamatan') is-invalid @enderror" name="id_kecamatan"
                                 id="id_kecamatan_print">
                                 <option value="">Semua Kecamatan</option>

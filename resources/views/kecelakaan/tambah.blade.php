@@ -66,18 +66,16 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="longitude">Longitude</label>
-                                    <input type="text" class="form-control form-control-sm" placeholder="longitude"
-                                        name="longitude" autocomplete="off" value="{{ old('longitude') }}" readonly
-                                        id="longitude">
+                                    <label for="longitude">Bujur</label>
+                                    <input type="text" class="form-control form-control-sm" name="longitude"
+                                        autocomplete="off" value="{{ old('longitude') }}" readonly id="longitude">
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="latitude">Latitude</label>
-                                    <input type="text" class="form-control form-control-sm" placeholder="latitude"
-                                        autocomplete="off" name="latitude" value="{{ old('latitude') }}" readonly
-                                        id="latitude">
+                                    <label for="latitude">Lintang</label>
+                                    <input type="text" class="form-control form-control-sm" autocomplete="off"
+                                        name="latitude" value="{{ old('latitude') }}" readonly id="latitude">
                                 </div>
                             </div>
                         </div>
