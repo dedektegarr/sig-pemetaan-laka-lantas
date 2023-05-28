@@ -147,7 +147,6 @@
                                             class="btn btn-info btn-sm" data-toggle="Lihat Detail">
                                             <i class="fas fa-eye"></i>
                                         </a>
-                                        <!-- Button trigger modal -->
                                         <a href="{{ route('kecelakaan.edit', $kecelakaan->id_kecelakaan) }}"
                                             class="btn btn-warning btn-sm">
                                             <i class="fas fa-edit"></i>
