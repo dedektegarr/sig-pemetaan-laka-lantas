@@ -117,14 +117,13 @@
                                 <th rowspan="2" class=" align-middle">Nama Jalan</th>
                                 <th rowspan="2" class=" align-middle">Kecamatan</th>
                                 <th rowspan="2" class=" align-middle">Tgl. Kejadian</th>
-                                <th colspan="4">Korban</th>
+                                <th colspan="3">Korban</th>
                                 <th rowspan="2" class=" align-middle" width="120px">Aksi</th>
                             </tr>
                             <tr>
                                 <th class=" bg-info">Luka Ringan</th>
                                 <th class=" bg-warning">Luka Berat</th>
                                 <th class=" bg-danger">Meninggal</th>
-                                <th class=" bg-primary">Total</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -143,7 +142,6 @@
                                     <td>{{ $kecelakaan->luka_ringan }}</td>
                                     <td>{{ $kecelakaan->luka_berat }}</td>
                                     <td>{{ $kecelakaan->meninggal }}</td>
-                                    <td>{{ $kecelakaan->total }}</td>
                                     <td id="actionBtn">
                                         <a href="" class="btn btn-info btn-sm" data-toggle="Lihat Detail">
                                             <i class="fas fa-eye"></i>

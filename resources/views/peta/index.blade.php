@@ -36,7 +36,7 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="text-center">2020</td>
+                                <td class="text-center">${data.tgl_kejadian}</td>
                                 <td>
                                     <table cellpadding="3">
                                         <tr>
