@@ -35,6 +35,7 @@ Route::prefix('administrator')->group(function () {
         Route::get('/kecelakaan', [KecelakaanController::class, 'index'])->name('kecelakaan.index');
         Route::get('/kecelakaan/tambah', [KecelakaanController::class, 'create'])->name('kecelakaan.create');
         Route::post('/kecelakaan/store', [KecelakaanController::class, 'store'])->name('kecelakaan.store');
+        Route::get('/kecelakaan/{kecelakaan:id_kecelakaan}/detail', [KecelakaanController::class, 'show'])->name('kecelakaan.show');
         Route::get('/kecelakaan/{kecelakaan:id_kecelakaan}/edit', [KecelakaanController::class, 'edit'])->name('kecelakaan.edit');
         Route::patch('/kecelakaan/{kecelakaan:id_kecelakaan}/update', [KecelakaanController::class, 'update'])->name('kecelakaan.update');
         Route::delete('/kecelakaan/{kecelakaan:id_kecelakaan}/destroy', [KecelakaanController::class, 'destroy'])->name('kecelakaan.destroy');

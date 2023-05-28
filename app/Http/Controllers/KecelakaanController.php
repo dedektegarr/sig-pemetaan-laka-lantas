@@ -72,6 +72,16 @@ class KecelakaanController extends Controller
         return redirect()->route('kecelakaan.index')->with('success', 'Data berhasil ditambah');
     }
 
+    public function show(Kecelakaan $kecelakaan)
+    {
+        $kecelakaan['lokasi'] = $kecelakaan->lokasi;
+
+        return view('kecelakaan.detail', [
+            'page_title' => 'Detail Kecelakaan',
+            'kecelakaan' => $kecelakaan
+        ]);
+    }
+
     public function edit(Kecelakaan $kecelakaan)
     {
         return view('kecelakaan.edit', [

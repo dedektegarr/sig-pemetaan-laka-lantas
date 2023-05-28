@@ -143,7 +143,8 @@
                                     <td>{{ $kecelakaan->luka_berat }}</td>
                                     <td>{{ $kecelakaan->meninggal }}</td>
                                     <td id="actionBtn">
-                                        <a href="" class="btn btn-info btn-sm" data-toggle="Lihat Detail">
+                                        <a href="{{ route('kecelakaan.show', $kecelakaan->id_kecelakaan) }}"
+                                            class="btn btn-info btn-sm" data-toggle="Lihat Detail">
                                             <i class="fas fa-eye"></i>
                                         </a>
                                         <!-- Button trigger modal -->
