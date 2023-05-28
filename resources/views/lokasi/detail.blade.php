@@ -2,14 +2,79 @@
 @section('content')
     @php
         $data_kecelakaan = collect($data_kecelakaan);
+        $total_lr = [];
+        $total_lb = [];
+        $total_md = [];
+        foreach ($data_bulan as $index => $bulan) {
+            $filtered = $data_kecelakaan->filter(function ($kecelakaan) use ($index) {
+                return (int) date('m', strtotime($kecelakaan->tgl_kejadian)) == $index + 1;
+            });
+        
+            $total_lr[] = $filtered->sum('luka_ringan');
+            $total_lb[] = $filtered->sum('luka_berat');
+            $total_md[] = $filtered->sum('meninggal');
+        }
     @endphp
+    <div class="row">
+        <div class="col-md-12">
+            <form action="" method="GET" id="form-filter">
+                @php
+                    $startYear = 2021;
+                    $endYear = date('Y');
+                    $years = range($endYear, $startYear);
+                @endphp
+                <div class="form-group">
+                    <label for="tahun">Tahun</label>
+                    <select name="tahun" id="tahun" class="form-control">
+                        @foreach ($years as $year)
+                            <option value="{{ $year }}" {{ request('tahun') == $year ? 'selected' : '' }}>
+                                {{ $year }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                    <h3 class="card-title">Jumlah korban kecelakaan di {{ $lokasi->nama_jalan }} tahun
+                        {{ request('tahun') ?? date('Y') }}</h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="chart">
+                        <div class="chartjs-size-monitor">
+                            <div class="chartjs-size-monitor-expand">
+                                <div class=""></div>
+                            </div>
+                            <div class="chartjs-size-monitor-shrink">
+                                <div class=""></div>
+                            </div>
+                        </div>
+                        <canvas id="barChart" width="1092" height="200" class="chartjs-render-monitor"></canvas>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-7">
             <div class="card card-primary card-outline">
                 <div class="card-header">
                     <h3 class="card-title">
                         <i class="fas fa-map-marker-alt mr-1"></i>
-                        {{ $lokasi->nama_jalan }}
+                        Lokasi Kejadian
                     </h3>
                 </div>
                 <div class="card-body">
@@ -67,40 +132,13 @@
         <div class="col-md-5">
             <div class="card card-outline card-primary">
                 <div class="card-header">
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <div class="h3 card-title">Kecelakaan Tercatat</div>
-                        </div>
-                        <div class="col">
-                            <a href="{{ url()->previous() }}" class="btn btn-sm btn-secondary float-right">
-                                <i class="fas fa-arrow-left"></i>
-                                Kembali
-                            </a>
-                        </div>
-                    </div>
+                    <div class="h3 card-title">Kecelakaan Tercatat</div>
                 </div>
                 <div class="card-body">
-                    <form action="" method="GET" id="form-filter">
-                        @php
-                            $startYear = 2021;
-                            $endYear = date('Y');
-                            $years = range($endYear, $startYear);
-                        @endphp
-                        <div class="form-group">
-                            <label for="tahun">Tahun</label>
-                            <select name="tahun" id="tahun" class="form-control">
-                                @foreach ($years as $year)
-                                    <option value="{{ $year }}" {{ request('tahun') == $year ? 'selected' : '' }}>
-                                        {{ $year }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </form>
-
                     <table cellpadding="6">
                         <td>Total kecelakaan tercatat di tahun {{ request('tahun') ?? date('Y') }}</td>
                         <td>:</td>
-                        <th>{{ $data_kecelakaan->count() }} kasus</th>
+                        <th>{{ $data_kecelakaan->count() }} kejadian</th>
                     </table>
 
                     <table class="table text-center table-bordered table-hover">
@@ -221,5 +259,72 @@
         $('#tahun').on('change', function() {
             $('#form-filter').submit()
         });
+
+        // BAR CHART
+        const totalLr = @json($total_lr);
+        const totalLb = @json($total_lb);
+        const totalMd = @json($total_md);
+        console.log(totalLr)
+
+        var areaChartData = {
+            labels: ['Januari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November',
+                'Desember'
+            ],
+            datasets: [{
+                    label: 'Luka Ringan',
+                    backgroundColor: 'rgba(23,162,184,.8)',
+                    borderColor: 'rgba(23,162,184,.8)',
+                    pointRadius: false,
+                    pointColor: '#3b8bba',
+                    pointStrokeColor: 'rgba(60,141,188,1)',
+                    pointHighlightFill: '#fff',
+                    pointHighlightStroke: 'rgba(60,141,188,1)',
+                    data: totalLr
+                },
+                {
+                    label: 'Luka Berat',
+                    backgroundColor: 'rgba(255, 193, 7, .8)',
+                    borderColor: 'rgba(255, 193, 7, .8)',
+                    pointRadius: false,
+                    pointColor: 'rgba(210, 214, 222, 1)',
+                    pointStrokeColor: '#c1c7d1',
+                    pointHighlightFill: '#fff',
+                    pointHighlightStroke: 'rgba(220,220,220,1)',
+                    data: totalLb
+                },
+                {
+                    label: 'Meninggal',
+                    backgroundColor: 'rgba(220, 53, 69, .8)',
+                    borderColor: 'rgba(220, 53, 69, .8)',
+                    pointRadius: false,
+                    pointColor: 'rgba(210, 214, 222, 1)',
+                    pointStrokeColor: '#c1c7d1',
+                    pointHighlightFill: '#fff',
+                    pointHighlightStroke: 'rgba(220,220,220,1)',
+                    data: totalMd
+                },
+            ]
+        }
+
+        var barChartCanvas = $('#barChart').get(0).getContext('2d')
+        var barChartData = $.extend(true, {}, areaChartData)
+        var temp0 = areaChartData.datasets[0]
+        var temp1 = areaChartData.datasets[1]
+        var temp2 = areaChartData.datasets[2]
+        barChartData.datasets[0] = temp0
+        barChartData.datasets[1] = temp1
+        barChartData.datasets[2] = temp2
+
+        var barChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            datasetFill: false
+        }
+
+        new Chart(barChartCanvas, {
+            type: 'bar',
+            data: barChartData,
+            options: barChartOptions
+        })
     </script>
 @endpush
