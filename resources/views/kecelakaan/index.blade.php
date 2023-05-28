@@ -135,7 +135,7 @@
                                         {{ $kecelakaan->no_laka }}
                                     </td>
                                     <td>
-                                        <a href="{{ route('lokasi.show', $kecelakaan->id_lokasi) }}">{{ $kecelakaan->lokasi->nama_jalan }}
+                                        <a href="{{ route('lokasi.show', $kecelakaan->lokasi->nama_jalan) }}">{{ $kecelakaan->lokasi->nama_jalan }}
                                         </a>
                                     </td>
                                     <td>{{ $kecelakaan->lokasi->kecamatan->nama }}</td>

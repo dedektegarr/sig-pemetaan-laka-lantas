@@ -98,9 +98,9 @@
                     </form>
 
                     <table cellpadding="6">
-                        <th>Total Kejadian</th>
-                        <th>:</th>
-                        <th>{{ $data_kecelakaan->count() }}</th>
+                        <td>Total kecelakaan tercatat di tahun {{ request('tahun') ?? date('Y') }}</td>
+                        <td>:</td>
+                        <th>{{ $data_kecelakaan->count() }} kasus</th>
                     </table>
 
                     <table class="table text-center table-bordered table-hover">
