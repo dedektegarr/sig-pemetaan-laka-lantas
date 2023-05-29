@@ -13,9 +13,9 @@
         <li class="nav-item">
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
-                <button class="btn btn-secondary nav-link" type="submit">
+                <button class="btn nav-link" type="submit">
                     <i class="fas fa-sign-out-alt mr-1"></i>
-                    keluar
+                    Keluar
                 </button>
             </form>
         </li>

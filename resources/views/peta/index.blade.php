@@ -80,7 +80,7 @@
     </div>
 
     <div class="row mt-3">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <div class="card card-outline card-primary">
                 <div class="card-header">
                     <h3 class="card-title">Jumlah korban kecelakaan
@@ -98,6 +98,38 @@
                         </div>
                         <canvas id="barChart" width="1092" height="300" class="chartjs-render-monitor"></canvas>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card card-danger card-outline">
+                <div class="card-header">
+                    <h3 class="card-title">Lokasi dengan kejadian terbanyak</h3>
+                </div>
+                <div class="card-body">
+                    <table class="table text-center table-bordered table-hover">
+                        <thead class="bg-info">
+                            <tr>
+                                <th width="15px">No</th>
+                                <th>Nama Jalan</th>
+                                <th width="200px">Total Kejadian</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($total_kejadian as $lokasi => $total)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>
+                                        <a href="{{ route('lokasi.show', $lokasi) }}">
+                                            {{ $lokasi }}
+                                        </a>
+                                    </td>
+                                    <td>{{ $total }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
