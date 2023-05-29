@@ -103,11 +103,12 @@
         </div>
 
         <div class="col-md-6">
-            <div class="card card-danger card-outline">
+            <div class="card card-primary card-outline">
                 <div class="card-header">
                     <h3 class="card-title">Lokasi dengan kejadian terbanyak</h3>
                 </div>
                 <div class="card-body">
+                    <p>Data Tahun : <strong>{{ request('tahun_kejadian') ?? 'Semua tahun' }}</strong></p>
                     <table class="table text-center table-bordered table-hover">
                         <thead class="bg-info">
                             <tr>

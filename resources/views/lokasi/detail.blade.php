@@ -134,7 +134,7 @@
                 </div>
                 <div class="card-body">
                     <table cellpadding="6">
-                        <td>Total kecelakaan tercatat di tahun {{ request('tahun') ?? date('Y') }}</td>
+                        <td>Total kecelakaan tercatat {{ request('tahun') ? 'tahun ' . request('tahun') : '' }}</td>
                         <td>:</td>
                         <th>{{ $data_kecelakaan->count() }} kejadian</th>
                     </table>
