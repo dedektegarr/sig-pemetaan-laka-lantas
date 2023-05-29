@@ -226,7 +226,7 @@
         $(document).ready(function() {
             const map = new mapboxgl.Map({
                 container: 'map',
-                style: 'mapbox://styles/mapbox/streets-v12',
+                style: 'mapbox://styles/mapbox/dark-v11',
                 center: longLat,
                 zoom: 14,
             });
@@ -236,7 +236,8 @@
 
             if (dataKecelakaan.length) {
                 for (let kecelakaan of dataKecelakaan) {
-                    var marker = new mapboxgl.Marker()
+                    const myMarker = customMarker(kecelakaan);
+                    var marker = new mapboxgl.Marker(myMarker)
                         .setLngLat({
                             lng: kecelakaan.lokasi.longitude,
                             lat: kecelakaan.lokasi.latitude
@@ -261,7 +262,6 @@
         const totalLr = @json($total_lr);
         const totalLb = @json($total_lb);
         const totalMd = @json($total_md);
-        console.log(totalLr)
 
         var areaChartData = {
             labels: ['Januari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November',

@@ -24,6 +24,24 @@ const setMap = ({ lng, lat, zoom, draggable }) => {
     map.addControl(new mapboxgl.NavigationControl());
 };
 
+const customMarker = data => {
+    let markerBackground;
+    if (data.meninggal > data.luka_berat) {
+        markerBackground = '#E76161';
+    } else if (data.luka_berat > data.luka_ringan) {
+        markerBackground = '#F79327';
+    } else {
+        markerBackground = '#19A7CE';
+    }
+
+    // Create a custom marker element
+    const marker = document.createElement('div');
+    marker.className = 'custom-marker';
+    marker.style.backgroundColor = markerBackground;
+
+    return marker;
+}
+
 // ELEMENT
 // option element
 const newOptionElement = (parent, data, isSelected) => {

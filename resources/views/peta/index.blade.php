@@ -74,7 +74,11 @@
 
             for (let item in data) {
                 const location = data[item].lokasi;
-                var marker = new mapboxgl.Marker()
+                // Marker Color Rules
+                // markerBackground = markerRules(data[item]);
+
+                const myMarker = customMarker(data[item]);
+                var marker = new mapboxgl.Marker(myMarker)
                     .setLngLat([location.longitude, location.latitude])
                     .addTo(map);
 
