@@ -84,7 +84,7 @@ class KecelakaanExport implements FromCollection, ShouldAutoSize, WithHeadings, 
     {
         return [
             'A' => 8,
-            'C' => 20,
+            'C' => 15,
             'D' => 15,
             'E' => 15,
             'F' => 15,
@@ -96,7 +96,7 @@ class KecelakaanExport implements FromCollection, ShouldAutoSize, WithHeadings, 
         return [
             $row['no'],
             strtoupper($row['no_laka']),
-            $row['tgl_kejadian'],
+            $row['tgl_kejadian'] . ' wib',
             $row['meninggal'],
             $row['luka_berat'],
             $row['luka_ringan'],

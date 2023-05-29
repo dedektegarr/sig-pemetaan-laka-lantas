@@ -27,6 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('administrator')->group(function () {
         Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
         Route::get('/peta', [PetaController::class, 'index'])->name('peta.index');
