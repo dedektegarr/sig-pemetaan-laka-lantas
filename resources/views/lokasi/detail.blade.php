@@ -262,11 +262,10 @@
         const totalLr = @json($total_lr);
         const totalLb = @json($total_lb);
         const totalMd = @json($total_md);
+        const bulan = @json($data_bulan);
 
         var areaChartData = {
-            labels: ['Januari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November',
-                'Desember'
-            ],
+            labels: bulan,
             datasets: [{
                     label: 'Luka Ringan',
                     backgroundColor: 'rgba(23,162,184,.8)',

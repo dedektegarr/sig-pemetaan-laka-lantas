@@ -32,6 +32,17 @@ class Kecelakaan extends Model
             $query->whereYear('tgl_lp', request('tahun'));
         }
 
+        // Tampilkan peta berdasarkan lokasi
+        if (request('nama_jalan') ?? false) {
+            $query->join('lokasi', 'kecelakaan.id_lokasi', '=', 'lokasi.id_lokasi')
+                ->select('kecelakaan.*', 'lokasi.nama_jalan')
+                ->where('lokasi.nama_jalan', request('nama_jalan'));
+        }
+
+        if (request('tahun_kejadian') ?? false) {
+            $query->whereYear('tgl_kejadian', request('tahun_kejadian'));
+        }
+
         return $query;
     }
 
