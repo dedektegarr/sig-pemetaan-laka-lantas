@@ -26,6 +26,7 @@
                 <div class="form-group">
                     <label for="tahun">Tahun</label>
                     <select name="tahun" id="tahun" class="form-control">
+                        <option value="">Semua Tahun</option>
                         @foreach ($years as $year)
                             <option value="{{ $year }}" {{ request('tahun') == $year ? 'selected' : '' }}>
                                 {{ $year }}</option>
@@ -39,8 +40,8 @@
         <div class="col-md-12">
             <div class="card card-primary card-outline">
                 <div class="card-header">
-                    <h3 class="card-title">Jumlah korban kecelakaan di {{ $lokasi->nama_jalan }} tahun
-                        {{ request('tahun') ?? date('Y') }}</h3>
+                    <h3 class="card-title">Jumlah korban kecelakaan di {{ $lokasi->nama_jalan }}
+                        {{ request('tahun') }}</h3>
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
                             <i class="fas fa-minus"></i>
