@@ -209,69 +209,56 @@
             }
         });
 
-        // BAR CHART
         const totalLr = @json($total_lr);
         const totalLb = @json($total_lb);
         const totalMd = @json($total_md);
         const bulan = @json($data_bulan);
 
-        var areaChartData = {
-            labels: bulan,
-            datasets: [{
-                    label: 'Luka Ringan',
-                    backgroundColor: 'rgba(23,162,184,.8)',
-                    borderColor: 'rgba(23,162,184,.8)',
-                    pointRadius: false,
-                    pointColor: '#3b8bba',
-                    pointStrokeColor: 'rgba(60,141,188,1)',
-                    pointHighlightFill: '#fff',
-                    pointHighlightStroke: 'rgba(60,141,188,1)',
-                    data: totalLr
-                },
-                {
-                    label: 'Luka Berat',
-                    backgroundColor: 'rgba(255, 193, 7, .8)',
-                    borderColor: 'rgba(255, 193, 7, .8)',
-                    pointRadius: false,
-                    pointColor: 'rgba(210, 214, 222, 1)',
-                    pointStrokeColor: '#c1c7d1',
-                    pointHighlightFill: '#fff',
-                    pointHighlightStroke: 'rgba(220,220,220,1)',
-                    data: totalLb
-                },
-                {
-                    label: 'Meninggal',
-                    backgroundColor: 'rgba(220, 53, 69, .8)',
-                    borderColor: 'rgba(220, 53, 69, .8)',
-                    pointRadius: false,
-                    pointColor: 'rgba(210, 214, 222, 1)',
-                    pointStrokeColor: '#c1c7d1',
-                    pointHighlightFill: '#fff',
-                    pointHighlightStroke: 'rgba(220,220,220,1)',
-                    data: totalMd
-                },
-            ]
-        }
-
-        var barChartCanvas = $('#barChart').get(0).getContext('2d')
-        var barChartData = $.extend(true, {}, areaChartData)
-        var temp0 = areaChartData.datasets[0]
-        var temp1 = areaChartData.datasets[1]
-        var temp2 = areaChartData.datasets[2]
-        barChartData.datasets[0] = temp0
-        barChartData.datasets[1] = temp1
-        barChartData.datasets[2] = temp2
-
-        var barChartOptions = {
-            responsive: true,
-            maintainAspectRatio: false,
-            datasetFill: false
-        }
-
-        new Chart(barChartCanvas, {
+        // BAR CHART
+        new Chart($('#barChart').get(0).getContext('2d'), {
             type: 'bar',
-            data: barChartData,
-            options: barChartOptions
-        })
+            data: $.extend(true, {}, {
+                labels: bulan,
+                datasets: [{
+                        label: 'Luka Ringan',
+                        backgroundColor: 'rgba(23,162,184,.8)',
+                        borderColor: 'rgba(23,162,184,.8)',
+                        pointRadius: false,
+                        pointColor: '#3b8bba',
+                        pointStrokeColor: 'rgba(60,141,188,1)',
+                        pointHighlightFill: '#fff',
+                        pointHighlightStroke: 'rgba(60,141,188,1)',
+                        data: totalLr
+                    },
+                    {
+                        label: 'Luka Berat',
+                        backgroundColor: 'rgba(255, 193, 7, .8)',
+                        borderColor: 'rgba(255, 193, 7, .8)',
+                        pointRadius: false,
+                        pointColor: 'rgba(210, 214, 222, 1)',
+                        pointStrokeColor: '#c1c7d1',
+                        pointHighlightFill: '#fff',
+                        pointHighlightStroke: 'rgba(220,220,220,1)',
+                        data: totalLb
+                    },
+                    {
+                        label: 'Meninggal',
+                        backgroundColor: 'rgba(220, 53, 69, .8)',
+                        borderColor: 'rgba(220, 53, 69, .8)',
+                        pointRadius: false,
+                        pointColor: 'rgba(210, 214, 222, 1)',
+                        pointStrokeColor: '#c1c7d1',
+                        pointHighlightFill: '#fff',
+                        pointHighlightStroke: 'rgba(220,220,220,1)',
+                        data: totalMd
+                    },
+                ]
+            }),
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                datasetFill: false
+            }
+        });
     </script>
 @endpush
