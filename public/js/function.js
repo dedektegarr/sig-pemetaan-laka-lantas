@@ -26,9 +26,9 @@ const setMap = ({ lng, lat, zoom, draggable }) => {
 
 const customMarker = data => {
     let markerBackground;
-    if (data.meninggal > data.luka_berat) {
+    if (data.meninggal) {
         markerBackground = '#E76161';
-    } else if (data.luka_berat > data.luka_ringan) {
+    } else if (data.luka_berat) {
         markerBackground = '#F79327';
     } else {
         markerBackground = '#19A7CE';
