@@ -135,7 +135,10 @@
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                datasetFill: false
+                datasetFill: false,
+                ticks: {
+                    precision: 0
+                }
             }
         });
 
@@ -159,7 +162,10 @@
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                datasetFill: false
+                datasetFill: false,
+                ticks: {
+                    precision: 0
+                }
             }
         });
     </script>
