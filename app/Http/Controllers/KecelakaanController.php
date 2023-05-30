@@ -144,6 +144,7 @@ class KecelakaanController extends Controller
     public function destroy(Kecelakaan $kecelakaan)
     {
         Kecelakaan::where('id_kecelakaan', $kecelakaan->id_kecelakaan)->delete();
+        Lokasi::where('id_lokasi', $kecelakaan->id_lokasi)->delete();
 
         return redirect()->back()->with('success', 'Data berhasil dihapus');
     }
