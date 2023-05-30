@@ -84,6 +84,7 @@ class KecelakaanExport implements FromCollection, ShouldAutoSize, WithHeadings, 
     {
         return [
             'A' => 8,
+            'B' => 20,
             'C' => 15,
             'D' => 15,
             'E' => 15,

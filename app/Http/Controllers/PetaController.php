@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Kecelakaan;
 use App\Models\Lokasi;
-use Illuminate\Http\Request;
 
 class PetaController extends Controller
 {

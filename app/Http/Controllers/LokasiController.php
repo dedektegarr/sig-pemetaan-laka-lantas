@@ -8,7 +8,6 @@ use App\Models\Kecamatan;
 use App\Models\Kecelakaan;
 use App\Models\Kelurahan;
 use App\Models\Lokasi;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
