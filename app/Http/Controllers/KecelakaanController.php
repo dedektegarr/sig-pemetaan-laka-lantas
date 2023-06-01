@@ -21,7 +21,7 @@ class KecelakaanController extends Controller
             'page_title' => 'Data Kecelakaan',
             'data_lokasi' => Lokasi::orderBy('nama_jalan', 'asc')->get(),
             'data_kecamatan' => Kecamatan::all(),
-            'data_kecelakaan' => Kecelakaan::orderBy('no_laka')->get(),
+            'data_kecelakaan' => Kecelakaan::filter()->orderBy('no_laka')->get(),
             'data_bulan' => $data_bulan
         ]);
     }
