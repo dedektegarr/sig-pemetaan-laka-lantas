@@ -137,7 +137,7 @@
                                         <a href="{{ route('lokasi.show', $kecelakaan->lokasi->nama_jalan) }}">{{ $kecelakaan->lokasi->nama_jalan }}
                                         </a>
                                     </td>
-                                    <td>{{ $kecelakaan->lokasi->kecamatan->nama }}</td>
+                                    <td>{{ $kecelakaan->lokasi->kecamatan->nama ?? '-' }}</td>
                                     <td>{{ $kecelakaan->tgl_kejadian }}</td>
                                     <td>{{ $kecelakaan->luka_ringan }}</td>
                                     <td>{{ $kecelakaan->luka_berat }}</td>

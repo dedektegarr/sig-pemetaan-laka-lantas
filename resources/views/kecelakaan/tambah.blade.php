@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <form action="{{ route('kecelakaan.store') }}" method="POST">
+    <form action="{{ route('kecelakaan.store') }}" method="POST" id="form">
         @csrf
         <div class="row">
             <div class="col-md-12">
@@ -42,9 +42,9 @@
                     <!-- form start -->
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="kota_kabupaten">Kota / Kabupaten</label>
-                            <input type="text" class="form-control @error('kota_kabupaten') is-invalid @enderror"
-                                name="kota_kabupaten" value="Kota Bengkulu">
+                            <label for="polresta">Polresta</label>
+                            <input type="text" class="form-control @error('polresta') is-invalid @enderror"
+                                name="polresta" value="Bengkulu">
                         </div>
                         <div class="form-group">
                             <label for="kecamatan">Kecamatan</label>
@@ -99,18 +99,29 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="tgl_lp">Tanggal Laporan</label>
-                            <input type="date" class="form-control @error('tgl_lp') is-invalid @enderror" name="tgl_lp"
-                                value="{{ old('tgl_lp') }}" id="tgl_lp">
-                            @error('tgl_lp')
-                                <span class="invalid-feedback">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
                             <label for="tgl_kejadian">Tanggal Kejadian</label>
                             <input type="datetime-local" class="form-control @error('tgl_kejadian') is-invalid @enderror"
                                 name="tgl_kejadian" value="{{ old('tgl_kejadian') }}">
                             @error('tgl_kejadian')
+                                <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="tingkat_kecelakaan">Tingkat Kecelakaan</label>
+                            <select name="tingkat_kecelakaan"
+                                class="form-control @error('tingkat_kecelakaan') is-invalid @enderror"
+                                id="tingkat_kecelakaan">
+                                <option value="">Tingkat Kecelakaan</option>
+                                <option value="ringan" {{ old('tingkat_kecelakaan') == 'ringan' ? 'selected' : '' }}>
+                                    Ringan
+                                </option>
+                                <option value="sedang" {{ old('tingkat_kecelakaan') == 'sedang' ? 'selected' : '' }}>
+                                    Sedang
+                                </option>
+                                <option value="berat" {{ old('tingkat_kecelakaan') == 'berat' ? 'selected' : '' }}>Berat
+                                </option>
+                            </select>
+                            @error('tingkat_kecelakaan')
                                 <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>
@@ -139,10 +150,6 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="keterangan">Keterangan</label>
-                            <textarea name="keterangan" id="keterangan" rows="3" class="form-control">{{ old('keterangan') }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -202,21 +209,35 @@
         });
 
         // Geocoding
-        $('#nama_jalan').on('input', function() {
+        $('#nama_jalan').on('input', function(e) {
+            // if (e.key === 'Enter' || e.keyCode === 13) {
             $('#results').css('display', 'none');
             if (this.value) {
                 $('#results').css('display', 'block');
                 const key = 'I3F9tUsDPOQ0Q2Po8xE2cId8p6mpkbyWOZB2AjzMm-g';
-                $.get(`https://geocode.search.hereapi.com/v1/geocode?q=${this.value}&apiKey=${key}`, function(
-                    response) {
-                    resultElement(response.items);
-                });
+                $.get(`https://geocode.search.hereapi.com/v1/geocode?q=${this.value}&apiKey=${key}`,
+                    function(
+                        response) {
+                        resultElement(response.items);
+                    });
+                // }
             }
         });
 
         // Ketka Result dari pencarian jalan di klik
         $('#results').on('click', function(e) {
             $('#nama_jalan').val(e.target.innerText);
+
+            const kecamatan = @json($data_kecamatan);
+            const kelurahan = @json($data_kelurahan);
+            const resultText = e.target.innerText;
+
+            fillKecKel(kecamatan, kelurahan, resultText);
+
+            $.get(`${wilayahAPI}/kelurahan?id_kecamatan=${$('#kecamatan').val()}`, function(response) {
+                newOptionElement($('#kelurahan_desa'), response.kelurahan);
+            });
+
             $('#results').css('display', 'none');
             const getPosition = e.target.getAttribute('data-coor').split(',');
             const position = {

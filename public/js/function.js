@@ -94,3 +94,20 @@ const select2Init = (element, parent) => {
         dropdownParent: parent
     });
 }
+
+// Isi Kecamatan jika ada didalam nama jalan
+const fillKecKel = (kecamatan, kelurahan, result) => {
+    for (let kec of kecamatan) {
+        if (result.includes(kec.nama)) {
+            const option = $('<option>').val(kec.id).text(kec.nama).attr('selected', true);
+            $('#kecamatan').append(option);
+        }
+    }
+    for (let kel of kelurahan) {
+        if (result.includes(kel.nama)) {
+            $('#kelurahan_desa').html('');
+            const option = $('<option>').val(kel.id).text(kel.nama).attr('selcted', true);
+            $('#kelurahan_desa').append(option);
+        }
+    }
+}

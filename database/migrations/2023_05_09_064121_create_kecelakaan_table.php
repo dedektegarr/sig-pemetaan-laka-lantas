@@ -18,9 +18,8 @@ return new class extends Migration
             $table->integer('luka_ringan');
             $table->integer('luka_berat');
             $table->integer('meninggal');
-            $table->date('tgl_lp');
+            $table->enum('tingkat_kecelakaan', ['ringan', 'sedang', 'berat']);
             $table->datetime('tgl_kejadian');
-            $table->text('keterangan')->nullable();
             $table->timestamps();
 
             $table->foreign('id_lokasi')->references('id_lokasi')->on('lokasi')->onDelete('cascade');

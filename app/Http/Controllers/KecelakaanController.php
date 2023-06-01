@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\KecelakaanExport;
 use App\Models\Kecamatan;
 use App\Models\Kecelakaan;
+use App\Models\Kelurahan;
 use App\Models\Lokasi;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -34,7 +35,8 @@ class KecelakaanController extends Controller
     {
         return view('kecelakaan.tambah', [
             'page_title' => 'Tambah Data Kecelakaan',
-            'data_kecamatan' => Kecamatan::all()
+            'data_kecamatan' => Kecamatan::all(),
+            'data_kelurahan' => Kelurahan::all()
         ]);
     }
 
@@ -44,17 +46,16 @@ class KecelakaanController extends Controller
             // 'id_lokasi' => 'required|numeric',
             'no_laka' => 'required|unique:kecelakaan',
             'tgl_kejadian' => 'required|date',
-            'tgl_lp' => 'required|date',
             'luka_ringan' => 'required|numeric',
             'luka_berat' => 'required|numeric',
             'meninggal' => 'required|numeric',
-            'keterangan' => 'nullable'
+            'tingkat_kecelakaan' => 'required'
         ];
 
         $data_lokasi = [
-            'kota_kabupaten' => 'required',
-            'id_kecamatan' => 'required|numeric|max_digits:11',
-            'id_kelurahan' => 'required|numeric|max_digits:11',
+            'polresta' => 'required',
+            'id_kecamatan' => 'nullable|numeric|max_digits:11',
+            'id_kelurahan' => 'nullable|numeric|max_digits:11',
             'longitude' => 'required|numeric',
             'latitude' => 'required|numeric',
             'nama_jalan' => 'required|max:255'
@@ -96,14 +97,13 @@ class KecelakaanController extends Controller
         $rules = [
             // 'no_laka' => 'nullable',
             'tgl_kejadian' => 'required|date',
-            'tgl_lp' => 'required|date',
             'luka_ringan' => 'required|numeric',
             'luka_berat' => 'required|numeric',
             'meninggal' => 'required|numeric',
-            'keterangan' => 'nullable',
-            'kota_kabupaten' => 'required',
-            'id_kecamatan' => 'required|numeric|max_digits:11',
-            'id_kelurahan' => 'required|numeric|max_digits:11',
+            'tingkat_kecelakaan' => 'required',
+            'polresta' => 'required',
+            'id_kecamatan' => 'nullable|numeric|max_digits:11',
+            'id_kelurahan' => 'nullable|numeric|max_digits:11',
             'longitude' => 'required|numeric',
             'latitude' => 'required|numeric',
             'nama_jalan' => 'required|max:255'
@@ -117,7 +117,7 @@ class KecelakaanController extends Controller
 
         $data_lokasi = [
             'nama_jalan' => $request->nama_jalan,
-            'kota_kabupaten' => $request->kota_kabupaten,
+            'polresta' => $request->polresta,
             'id_kecamatan' => $request->id_kecamatan,
             'id_kelurahan' => $request->id_kelurahan,
             'longitude' => $request->longitude,
@@ -126,12 +126,11 @@ class KecelakaanController extends Controller
 
         $data_kecelakaan = [
             'no_laka' => $request->no_laka,
-            'tgl_lp' => $request->tgl_lp,
             'luka_ringan' => $request->luka_ringan,
             'luka_berat' => $request->luka_berat,
             'meninggal' => $request->meninggal,
-            'keterangan' => $request->keterangan,
             'tgl_kejadian' => $request->tgl_kejadian,
+            'tingkat_kecelakaan' => $request->tingkat_kecelakaan
         ];
 
 
