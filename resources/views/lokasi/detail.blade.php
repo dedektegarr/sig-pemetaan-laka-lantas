@@ -91,19 +91,19 @@
                                     <td>{{ $lokasi->nama_jalan }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Kota / Kabupaten</th>
+                                    <th>Polresta</th>
                                     <td>:</td>
-                                    <td>{{ $lokasi->kota_kabupaten }}</td>
+                                    <td>{{ $lokasi->polresta }}</td>
                                 </tr>
                                 <tr>
                                     <th>Kecamatan</th>
                                     <td>:</td>
-                                    <td>{{ $lokasi->kecamatan->nama }}</td>
+                                    <td>{{ $lokasi->kecamatan->nama ?? '-' }}</td>
                                 </tr>
                                 <tr>
                                     <th>Kelurahan</th>
                                     <td>:</td>
-                                    <td>{{ $lokasi->kelurahan->nama }}</td>
+                                    <td>{{ $lokasi->kelurahan->nama ?? '-' }}</td>
                                 </tr>
                                 <tr>
                                     <th>Bujur</th>

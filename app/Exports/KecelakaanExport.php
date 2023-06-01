@@ -31,9 +31,9 @@ class KecelakaanExport implements FromCollection, ShouldAutoSize, WithHeadings, 
             $export['luka_ringan'] = $data->luka_ringan;
             $export['luka_berat'] = $data->luka_berat;
             $export['meninggal'] = $data->meninggal;
-            $export['tgl_kejadian'] = Carbon::parse($data->tgl_kejadian)->locale('id')->translatedFormat('d M Y, h:i');
+            $export['tgl_kejadian'] = $data->tgl_kejadian;
             $export['nama_jalan'] = $data->lokasi->nama_jalan;
-            $export['kecamatan'] = $data->lokasi->kecamatan->nama;
+            $export['kecamatan'] = $data->lokasi->kecamatan->nama ?? '';
             return collect($export);
         });
     }
@@ -97,7 +97,7 @@ class KecelakaanExport implements FromCollection, ShouldAutoSize, WithHeadings, 
         return [
             $row['no'],
             strtoupper($row['no_laka']),
-            $row['tgl_kejadian'] . ' wib',
+            $row['tgl_kejadian'],
             $row['meninggal'],
             $row['luka_berat'],
             $row['luka_ringan'],

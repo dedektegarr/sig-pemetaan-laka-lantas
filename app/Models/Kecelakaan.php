@@ -23,13 +23,13 @@ class Kecelakaan extends Model
         }
 
         if (request('bulan') && request('bulan_akhir')) {
-            $query->whereBetween(DB::raw('MONTH(tgl_lp)'), [request('bulan'), request('bulan_akhir')]);
+            $query->whereBetween(DB::raw('MONTH(tgl_kejadian)'), [request('bulan'), request('bulan_akhir')]);
         } elseif (request('bulan')) {
-            $query->whereMonth('tgl_lp', '=', request('bulan'));
+            $query->whereMonth('tgl_kejadian', '=', request('bulan'));
         }
 
         if (request('tahun')) {
-            $query->whereYear('tgl_lp', request('tahun'));
+            $query->whereYear('tgl_kejadian', request('tahun'));
         }
 
         // Tampilkan peta berdasarkan lokasi

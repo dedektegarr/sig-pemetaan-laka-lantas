@@ -11,7 +11,13 @@
                         <div class="col">
                             <div class="float-right">
                                 <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
+                                <button type="button" class="btn btn-default btn-sm" data-toggle="modal"
+                                    data-target="#uploadModal">
+                                    <i class="fas fa-upload"></i>
+                                    Import
+                                </button>
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-default btn-sm" data-toggle="modal"
                                     data-target="#printModal">
                                     <i class="fas fa-print"></i>
                                     Export
@@ -170,6 +176,44 @@
             </div>
         </div>
     </div>
+    </div>
+
+    <!-- Print Modal -->
+    <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="{{ route('kecelakaan.import') }}" class="group" method="POST"
+                    enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="uploadModalLabel">Import</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="file">Import Data Kecelakaan</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="exampleInputFile"
+                                        name="file">
+                                    <label class="custom-file-label" for="exampleInputFile">Pilih File</label>
+                                </div>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">Upload</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary">Import</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
     <!-- Print Modal -->

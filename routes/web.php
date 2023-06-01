@@ -48,6 +48,7 @@ Route::middleware('auth')->group(function () {
             Route::patch('/kecelakaan/{kecelakaan:id_kecelakaan}/update', [KecelakaanController::class, 'update'])->name('kecelakaan.update');
             Route::delete('/kecelakaan/{kecelakaan:id_kecelakaan}/destroy', [KecelakaanController::class, 'destroy'])->name('kecelakaan.destroy');
             Route::get('/kecelakaan/export', [KecelakaanController::class, 'export'])->name('kecelakaan.export');
+            Route::post('/kecelakaan/import', [KecelakaanController::class, 'import'])->name('kecelakaan.import');
         });
     });
 });

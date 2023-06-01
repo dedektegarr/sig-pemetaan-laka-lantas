@@ -37,8 +37,8 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $lokasi->nama_jalan }}</td>
-                                    <td>{{ $lokasi->kelurahan->nama }}</td>
-                                    <td>{{ $lokasi->kecamatan->nama }}</td>
+                                    <td>{{ $lokasi->kelurahan->nama ?? '-' }}</td>
+                                    <td>{{ $lokasi->kecamatan->nama ?? '-' }}</td>
                                     <td>{{ $lokasi->kota_kabupaten }}</td>
                                     <td>{{ $lokasi->longitude }}</td>
                                     <td>{{ $lokasi->latitude }}</td>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\KecelakaanExport;
+use App\Imports\KecelakaanImport;
 use App\Models\Kecamatan;
 use App\Models\Kecelakaan;
 use App\Models\Kelurahan;
@@ -151,5 +152,11 @@ class KecelakaanController extends Controller
     public function export()
     {
         return Excel::download(new KecelakaanExport, 'kecelakaan.xlsx');
+    }
+
+    public function import(Request $request)
+    {
+        Excel::import(new KecelakaanImport, $request->file('file')->store('upload'));
+        return back();
     }
 }
