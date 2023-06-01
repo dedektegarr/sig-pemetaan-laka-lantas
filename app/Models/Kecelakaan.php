@@ -22,6 +22,13 @@ class Kecelakaan extends Model
                 ->where('kecamatan.id', request('id_kecamatan'));
         }
 
+        if (request('kecamatan') ?? false) {
+            $query->join('lokasi', 'kecelakaan.id_lokasi', '=', 'lokasi.id_lokasi')
+                ->join('kecamatan', 'lokasi.id_kecamatan', '=', 'kecamatan.id')
+                ->select('kecelakaan.*', 'lokasi.id_lokasi', 'kecamatan.nama')
+                ->where('kecamatan.nama', request('kecamatan'));
+        }
+
         if (request('bulan') && request('bulan_akhir')) {
             $query->whereBetween(DB::raw('MONTH(tgl_kejadian)'), [request('bulan'), request('bulan_akhir')]);
         } elseif (request('bulan')) {

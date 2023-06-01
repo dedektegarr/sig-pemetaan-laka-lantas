@@ -31,13 +31,13 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="id_lokasi">Nama Jalan</label>
-                                    <select name="nama_jalan" id="nama_jalan" class="form-control select2">
-                                        <option value="">Semua Lokasi</option>
-                                        @foreach ($data_lokasi as $lokasi)
-                                            <option value="{{ $lokasi->nama_jalan }}"
-                                                {{ request('nama_jalan') == $lokasi->nama_jalan ? 'selected' : '' }}>
-                                                {{ $lokasi->nama_jalan }}</option>
+                                    <label for="id_kecamatan">Kecamatan</label>
+                                    <select name="kecamatan" id="id_kecamatan" class="form-control select2">
+                                        <option value="">Semua Kecamatan</option>
+                                        @foreach ($data_kecamatan as $kecamatan)
+                                            <option value="{{ $kecamatan->nama }}"
+                                                {{ request('id_kecamatan') == $kecamatan->nama ? 'selected' : '' }}>
+                                                {{ $kecamatan->nama }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -83,8 +83,8 @@
         <div class="col-md-6">
             <div class="card card-outline card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Jumlah korban kecelakaan
-                        {{ request('tahun_kejadian') ?? '' }} di {{ request('nama_jalan') ?? 'semua lokasi' }}</h3>
+                    <h3 class="card-title">Jumlah korban kecelakaan di
+                        {{ request('kecamatan') ? 'Kec. ' . request('kecamatan') : 'semua lokasi' }}</h3>
                 </div>
                 <div class="card-body">
                     <div class="chart">
@@ -105,7 +105,7 @@
         <div class="col-md-6">
             <div class="card card-primary card-outline">
                 <div class="card-header">
-                    <h3 class="card-title">Lokasi dengan kejadian terbanyak</h3>
+                    <h3 class="card-title">Kecamatan dengan kejadian terbanyak</h3>
                 </div>
                 <div class="card-body">
                     <p>Data Tahun : <strong>{{ request('tahun_kejadian') ?? 'Semua tahun' }}</strong></p>

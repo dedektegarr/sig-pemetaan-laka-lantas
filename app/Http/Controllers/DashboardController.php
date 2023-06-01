@@ -11,7 +11,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $data_bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'Noveber', 'Desember'];
+        // $data_bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'Noveber', 'Desember'];
+        $data_bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei'];
         $kecamatan = Kecamatan::all()->map(function ($data) {
             return $data->nama;
         });
@@ -19,7 +20,7 @@ class DashboardController extends Controller
         // whereYear('tgl_kejadian', date('Y'))->get();
 
         $data_kecelakaan = Kecelakaan::join('lokasi', 'lokasi.id_lokasi', '=', 'kecelakaan.id_lokasi')
-            ->join('kecamatan', 'kecamatan.id', '=', 'lokasi.id_kecamatan')->get();
+            ->join('kecamatan', 'kecamatan.id', '=', 'lokasi.id_kecamatan')->whereYear('tgl_kejadian', date('Y'))->get();
 
         $kejadian_kecamatan = [];
         foreach ($kecamatan as $index => $value) {
