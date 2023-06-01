@@ -28,6 +28,7 @@ class KecelakaanExport implements FromCollection, ShouldAutoSize, WithHeadings, 
         return $all_data->map(function ($data, $index) {
             $export['no'] = $index + 1;
             $export['no_laka'] = $data->no_laka;
+            $export['tingkat_kecelakaan'] = $data->tingkat_kecelakaan;
             $export['luka_ringan'] = $data->luka_ringan;
             $export['luka_berat'] = $data->luka_berat;
             $export['meninggal'] = $data->meninggal;
@@ -47,6 +48,7 @@ class KecelakaanExport implements FromCollection, ShouldAutoSize, WithHeadings, 
             'Jumlah Meninggal Dunia',
             'Jumlah Luka Berat',
             'Jumlah Luka Ringan',
+            'Tingkat Kecelakaan',
             'Nama Jalan',
             'Kecamatan'
         ];
@@ -89,6 +91,8 @@ class KecelakaanExport implements FromCollection, ShouldAutoSize, WithHeadings, 
             'D' => 15,
             'E' => 15,
             'F' => 15,
+            'G' => 15,
+            'H' => 25
         ];
     }
 
@@ -101,6 +105,7 @@ class KecelakaanExport implements FromCollection, ShouldAutoSize, WithHeadings, 
             $row['meninggal'],
             $row['luka_berat'],
             $row['luka_ringan'],
+            ucwords($row['tingkat_kecelakaan']),
             $row['nama_jalan'],
             $row['kecamatan'],
         ];
