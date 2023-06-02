@@ -35,6 +35,7 @@ class DashboardController extends Controller
             'page_title' => 'Dashboard',
             'data_kecelakaan' => $data_kecelakaan,
             'data_bulan' => $data_bulan,
+            'kecelakaan_count' => Kecelakaan::all()->count(),
             'data_lokasi' => Lokasi::all()->unique('nama_jalan'),
             'kecamatan' => $kecamatan,
             'kejadian_kecamatan' => $kejadian_kecamatan

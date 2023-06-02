@@ -13,15 +13,13 @@ class PetaController extends Controller
         // $data_bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'Noveber', 'Desember'];
         $data_bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei'];
 
-        $kecelakaan = Kecelakaan::join('lokasi', 'lokasi.id_lokasi', '=', 'kecelakaan.id_lokasi')
-            ->join('kecamatan', 'kecamatan.id', '=', 'lokasi.id_kecamatan')
-            ->select('kecelakaan.*', 'lokasi.id_kecamatan', 'kecamatan.nama')
-            ->get()
-            ->groupBy('nama');
+        $kecelakaan = Kecelakaan::filter()->get()->groupBy('nama');
 
         $getTotalKejadian = $kecelakaan->map(function ($data) {
             return $data->count();
-        });
+        })->sortByDesc(function ($count) {
+            return $count;
+        })->take(5);
 
         return view('peta.index', [
             'page_title' => 'Peta Lokasi Kecelakaan',

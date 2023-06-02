@@ -31,17 +31,25 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
+                                    <label for="nama_jalan">Nama Jalan</label>
+                                    <input type="text" class="form-control" name="nama_jalan"
+                                        placeholder="Jl. Adam Malik" autocomplete="off"
+                                        value="{{ request('nama_jalan') ?? '' }}">
+                                </div>
+                            </div>
+                            {{-- <div class="col">
+                                <div class="form-group">
                                     <label for="id_kecamatan">Kecamatan</label>
                                     <select name="kecamatan" id="id_kecamatan" class="form-control select2">
                                         <option value="">Semua Kecamatan</option>
                                         @foreach ($data_kecamatan as $kecamatan)
                                             <option value="{{ $kecamatan->nama }}"
-                                                {{ request('id_kecamatan') == $kecamatan->nama ? 'selected' : '' }}>
+                                                {{ request('kecamatan') == $kecamatan->nama ? 'selected' : '' }}>
                                                 {{ $kecamatan->nama }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="col">
                                 <div class="form-group">
                                     @php
@@ -62,9 +70,15 @@
                             </div>
                             <div class="col">
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-primary" style="transform: translateY(1.9em)">
-                                        <i class="fas fa-search"></i>
-                                    </button>
+                                    <div style="transform: translateY(1.9em)">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                        <button type="button" id="resetBtn" class="btn btn-secondary">
+                                            <i class="fas fa-sync"></i>
+                                            Reset
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -80,11 +94,48 @@
     </div>
 
     <div class="row mt-3">
-        <div class="col-md-6">
+        {{-- <div class="col-md-6">
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                    <h3 class="card-title">Jumlah Kejadian di
+                        {{ request('nama_jalan') ? strtoupper(request('nama_jalan')) : 'semua lokasi' }}</h3>
+                </div>
+                <div class="card-body">
+                    <p>Data Tahun : <strong>{{ request('tahun_kejadian') ?? 'Semua tahun' }}</strong></p>
+                    <table class="table text-center table-bordered table-hover">
+                        <thead class="bg-info">
+                            <tr>
+                                <th width="15px">No</th>
+                                <th>Kecamatan</th>
+                                <th width="200px">Kejadian</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($total_kejadian as $lokasi => $total)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>
+                                        <a href="{{ route('lokasi.show', $lokasi) }}">
+                                            {{ $lokasi }}
+                                        </a>
+                                    </td>
+                                    <td>{{ $total }}</td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="3">Tidak ada data</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div> --}}
+        <div class="col-md-12">
             <div class="card card-outline card-primary">
                 <div class="card-header">
                     <h3 class="card-title">Jumlah korban kecelakaan di
-                        {{ request('kecamatan') ? 'Kec. ' . request('kecamatan') : 'semua lokasi' }}</h3>
+                        {{ request('nama_jalan') ? strtoupper(request('nama_jalan')) : 'semua lokasi' }}</h3>
                 </div>
                 <div class="card-body">
                     <div class="chart">
@@ -101,43 +152,16 @@
                 </div>
             </div>
         </div>
-
-        <div class="col-md-6">
-            <div class="card card-primary card-outline">
-                <div class="card-header">
-                    <h3 class="card-title">Kecamatan dengan kejadian terbanyak</h3>
-                </div>
-                <div class="card-body">
-                    <p>Data Tahun : <strong>{{ request('tahun_kejadian') ?? 'Semua tahun' }}</strong></p>
-                    <table class="table text-center table-bordered table-hover">
-                        <thead class="bg-info">
-                            <tr>
-                                <th width="15px">No</th>
-                                <th>Nama Jalan</th>
-                                <th width="200px">Total Kejadian</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($total_kejadian as $lokasi => $total)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>
-                                        <a href="{{ route('lokasi.show', $lokasi) }}">
-                                            {{ $lokasi }}
-                                        </a>
-                                    </td>
-                                    <td>{{ $total }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
     </div>
 @endsection
 @push('script')
     <script>
+        // RESET FILTER
+        $('#resetBtn').on('click', function() {
+            window.history.replaceState({}, document.title, window.location.pathname);
+            window.location.reload();
+        });
+
         const data = @json($data_kecelakaan);
 
         const popUpContent = (data) => {

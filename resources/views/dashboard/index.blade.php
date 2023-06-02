@@ -22,7 +22,7 @@
                 <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-car-crash"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Data Kecelakaan</span>
-                    <span class="info-box-number">{{ $data_kecelakaan->count() }}</span>
+                    <span class="info-box-number">{{ $kecelakaan_count }}</span>
                 </div>
             </div>
         </div>

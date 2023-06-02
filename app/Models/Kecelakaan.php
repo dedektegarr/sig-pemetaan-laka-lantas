@@ -15,18 +15,32 @@ class Kecelakaan extends Model
 
     public function scopeFilter($query)
     {
+        if (request('nama_jalan') && request('tahun_kejadian')) {
+            $jalan = strtolower(request('nama_jalan'));
+
+            $query->join('lokasi', 'kecelakaan.id_lokasi', '=', 'lokasi.id_lokasi')
+                ->join('kecamatan', 'lokasi.id_kecamatan', '=', 'kecamatan.id')
+                ->select('kecelakaan.*', DB::raw('LOWER(lokasi.nama_jalan)'), 'kecamatan.nama')
+                ->where('lokasi.nama_jalan', 'LIKE', '%' . $jalan . '%')
+                ->where('no_laka', 'LIKE', '%' . request('tahun_kejadian') . '%');
+        } elseif (request('nama_jalan')) {
+            $jalan = strtolower(request('nama_jalan'));
+            $query->join('lokasi', 'kecelakaan.id_lokasi', '=', 'lokasi.id_lokasi')
+                ->join('kecamatan', 'lokasi.id_kecamatan', '=', 'kecamatan.id')
+                ->select('kecelakaan.*', DB::raw('LOWER(lokasi.nama_jalan)'), 'kecamatan.nama')
+                ->where('lokasi.nama_jalan', 'LIKE', '%' . request('nama_jalan') . '%');
+        } elseif (request('tahun_kejadian')) {
+            $query->join('lokasi', 'kecelakaan.id_lokasi', '=', 'lokasi.id_lokasi')
+                ->join('kecamatan', 'lokasi.id_kecamatan', '=', 'kecamatan.id')
+                ->select('kecelakaan.*', 'lokasi.nama_jalan', 'kecamatan.nama')
+                ->where('no_laka', 'LIKE', '%' . request('tahun_kejadian') . '%');
+        }
+
         if (request('id_kecamatan') ?? false) {
             $query->join('lokasi', 'kecelakaan.id_lokasi', '=', 'lokasi.id_lokasi')
                 ->join('kecamatan', 'lokasi.id_kecamatan', '=', 'kecamatan.id')
                 ->select('kecelakaan.*', 'lokasi.id_lokasi', 'kecamatan.nama')
                 ->where('kecamatan.id', request('id_kecamatan'));
-        }
-
-        if (request('kecamatan') ?? false) {
-            $query->join('lokasi', 'kecelakaan.id_lokasi', '=', 'lokasi.id_lokasi')
-                ->join('kecamatan', 'lokasi.id_kecamatan', '=', 'kecamatan.id')
-                ->select('kecelakaan.*', 'lokasi.id_lokasi', 'kecamatan.nama')
-                ->where('kecamatan.nama', request('kecamatan'));
         }
 
         if (request('bulan') && request('bulan_akhir')) {
@@ -36,19 +50,34 @@ class Kecelakaan extends Model
         }
 
         if (request('tahun')) {
-            $query->whereYear('tgl_kejadian', request('tahun'));
+            $query->where('no_laka', 'LIKE', '%' . request('tahun') . '%');
         }
 
-        // Tampilkan peta berdasarkan lokasi
-        if (request('nama_jalan') ?? false) {
+        // if (request('tahun_kejadian') ?? false) {
+        //     $query->join('lokasi', 'lokasi.id_lokasi', '=', 'kecelakaan.id_lokasi')
+        //         ->join('kecamatan', 'kecamatan.id', '=', 'lokasi.id_kecamatan')
+        //         ->select('kecelakaan.*', 'lokasi.id_kecamatan', 'kecamatan.nama')
+        //         ->whereYear('tgl_kejadian', request('tahun_kejadian'));
+        // }
+
+        return $query;
+    }
+
+    public function scopeLaporan($query)
+    {
+        if (request('id_kecamatan') ?? false) {
             $query->join('lokasi', 'kecelakaan.id_lokasi', '=', 'lokasi.id_lokasi')
-                ->select('kecelakaan.*', 'lokasi.nama_jalan')
-                ->where('lokasi.nama_jalan', request('nama_jalan'));
+                ->join('kecamatan', 'lokasi.id_kecamatan', '=', 'kecamatan.id')
+                ->select('kecelakaan.*', 'lokasi.id_lokasi', 'kecamatan.nama')
+                ->where('kecamatan.id', request('id_kecamatan'));
         }
 
-        if (request('tahun_kejadian') ?? false) {
-            $query->whereYear('tgl_kejadian', request('tahun_kejadian'));
+        if (request('tahun')) {
+            $query->where('no_laka', 'LIKE', '%' . request('tahun') . '%');
         }
+        // $query->join('lokasi', 'lokasi.id_lokasi', '=', 'kecelakaan.id_lokasi')
+        //     ->join('kecamatan', 'kecamatan.id', '=', 'lokasi.id_kecamatan')
+        //     ->select('kecelakaan.*', 'lokasi.id_kecamatan', 'kecamatan.nama');
 
         return $query;
     }

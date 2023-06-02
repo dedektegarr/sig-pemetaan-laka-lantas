@@ -24,7 +24,7 @@ class KecelakaanExport implements FromCollection, ShouldAutoSize, WithHeadings, 
      */
     public function collection()
     {
-        $all_data = Kecelakaan::latest()->filter()->get();
+        $all_data = Kecelakaan::filter()->orderBy('no_laka')->get();
         return $all_data->map(function ($data, $index) {
             $export['no'] = $index + 1;
             $export['no_laka'] = $data->no_laka;

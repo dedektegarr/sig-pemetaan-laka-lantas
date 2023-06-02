@@ -32,67 +32,33 @@
                 </div>
                 <div class="card-body">
                     <form action="{{ route('kecelakaan.index') }}" method="GET">
-                        <div class="form-group">
-                            <label for="id_kecamatan">Filter</label>
-                            <select class="form-control @error('id_kecamatan') is-invalid @enderror" name="id_kecamatan"
-                                id="id_kecamatan">
-                                <option value="">Semua Kecamatan</option>
-                                @foreach ($data_kecamatan as $kecamatan)
-                                    <option value="{{ $kecamatan->id }}"
-                                        {{ request('id_kecamatan') == $kecamatan->id ? 'selected' : '' }}>
-                                        {{ $kecamatan->nama }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('id_kecamatan')
-                                <span class="invalid-feedback">{{ $message }}</span>
-                            @enderror
-                        </div>
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <select class="form-control @error('bulan') is-invalid @enderror" name="bulan"
-                                        id="bulan">
-                                        <option value="">Dari Bulan</option>
-                                        @foreach ($data_bulan as $index => $bulan)
-                                            <option value="{{ $index + 1 }}"
-                                                {{ request('bulan') == $index + 1 ? 'selected' : '' }}>
-                                                {{ $bulan }}</option>
+                                    <select class="form-control @error('id_kecamatan') is-invalid @enderror"
+                                        name="id_kecamatan" id="id_kecamatan">
+                                        <option value="">Semua Kecamatan</option>
+                                        @foreach ($data_kecamatan as $kecamatan)
+                                            <option value="{{ $kecamatan->id }}"
+                                                {{ request('id_kecamatan') == $kecamatan->id ? 'selected' : '' }}>
+                                                {{ $kecamatan->nama }}
+                                            </option>
                                         @endforeach
                                     </select>
-                                    @error('bulan')
+                                    @error('id_kecamatan')
                                         <span class="invalid-feedback">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
-
                             <div class="col">
                                 <div class="form-group">
-                                    <select class="form-control @error('bulan_akhir') is-invalid @enderror"
-                                        name="bulan_akhir" id="bulan_akhir">
-                                        <option value="">Sampai Bulan</option>
-                                        @foreach ($data_bulan as $index => $bulan)
-                                            <option value="{{ $index + 1 }}"
-                                                {{ request('bulan_akhir') == $index + 1 ? 'selected' : '' }}>
-                                                {{ $bulan }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('bulan_akhir')
-                                        <span class="invalid-feedback">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="col">
-                                <div class="form-group">
-                                    <select required name="tahun"
-                                        class="form-control @error('bulan_akhir') is-invalid @enderror">
+                                    <select name="tahun" class="form-control @error('bulan_akhir') is-invalid @enderror">
                                         @php
                                             $startYear = 2021;
                                             $endYear = date('Y');
                                             $years = range($endYear, $startYear);
                                         @endphp
-
+                                        <option value="">Semua Tahun</option>
                                         @foreach ($years as $year)
                                             <option value="{{ $year }}"
                                                 {{ request('tahun') == $year ? 'selected' : '' }}>
@@ -162,7 +128,7 @@
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger"
-                                                onclick="return confirm('Anda yakin ingin menghapus data lokasi ini?')">
+                                                onclick="return confirm('Anda yakin ingin menghapus data kecelakaan ini?')">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>
@@ -246,40 +212,6 @@
                             @enderror
                         </div>
                         <div class="row">
-                            <div class="col">
-                                <div class="form-group">
-                                    <select class="form-control @error('bulan') is-invalid @enderror" name="bulan"
-                                        id="bulan">
-                                        <option value="">Sampai Bulan</option>
-                                        @foreach ($data_bulan as $index => $bulan)
-                                            <option value="{{ $index + 1 }}"
-                                                {{ request('bulan') == $index + 1 ? 'selected' : '' }}>
-                                                {{ $bulan }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('bulan')
-                                        <span class="invalid-feedback">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="col">
-                                <div class="form-group">
-                                    <select class="form-control @error('bulan_akhir') is-invalid @enderror"
-                                        name="bulan_akhir" id="bulan_akhir">
-                                        <option value="">Sampai Bulan</option>
-                                        @foreach ($data_bulan as $index => $bulan)
-                                            <option value="{{ $index + 1 }}"
-                                                {{ request('bulan_akhir') == $index + 1 ? 'selected' : '' }}>
-                                                {{ $bulan }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('bulan_akhir')
-                                        <span class="invalid-feedback">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-
                             <div class="col">
                                 <div class="form-group">
                                     <select name="tahun"
