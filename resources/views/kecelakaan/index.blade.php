@@ -105,10 +105,7 @@
                                     <td style="max-width: 150px; text-transform: uppercase">
                                         {{ $kecelakaan->no_laka }}
                                     </td>
-                                    <td>
-                                        <a href="{{ route('lokasi.show', $kecelakaan->lokasi->nama_jalan) }}">{{ $kecelakaan->lokasi->nama_jalan }}
-                                        </a>
-                                    </td>
+                                    <td>{{ $kecelakaan->lokasi->nama_jalan }}</td>
                                     <td>{{ $kecelakaan->lokasi->kecamatan->nama ?? '-' }}</td>
                                     <td>{{ $kecelakaan->tgl_kejadian }}</td>
                                     <td>{{ $kecelakaan->luka_ringan }}</td>

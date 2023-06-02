@@ -92,21 +92,20 @@
         const kecamatan = @json($kecamatan);
         const kejKecamatan = @json($kejadian_kecamatan);
 
-        // BAR CHART
         new Chart($('#barChart').get(0).getContext('2d'), {
             type: 'bar',
             data: $.extend(true, {}, {
                 labels: bulan,
                 datasets: [{
-                        label: 'Luka Ringan',
-                        backgroundColor: 'rgba(23,162,184,.8)',
-                        borderColor: 'rgba(23,162,184,.8)',
+                        label: 'Meninggal',
+                        backgroundColor: 'rgba(220, 53, 69, .8)',
+                        borderColor: 'rgba(220, 53, 69, .8)',
                         pointRadius: false,
-                        pointColor: '#3b8bba',
-                        pointStrokeColor: 'rgba(60,141,188,1)',
+                        pointColor: 'rgba(210, 214, 222, 1)',
+                        pointStrokeColor: '#c1c7d1',
                         pointHighlightFill: '#fff',
-                        pointHighlightStroke: 'rgba(60,141,188,1)',
-                        data: totalLr
+                        pointHighlightStroke: 'rgba(220,220,220,1)',
+                        data: totalMd
                     },
                     {
                         label: 'Luka Berat',
@@ -120,16 +119,17 @@
                         data: totalLb
                     },
                     {
-                        label: 'Meninggal',
-                        backgroundColor: 'rgba(220, 53, 69, .8)',
-                        borderColor: 'rgba(220, 53, 69, .8)',
+                        label: 'Luka Ringan',
+                        backgroundColor: 'rgba(23,162,184,.8)',
+                        borderColor: 'rgba(23,162,184,.8)',
                         pointRadius: false,
-                        pointColor: 'rgba(210, 214, 222, 1)',
-                        pointStrokeColor: '#c1c7d1',
+                        pointColor: '#3b8bba',
+                        pointStrokeColor: 'rgba(60,141,188,1)',
                         pointHighlightFill: '#fff',
-                        pointHighlightStroke: 'rgba(220,220,220,1)',
-                        data: totalMd
+                        pointHighlightStroke: 'rgba(60,141,188,1)',
+                        data: totalLr
                     },
+
                 ]
             }),
             options: {
@@ -138,9 +138,18 @@
                 datasetFill: false,
                 ticks: {
                     precision: 0
+                },
+                scales: {
+                    x: {
+                        stacked: true
+                    },
+                    y: {
+                        stacked: true
+                    }
                 }
             }
         });
+
 
         // BAR CHART 2
         new Chart($('#barChart2').get(0).getContext('2d'), {

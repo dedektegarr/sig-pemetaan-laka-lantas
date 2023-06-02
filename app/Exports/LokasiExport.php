@@ -26,9 +26,9 @@ class LokasiExport implements FromCollection, ShouldAutoSize, WithHeadings, With
         $filteredData = $all_data->unique('nama_jalan')->map(function ($data) use (&$i) {
             $export['no'] = $i + 1;
             $export['nama_jalan'] = $data->nama_jalan;
-            $export['kelurahan'] = $data->kelurahan->nama;
-            $export['kecamatan'] = $data->kecamatan->nama;
-            $export['kota_kabupaten'] = $data->kota_kabupaten;
+            $export['kelurahan'] = $data->kelurahan->nama ?? '';
+            $export['kecamatan'] = $data->kecamatan->nama ?? '';
+            $export['polresta'] = $data->polresta;
             $export['longitude'] = $data->longitude;
             $export['latitude'] = $data->latitude;
 
@@ -46,7 +46,7 @@ class LokasiExport implements FromCollection, ShouldAutoSize, WithHeadings, With
             'Nama Jalan',
             'Kelurahan',
             'Kecamatan',
-            'Kota/Kabupaten',
+            'Polresta',
             'Bujur',
             'Lintang'
         ];
@@ -55,7 +55,8 @@ class LokasiExport implements FromCollection, ShouldAutoSize, WithHeadings, With
     public function columnWidths(): array
     {
         return [
-            'A' => '8'
+            'A' => 8,
+            'B' => 25
         ];
     }
 

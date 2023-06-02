@@ -20,14 +20,12 @@
                     <table class="table table-hover bg-white text-center">
                         <thead>
                             <tr>
-                                <th>No. Laka</th>
-                                <th>Tgl. Laporan</th>
+                                <th width="5px">No. Laka</th>
                                 <th>Tgl. Kejadian</th>
                                 <th>Tempat Kejadian</th>
                                 <th class="bg-info">Luka Ringan</th>
                                 <th class="bg-warning">Luka Berat</th>
                                 <th class="bg-danger">Meninggal</th>
-                                <th>Keterangan</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -37,13 +35,11 @@
                             @endphp
                             <tr>
                                 <td>{{ strtoupper($kecelakaan->no_laka) }}</td>
-                                <td>{{ $tgl_laporan->translatedFormat('d M Y') }}</td>
                                 <td>{{ $tgl_kejadian->translatedFormat('l, d M Y') }}</td>
                                 <td>{{ $kecelakaan->lokasi->nama_jalan }}</td>
                                 <td>{{ $kecelakaan->luka_ringan }}</td>
                                 <td>{{ $kecelakaan->luka_berat }}</td>
                                 <td>{{ $kecelakaan->meninggal }}</td>
-                                <td>{{ $kecelakaan->keterangan }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -73,17 +69,17 @@
                                 <tr>
                                     <td>Kelurahan</td>
                                     <td>:</td>
-                                    <td>{{ $kecelakaan->lokasi->kelurahan->nama }}</td>
+                                    <td>{{ $kecelakaan->lokasi->kelurahan->nama ?? '-' }}</td>
                                 </tr>
                                 <tr>
                                     <td>Kecamatan</td>
                                     <td>:</td>
-                                    <td>{{ $kecelakaan->lokasi->kecamatan->nama }}</td>
+                                    <td>{{ $kecelakaan->lokasi->kecamatan->nama ?? '-' }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Kota / Kabupaten</td>
+                                    <td>Polresta</td>
                                     <td>:</td>
-                                    <td>{{ $kecelakaan->lokasi->kota_kabupaten }}</td>
+                                    <td>{{ $kecelakaan->lokasi->polresta }}</td>
                                 </tr>
                                 <tr>
                                     <td>Bujur</td>

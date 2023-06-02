@@ -79,14 +79,14 @@
                          </li>
                      </ul>
                  </li>
-                 <li class="nav-item">
+                 {{-- <li class="nav-item">
                      <a href="#" class="nav-link">
                          <i class="nav-icon fas fa-print"></i>
                          <p>
                              Cetak Laporan
                          </p>
                      </a>
-                 </li>
+                 </li> --}}
              </ul>
          </nav>
          <!-- /.sidebar-menu -->

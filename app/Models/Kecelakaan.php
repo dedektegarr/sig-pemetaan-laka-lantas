@@ -19,27 +19,27 @@ class Kecelakaan extends Model
             $jalan = strtolower(request('nama_jalan'));
 
             $query->join('lokasi', 'kecelakaan.id_lokasi', '=', 'lokasi.id_lokasi')
-                ->join('kecamatan', 'lokasi.id_kecamatan', '=', 'kecamatan.id')
-                ->select('kecelakaan.*', DB::raw('LOWER(lokasi.nama_jalan)'), 'kecamatan.nama')
+                // ->join('kecamatan', 'lokasi.id_kecamatan', '=', 'kecamatan.id')
+                ->select('kecelakaan.*', DB::raw('LOWER(lokasi.nama_jalan)'))
                 ->where('lokasi.nama_jalan', 'LIKE', '%' . $jalan . '%')
                 ->where('no_laka', 'LIKE', '%' . request('tahun_kejadian') . '%');
         } elseif (request('nama_jalan')) {
             $jalan = strtolower(request('nama_jalan'));
             $query->join('lokasi', 'kecelakaan.id_lokasi', '=', 'lokasi.id_lokasi')
-                ->join('kecamatan', 'lokasi.id_kecamatan', '=', 'kecamatan.id')
-                ->select('kecelakaan.*', DB::raw('LOWER(lokasi.nama_jalan)'), 'kecamatan.nama')
+                // ->join('kecamatan', 'lokasi.id_kecamatan', '=', 'kecamatan.id')
+                ->select('kecelakaan.*', DB::raw('LOWER(lokasi.nama_jalan)'))
                 ->where('lokasi.nama_jalan', 'LIKE', '%' . request('nama_jalan') . '%');
         } elseif (request('tahun_kejadian')) {
             $query->join('lokasi', 'kecelakaan.id_lokasi', '=', 'lokasi.id_lokasi')
                 ->join('kecamatan', 'lokasi.id_kecamatan', '=', 'kecamatan.id')
-                ->select('kecelakaan.*', 'lokasi.nama_jalan', 'kecamatan.nama')
+                ->select('kecelakaan.*', 'lokasi.nama_jalan')
                 ->where('no_laka', 'LIKE', '%' . request('tahun_kejadian') . '%');
         }
 
         if (request('id_kecamatan') ?? false) {
             $query->join('lokasi', 'kecelakaan.id_lokasi', '=', 'lokasi.id_lokasi')
                 ->join('kecamatan', 'lokasi.id_kecamatan', '=', 'kecamatan.id')
-                ->select('kecelakaan.*', 'lokasi.id_lokasi', 'kecamatan.nama')
+                ->select('kecelakaan.*', 'lokasi.id_lokasi')
                 ->where('kecamatan.id', request('id_kecamatan'));
         }
 

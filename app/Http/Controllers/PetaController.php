@@ -13,7 +13,7 @@ class PetaController extends Controller
         // $data_bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'Noveber', 'Desember'];
         $data_bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei'];
 
-        $kecelakaan = Kecelakaan::filter()->get()->groupBy('nama');
+        $kecelakaan = Kecelakaan::filter()->get();
 
         $getTotalKejadian = $kecelakaan->map(function ($data) {
             return $data->count();

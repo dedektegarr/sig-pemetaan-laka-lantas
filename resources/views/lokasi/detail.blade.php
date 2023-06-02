@@ -143,9 +143,7 @@
                         <thead>
                             <tr>
                                 <th class="bg-secondary">Bulan</th>
-                                <th class="bg-info">Luka Ringan</th>
-                                <th class="bg-warning">Luka Berat</th>
-                                <th class="bg-danger">Meninggal</th>
+                                <th class="bg-primary">Kejadian</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -157,17 +155,9 @@
                                             return (int) date('m', strtotime($kecelakaan->tgl_kejadian)) == $index + 1;
                                         });
                                     @endphp
-                                    <td>{{ $dataBulan->sum('luka_ringan') }}</td>
-                                    <td>{{ $dataBulan->sum('luka_berat') }}</td>
-                                    <td>{{ $dataBulan->sum('meninggal') }}</td>
+                                    <td>{{ $dataBulan->count() }}</td>
                                 </tr>
                             @endforeach
-                            <tr>
-                                <th>Total</th>
-                                <th>{{ $data_kecelakaan->sum('luka_ringan') }}</th>
-                                <th>{{ $data_kecelakaan->sum('luka_berat') }}</th>
-                                <th>{{ $data_kecelakaan->sum('meninggal') }}</th>
-                            </tr>
                         </tbody>
                     </table>
 
