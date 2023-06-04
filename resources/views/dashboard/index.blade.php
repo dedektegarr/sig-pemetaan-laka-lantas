@@ -16,6 +16,15 @@
         }
     @endphp
 
+    <div class="callout callout-info">
+        <h5>
+            <strong>
+                Selamat Datang
+            </strong>
+        </h5>
+        <p>Sistem Informasi Geografis Pemetaan Lokasi Kecelakaan Lalu Lintas di Kota Bengkulu</p>
+    </div>
+
     <div class="row">
         <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box">
