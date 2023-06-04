@@ -39,8 +39,8 @@
                                         name="id_kecamatan" id="id_kecamatan">
                                         <option value="">Semua Kecamatan</option>
                                         @foreach ($data_kecamatan as $kecamatan)
-                                            <option value="{{ $kecamatan->id }}"
-                                                {{ request('id_kecamatan') == $kecamatan->id ? 'selected' : '' }}>
+                                            <option value="{{ $kecamatan->id_kecamatan }}"
+                                                {{ request('id_kecamatan') == $kecamatan->id_kecamatan ? 'selected' : '' }}>
                                                 {{ $kecamatan->nama }}
                                             </option>
                                         @endforeach
@@ -160,8 +160,8 @@
                             <label for="file">Import Data Kecelakaan</label>
                             <div class="input-group">
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="exampleInputFile"
-                                        name="file">
+                                    <input type="file" class="custom-file-input" id="exampleInputFile" name="file"
+                                        required>
                                     <label class="custom-file-label" for="exampleInputFile">Pilih File</label>
                                 </div>
                                 <div class="input-group-append">
@@ -198,8 +198,8 @@
                                 id="id_kecamatan_print">
                                 <option value="">Semua Kecamatan</option>
                                 @foreach ($data_kecamatan as $kecamatan)
-                                    <option value="{{ $kecamatan->id }}"
-                                        {{ request('id_kecamatan') == $kecamatan->id ? 'selected' : '' }}>
+                                    <option value="{{ $kecamatan->id_kecamatan }}"
+                                        {{ request('id_kecamatan') == $kecamatan->id_kecamatan ? 'selected' : '' }}>
                                         {{ $kecamatan->nama }}
                                     </option>
                                 @endforeach
@@ -268,10 +268,7 @@
             $('#tgl_lp').val(new Date().toISOString().split("T")[0]);
         });
 
-        // Alert ketika data berhasil ditambahkan
-        @if (session()->has('success'))
-            toastr.success('{{ session('success') }}')
-        @endif
+
 
         @if ($errors->any())
             $('#addModal').modal('show');

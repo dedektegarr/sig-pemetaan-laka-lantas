@@ -44,11 +44,6 @@
                     <!-- form start -->
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="polresta">Polresta</label>
-                            <input type="text" class="form-control @error('polresta') is-invalid @enderror"
-                                name="polresta" value="{{ $kecelakaan->lokasi->polresta }}">
-                        </div>
-                        <div class="form-group">
                             <label for="kecamatan">Kecamatan</label>
                             <select class="form-control select2" name="id_kecamatan" id="kecamatan">
                                 <option value="">Pilih Kecamatan</option>

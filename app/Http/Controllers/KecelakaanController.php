@@ -49,7 +49,7 @@ class KecelakaanController extends Controller
         ];
 
         $data_lokasi = [
-            'polresta' => 'required',
+            // 'polresta' => 'required',
             'id_kecamatan' => 'nullable|numeric|max_digits:11',
             'id_kelurahan' => 'nullable|numeric|max_digits:11',
             'longitude' => 'required|numeric',
@@ -97,7 +97,7 @@ class KecelakaanController extends Controller
             'luka_berat' => 'required|numeric',
             'meninggal' => 'required|numeric',
             'tingkat_kecelakaan' => 'required',
-            'polresta' => 'required',
+            // 'polresta' => 'required',
             'id_kecamatan' => 'nullable|numeric|max_digits:11',
             'id_kelurahan' => 'nullable|numeric|max_digits:11',
             'longitude' => 'required|numeric',
@@ -113,7 +113,7 @@ class KecelakaanController extends Controller
 
         $data_lokasi = [
             'nama_jalan' => $request->nama_jalan,
-            'polresta' => $request->polresta,
+            // 'polresta' => $request->polresta,
             'id_kecamatan' => $request->id_kecamatan,
             'id_kelurahan' => $request->id_kelurahan,
             'longitude' => $request->longitude,
@@ -141,17 +141,22 @@ class KecelakaanController extends Controller
         Kecelakaan::where('id_kecelakaan', $kecelakaan->id_kecelakaan)->delete();
         Lokasi::where('id_lokasi', $kecelakaan->id_lokasi)->delete();
 
-        return redirect()->back()->with('success', 'Data berhasil dihapus');
+        return redirect()->route('kecelakaan.index')->with('success', 'Data berhasil dihapus');
     }
 
     public function export()
     {
+        $all_data = Kecelakaan::filter()->orderBy('no_laka')->get();
+        if ($all_data->isEmpty()) {
+            return redirect()->back()->with('error', 'Tidak ada data yang dapat diekspor.');
+        }
+
         return Excel::download(new KecelakaanExport, 'kecelakaan.xlsx');
     }
 
     public function import(Request $request)
     {
         Excel::import(new KecelakaanImport, $request->file('file')->store('upload'));
-        return back();
+        return back()->with('success', 'Data berhasil di import');
     }
 }

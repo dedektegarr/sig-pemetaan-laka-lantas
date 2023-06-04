@@ -11,6 +11,8 @@ class Kecelakaan extends Model
     use HasFactory;
 
     protected $table = 'kecelakaan';
+    protected $primaryKey = 'id_kecelakaan';
+    // public $incrementing = false;
     protected $guarded = ['id_kecelakaan'];
 
     public function scopeFilter($query)
@@ -19,28 +21,28 @@ class Kecelakaan extends Model
             $jalan = strtolower(request('nama_jalan'));
 
             $query->join('lokasi', 'kecelakaan.id_lokasi', '=', 'lokasi.id_lokasi')
-                // ->join('kecamatan', 'lokasi.id_kecamatan', '=', 'kecamatan.id')
+                // ->join('kecamatan', 'lokasi.id_kecamatan', '=', 'kecamatan.id_kecamatan')
                 ->select('kecelakaan.*', DB::raw('LOWER(lokasi.nama_jalan)'))
                 ->where('lokasi.nama_jalan', 'LIKE', '%' . $jalan . '%')
                 ->where('no_laka', 'LIKE', '%' . request('tahun_kejadian') . '%');
         } elseif (request('nama_jalan')) {
             $jalan = strtolower(request('nama_jalan'));
             $query->join('lokasi', 'kecelakaan.id_lokasi', '=', 'lokasi.id_lokasi')
-                // ->join('kecamatan', 'lokasi.id_kecamatan', '=', 'kecamatan.id')
+                // ->join('kecamatan', 'lokasi.id_kecamatan', '=', 'kecamatan.id_kecamatan')
                 ->select('kecelakaan.*', DB::raw('LOWER(lokasi.nama_jalan)'))
                 ->where('lokasi.nama_jalan', 'LIKE', '%' . request('nama_jalan') . '%');
         } elseif (request('tahun_kejadian')) {
             $query->join('lokasi', 'kecelakaan.id_lokasi', '=', 'lokasi.id_lokasi')
-                ->join('kecamatan', 'lokasi.id_kecamatan', '=', 'kecamatan.id')
+                ->join('kecamatan', 'lokasi.id_kecamatan', '=', 'kecamatan.id_kecamatan')
                 ->select('kecelakaan.*', 'lokasi.nama_jalan')
                 ->where('no_laka', 'LIKE', '%' . request('tahun_kejadian') . '%');
         }
 
         if (request('id_kecamatan') ?? false) {
             $query->join('lokasi', 'kecelakaan.id_lokasi', '=', 'lokasi.id_lokasi')
-                ->join('kecamatan', 'lokasi.id_kecamatan', '=', 'kecamatan.id')
+                ->join('kecamatan', 'lokasi.id_kecamatan', '=', 'kecamatan.id_kecamatan')
                 ->select('kecelakaan.*', 'lokasi.id_lokasi')
-                ->where('kecamatan.id', request('id_kecamatan'));
+                ->where('kecamatan.id_kecamatan', request('id_kecamatan'));
         }
 
         if (request('bulan') && request('bulan_akhir')) {
@@ -55,7 +57,7 @@ class Kecelakaan extends Model
 
         // if (request('tahun_kejadian') ?? false) {
         //     $query->join('lokasi', 'lokasi.id_lokasi', '=', 'kecelakaan.id_lokasi')
-        //         ->join('kecamatan', 'kecamatan.id', '=', 'lokasi.id_kecamatan')
+        //         ->join('kecamatan', 'kecamatan.id_kecamatan', '=', 'lokasi.id_kecamatan')
         //         ->select('kecelakaan.*', 'lokasi.id_kecamatan', 'kecamatan.nama')
         //         ->whereYear('tgl_kejadian', request('tahun_kejadian'));
         // }
@@ -67,16 +69,16 @@ class Kecelakaan extends Model
     {
         if (request('id_kecamatan') ?? false) {
             $query->join('lokasi', 'kecelakaan.id_lokasi', '=', 'lokasi.id_lokasi')
-                ->join('kecamatan', 'lokasi.id_kecamatan', '=', 'kecamatan.id')
+                ->join('kecamatan', 'lokasi.id_kecamatan', '=', 'kecamatan.id_kecamatan')
                 ->select('kecelakaan.*', 'lokasi.id_lokasi', 'kecamatan.nama')
-                ->where('kecamatan.id', request('id_kecamatan'));
+                ->where('kecamatan.id_kecamatan', request('id_kecamatan'));
         }
 
         if (request('tahun')) {
             $query->where('no_laka', 'LIKE', '%' . request('tahun') . '%');
         }
         // $query->join('lokasi', 'lokasi.id_lokasi', '=', 'kecelakaan.id_lokasi')
-        //     ->join('kecamatan', 'kecamatan.id', '=', 'lokasi.id_kecamatan')
+        //     ->join('kecamatan', 'kecamatan.id_kecamatan', '=', 'lokasi.id_kecamatan')
         //     ->select('kecelakaan.*', 'lokasi.id_kecamatan', 'kecamatan.nama');
 
         return $query;

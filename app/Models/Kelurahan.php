@@ -10,6 +10,7 @@ class Kelurahan extends Model
     use HasFactory;
 
     protected $table = 'kelurahan';
+    protected $primaryKey = 'id_kelurahan';
     protected $guarded = ['id_kelurahan'];
 
     public function kecamatan()

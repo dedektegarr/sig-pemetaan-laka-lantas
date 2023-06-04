@@ -23,6 +23,7 @@
                                 <th width="5px">No. Laka</th>
                                 <th>Tgl. Kejadian</th>
                                 <th>Tempat Kejadian</th>
+                                <th>Tingkat Kecelakaan</th>
                                 <th class="bg-info">Luka Ringan</th>
                                 <th class="bg-warning">Luka Berat</th>
                                 <th class="bg-danger">Meninggal</th>
@@ -37,6 +38,7 @@
                                 <td>{{ strtoupper($kecelakaan->no_laka) }}</td>
                                 <td>{{ $tgl_kejadian->translatedFormat('l, d M Y') }}</td>
                                 <td>{{ $kecelakaan->lokasi->nama_jalan }}</td>
+                                <td>{{ $kecelakaan->tingkat_kecelakaan }}</td>
                                 <td>{{ $kecelakaan->luka_ringan }}</td>
                                 <td>{{ $kecelakaan->luka_berat }}</td>
                                 <td>{{ $kecelakaan->meninggal }}</td>
@@ -77,11 +79,6 @@
                                     <td>{{ $kecelakaan->lokasi->kecamatan->nama ?? '-' }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Polresta</td>
-                                    <td>:</td>
-                                    <td>{{ $kecelakaan->lokasi->polresta }}</td>
-                                </tr>
-                                <tr>
                                     <td>Bujur</td>
                                     <td>:</td>
                                     <td>{{ $kecelakaan->lokasi->longitude }}</td>
@@ -105,7 +102,7 @@
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-sm btn-danger"
-                            onclick="return confirm('Anda yakin ingin menghapus data lokasi ini?')">
+                            onclick="return confirm('Anda yakin ingin menghapus data kecelakaan ini?')">
                             <i class="fas fa-trash"></i>
                             Hapus
                         </button>

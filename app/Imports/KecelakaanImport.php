@@ -18,7 +18,7 @@ class KecelakaanImport implements ToModel
     public function model(array $row)
     {
         $lokasi = [
-            'polresta' => $row[1],
+            // 'polresta' => $row[1],
             'latitude' => $row[7],
             'longitude' => $row[8],
             'nama_jalan' => $row[9]
@@ -28,13 +28,13 @@ class KecelakaanImport implements ToModel
             $namaJalan = str_replace(' ', '', strtolower($lokasi['nama_jalan']));
             $namaKecamatan = str_replace(' ', '', strtolower($kec->nama));
             return str_contains(strtolower($namaJalan), strtolower($namaKecamatan));
-        })->pluck('id')->first();
+        })->pluck('id_kecamatan')->first();
 
         $filteredKelurahan = Kelurahan::where('id_kecamatan', $filteredKecamatan)->get()->filter(function ($kel) use ($lokasi) {
             $namaJalan = str_replace(' ', '', strtolower($lokasi['nama_jalan']));
             $namaKelurahan = str_replace(' ', '', strtolower($kel->nama));
             return str_contains(strtolower($namaJalan), strtolower($namaKelurahan));
-        })->pluck('id')->first();
+        })->pluck('id_kelurahan')->first();
 
         $lokasi['id_kecamatan'] = $filteredKecamatan;
         $lokasi['id_kelurahan'] = $filteredKelurahan;

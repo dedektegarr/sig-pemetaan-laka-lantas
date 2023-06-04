@@ -82,6 +82,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
     {{-- function script --}}
     <script src="{{ asset('js/function.js') }}"></script>
     @stack('script')
+    <script>
+        // Alert ketika data berhasil ditambahkan
+        @if (session()->has('success'))
+            toastr.success('{{ session('success') }}')
+        @endif
+
+        // Alert ketika data berhasil ditambahkan
+        @if (session()->has('error'))
+            toastr.error('{{ session('error') }}')
+        @endif
+    </script>
 </body>
 
 </html>

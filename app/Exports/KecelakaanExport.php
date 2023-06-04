@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use App\Models\Kecamatan;
 use App\Models\Kecelakaan;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\FromCollection;
@@ -25,6 +26,7 @@ class KecelakaanExport implements FromCollection, ShouldAutoSize, WithHeadings, 
     public function collection()
     {
         $all_data = Kecelakaan::filter()->orderBy('no_laka')->get();
+
         return $all_data->map(function ($data, $index) {
             $export['no'] = $index + 1;
             $export['no_laka'] = $data->no_laka;
@@ -41,27 +43,45 @@ class KecelakaanExport implements FromCollection, ShouldAutoSize, WithHeadings, 
 
     public function headings(): array
     {
+        $title = 'DATA KECELAKAAN TAHUN 2023';
+        if (request('id_kecamatan')) {
+            $kecamatan = Kecamatan::where('id_kecamatan', request('id_kecamatan'))->first();
+            $title = 'DATA KECELAKAAN KEC.' . strtoupper($kecamatan->nama) . ' TAHUN 2023';
+        }
         return [
-            'No',
-            'No. Laka',
-            'Tanggal Kejadian',
-            'Jumlah Meninggal Dunia',
-            'Jumlah Luka Berat',
-            'Jumlah Luka Ringan',
-            'Tingkat Kecelakaan',
-            'Nama Jalan',
-            'Kecamatan'
+            [$title, '', '', '', '', '', '', '', ''],
+            [''],
+            [
+                'No',
+                'No. Laka',
+                'Tanggal Kejadian',
+                'Jumlah Meninggal Dunia',
+                'Jumlah Luka Berat',
+                'Jumlah Luka Ringan',
+                'Tingkat Kecelakaan',
+                'Nama Jalan',
+                'Kecamatan'
+            ]
         ];
     }
 
     public function styles(Worksheet $sheet)
     {
+        // TITLE
+        $sheet->mergeCells('A1:' . $sheet->getHighestColumn() . 1);
+        $sheet->getStyle('A1')->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(16);
+        $sheet->getStyle('A1')->getFill()
+            ->setFillType(Fill::FILL_SOLID)
+            ->getStartColor()
+            ->setARGB(Color::COLOR_YELLOW);
+
         // HEADING CELL
-        $sheet->getStyle('A1:' . $sheet->getHighestColumn() . 1)
+        $sheet->getStyle('A3:' . $sheet->getHighestColumn() . 3)
             ->getFont()
             ->setSize(15)
             ->setBold(true);
-        $sheet->getStyle('A1:' . $sheet->getHighestColumn() . 1)
+        $sheet->getStyle('A3:' . $sheet->getHighestColumn() . 3)
             ->getFill()
             ->setFillType(Fill::FILL_SOLID)
             ->getStartColor()

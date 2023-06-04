@@ -351,6 +351,11 @@ class KelurahanSeeder extends Seeder
             ]
         ];
 
+        foreach ($data_kelurahan as &$kelurahan) {
+            $kelurahan['id_kelurahan'] = $kelurahan['id'];
+            unset($kelurahan['id']);
+        }
+
         Kelurahan::insert($data_kelurahan);
     }
 }

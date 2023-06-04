@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use App\Models\Kecamatan;
 use App\Models\Lokasi;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
@@ -41,14 +42,24 @@ class LokasiExport implements FromCollection, ShouldAutoSize, WithHeadings, With
 
     public function headings(): array
     {
+        $title = 'DATA JALAN KOTA BENGKULU';
+        if (request('id_kecamatan')) {
+            $kecamatan = Kecamatan::where('id', request('id_kecamatan'))->first();
+            $title = 'DATA JALAN KEC.' . strtoupper($kecamatan->nama);
+        }
+
         return [
-            'No',
-            'Nama Jalan',
-            'Kelurahan',
-            'Kecamatan',
-            'Polresta',
-            'Bujur',
-            'Lintang'
+            [$title, '', '', '', '', '', ''],
+            [''],
+            [
+                'No',
+                'Nama Jalan',
+                'Kelurahan',
+                'Kecamatan',
+                'Polresta',
+                'Bujur',
+                'Lintang'
+            ]
         ];
     }
 
@@ -62,12 +73,20 @@ class LokasiExport implements FromCollection, ShouldAutoSize, WithHeadings, With
 
     public function styles(Worksheet $sheet)
     {
+        // TITLE
+        $sheet->mergeCells('A1:' . $sheet->getHighestColumn() . 1);
+        $sheet->getStyle('A1')->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(16);
+        $sheet->getStyle('A1')->getFill()
+            ->setFillType(Fill::FILL_SOLID)
+            ->getStartColor()
+            ->setARGB(Color::COLOR_YELLOW);
         // HEADING CELL
-        $sheet->getStyle('A1:' . $sheet->getHighestColumn() . 1)
+        $sheet->getStyle('A3:' . $sheet->getHighestColumn() . 3)
             ->getFont()
             ->setSize(15)
             ->setBold(true);
-        $sheet->getStyle('A1:' . $sheet->getHighestColumn() . 1)
+        $sheet->getStyle('A3:' . $sheet->getHighestColumn() . 3)
             ->getFill()
             ->setFillType(Fill::FILL_SOLID)
             ->getStartColor()

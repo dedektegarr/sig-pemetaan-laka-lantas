@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KecelakaanController;
+use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\PetaController;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +18,10 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('/', [LandingController::class, 'index'])->name('landing.index');
+Route::get('/peta', [PetaController::class, 'userIndex'])->name('user.peta.index');
+Route::get('/grafik', [PetaController::class, 'userGrafik'])->name('user.grafik.index');
 
 Route::middleware('guest')->group(function () {
     Route::get('/administrator/login', [AuthController::class, 'login'])->name('login');
@@ -43,10 +48,10 @@ Route::middleware('auth')->group(function () {
             Route::get('/kecelakaan', [KecelakaanController::class, 'index'])->name('kecelakaan.index');
             Route::get('/kecelakaan/tambah', [KecelakaanController::class, 'create'])->name('kecelakaan.create');
             Route::post('/kecelakaan/store', [KecelakaanController::class, 'store'])->name('kecelakaan.store');
-            Route::get('/kecelakaan/{kecelakaan:id_kecelakaan}/detail', [KecelakaanController::class, 'show'])->name('kecelakaan.show');
-            Route::get('/kecelakaan/{kecelakaan:id_kecelakaan}/edit', [KecelakaanController::class, 'edit'])->name('kecelakaan.edit');
-            Route::patch('/kecelakaan/{kecelakaan:id_kecelakaan}/update', [KecelakaanController::class, 'update'])->name('kecelakaan.update');
-            Route::delete('/kecelakaan/{kecelakaan:id_kecelakaan}/destroy', [KecelakaanController::class, 'destroy'])->name('kecelakaan.destroy');
+            Route::get('/kecelakaan/{kecelakaan}/detail', [KecelakaanController::class, 'show'])->name('kecelakaan.show');
+            Route::get('/kecelakaan/{kecelakaan}/edit', [KecelakaanController::class, 'edit'])->name('kecelakaan.edit');
+            Route::patch('/kecelakaan/{kecelakaan}/update', [KecelakaanController::class, 'update'])->name('kecelakaan.update');
+            Route::delete('/kecelakaan/{kecelakaan}/destroy', [KecelakaanController::class, 'destroy'])->name('kecelakaan.destroy');
             Route::get('/kecelakaan/export', [KecelakaanController::class, 'export'])->name('kecelakaan.export');
             Route::post('/kecelakaan/import', [KecelakaanController::class, 'import'])->name('kecelakaan.import');
         });

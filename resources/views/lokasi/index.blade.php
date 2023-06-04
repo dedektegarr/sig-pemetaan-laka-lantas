@@ -75,7 +75,7 @@
                             <label for="id_lokasi">Export Berdasarkan</label>
                             <select class="form-control @error('id_kecamatan') is-invalid @enderror" name="id_kecamatan"
                                 id="id_kecamatan">
-                                <option value="">Kecamatan</option>
+                                <option value="">Semua Kecamatan</option>
                                 @foreach ($data_kecamatan as $kecamatan)
                                     <option value="{{ $kecamatan->id }}"
                                         {{ request('id_kecamatan') == $kecamatan->id ? 'selected' : '' }}>
@@ -87,7 +87,7 @@
                                 <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <select class="form-control @error('id_lokasi') is-invalid @enderror" name="id_kelurahan"
                                 id="id_lokasi">
                                 <option value="">Kelurahan</option>
@@ -101,7 +101,7 @@
                             @error('id_kelurahan')
                                 <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>

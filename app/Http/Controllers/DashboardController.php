@@ -20,7 +20,7 @@ class DashboardController extends Controller
         // whereYear('tgl_kejadian', date('Y'))->get();
 
         $data_kecelakaan = Kecelakaan::join('lokasi', 'lokasi.id_lokasi', '=', 'kecelakaan.id_lokasi')
-            ->join('kecamatan', 'kecamatan.id', '=', 'lokasi.id_kecamatan')->whereYear('tgl_kejadian', date('Y'))->get();
+            ->join('kecamatan', 'kecamatan.id_kecamatan', '=', 'lokasi.id_kecamatan')->whereYear('tgl_kejadian', date('Y'))->get();
 
         $kejadian_kecamatan = [];
         foreach ($kecamatan as $index => $value) {

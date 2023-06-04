@@ -15,39 +15,39 @@ class KecamatanSeeder extends Seeder
     {
         $data_kecamatan = [
             [
-                "id" => 1771010,
+                "id_kecamatan" => 1771010,
                 "nama" => "Selebar"
             ],
             [
-                "id" => 1771011,
+                "id_kecamatan" => 1771011,
                 "nama" => "Kampung Melayu"
             ],
             [
-                "id" => 1771020,
+                "id_kecamatan" => 1771020,
                 "nama" => "Gading Cempaka"
             ],
             [
-                "id" => 1771021,
+                "id_kecamatan" => 1771021,
                 "nama" => "Ratu Agung"
             ],
             [
-                "id" => 1771022,
+                "id_kecamatan" => 1771022,
                 "nama" => "Ratu Samban"
             ],
             [
-                "id" => 1771023,
+                "id_kecamatan" => 1771023,
                 "nama" => "Singaran Pati"
             ],
             [
-                "id" => 1771030,
+                "id_kecamatan" => 1771030,
                 "nama" => "Teluk Segara"
             ],
             [
-                "id" => 1771031,
+                "id_kecamatan" => 1771031,
                 "nama" => "Sungai Serut"
             ],
             [
-                "id" => 1771040,
+                "id_kecamatan" => 1771040,
                 "nama" => "Muara Bangka Hulu"
             ]
         ];
